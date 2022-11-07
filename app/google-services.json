@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "757083996678",
+    "firebase_url": "https://appsale-ba3f9-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "appsale-ba3f9",
+    "storage_bucket": "appsale-ba3f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757083996678:android:9aaac3d8feb48b62207987",
+        "android_client_info": {
+          "package_name": "nta.nguyenanh.code_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757083996678-eimbu75er5o9r7kabieqfhcksdot5i90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVf8YCJYZb4HZf_S76aC-cbS5OXRZJlAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757083996678-eimbu75er5o9r7kabieqfhcksdot5i90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

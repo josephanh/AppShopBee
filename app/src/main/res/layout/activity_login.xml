@@ -81,7 +81,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="  Hoặc  "
+            android:text="  HOẶC  "
 
             android:textSize="16sp"/>
         <ImageView
@@ -106,8 +106,7 @@
         android:textAllCaps="false"
         android:layout_weight="1"
         android:drawableLeft="@drawable/google_logo1"
-        android:textColor="@color/black"
-/>
+        android:textColor="@color/black" />
 
     <Button
         android:layout_width="wrap_content"
