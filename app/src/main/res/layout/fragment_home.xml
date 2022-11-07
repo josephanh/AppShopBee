@@ -1,53 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.HomeFragment"
-    android:background="@color/color_Main">
+    android:background="@color/color_Main"
+    tools:context=".fragment.HomeFragment">
 
-   <androidx.core.widget.NestedScrollView
-       android:id="@+id/nestedscrollviewHome"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:orientation="vertical">
-           <androidx.appcompat.widget.Toolbar
-               android:id="@+id/toolbar"
-               android:layout_width="match_parent"
-               android:layout_height="70dp"
-               android:elevation="5dp"
-               android:background="#E3E3E3">
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedscrollviewHome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:layout_margin="10dp"
-                   android:orientation="horizontal"
-                   android:background="@drawable/btn_search">
-                   <TextView
-                       android:layout_width="0dp"
-                       android:layout_height="wrap_content"
-                       android:layout_weight="1"
-                       android:text="Tìm kiếm..."
-                       android:paddingLeft="20dp"
-                       android:layout_gravity="center"/>
-                   <ImageView
-                       android:layout_width="45dp"
-                       android:layout_height="match_parent"
-                       android:src="@drawable/ic_searchicon"
-                       android:padding="10dp"/>
-               </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-           </androidx.appcompat.widget.Toolbar>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="#E3E3E3">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/btn_search"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:paddingLeft="20dp"
+                        android:text="Tìm kiếm..." />
+
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_searchicon" />
+                </LinearLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpageHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </LinearLayout>
 
 
+        </LinearLayout>
 
-       </LinearLayout>
-
-   </androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
