@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:src="@drawable/logo"
+        android:src="@drawable/lg_logo"
      />
     <EditText
         android:id="@+id/txt_name"
@@ -118,9 +118,13 @@
         android:text="Google"
         android:textAllCaps="false"
         android:layout_weight="1"
+<<<<<<< HEAD
         android:background="@drawable/btn_borderbutton_login"
         android:drawableLeft="@drawable/ic_google_logo"
         android:paddingLeft="5dp"
+=======
+        android:drawableLeft="@drawable/ic_google_icon"
+>>>>>>> 503858b (update_7)
         android:textColor="@color/black" />
 
     <Button
