@@ -28,7 +28,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
 
-        android:background="@drawable/borderbutton_login"
+        android:background="@drawable/btn_borderbutton_login"
         />
     <EditText
         android:id="@+id/r_mobile"
@@ -43,7 +43,7 @@
         android:inputType="text"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/borderbutton_login"
+        android:background="@drawable/btn_borderbutton_login"
         />
     <TextView
         android:layout_width="match_parent"
@@ -105,7 +105,7 @@
         android:text="Google"
         android:textAllCaps="false"
         android:layout_weight="1"
-        android:drawableLeft="@drawable/google_logo1"
+        android:drawableLeft="@drawable/ic_google_logo"
         android:textColor="@color/black" />
 
     <Button
@@ -116,7 +116,7 @@
         android:textAllCaps="false"
         android:layout_weight="1"
         android:textColor="@color/black"
-        android:drawableLeft="@drawable/facebookicon1"
+        android:drawableLeft="@drawable/ic_facebookicon"
         android:layout_marginLeft="20dp"
         />
 

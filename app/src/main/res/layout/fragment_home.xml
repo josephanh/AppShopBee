@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.HomeFragment"
+    android:background="@color/color_Main">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <androidx.core.widget.NestedScrollView
+       android:id="@+id/nestedscrollviewHome"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+           <androidx.appcompat.widget.Toolbar
+               android:id="@+id/toolbar"
+               android:layout_width="match_parent"
+               android:layout_height="70dp"
+               android:elevation="5dp"
+               android:background="#E3E3E3">
 
-</FrameLayout>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layout_margin="10dp"
+                   android:orientation="horizontal"
+                   android:background="@drawable/btn_search">
+                   <TextView
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="1"
+                       android:text="Tìm kiếm..."
+                       android:paddingLeft="20dp"
+                       android:layout_gravity="center"/>
+                   <ImageView
+                       android:layout_width="45dp"
+                       android:layout_height="match_parent"
+                       android:src="@drawable/ic_searchicon"
+                       android:padding="10dp"/>
+               </LinearLayout>
+
+           </androidx.appcompat.widget.Toolbar>
+
+
+
+       </LinearLayout>
+
+   </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
