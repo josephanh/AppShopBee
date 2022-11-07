@@ -1,5 +1,7 @@
 package nta.nguyenanh.code_application;
 
+import static nta.nguyenanh.code_application.MD5.MD5.getMd5;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -71,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Create a new user with a first and last name
         Map<String, Object> item = new HashMap<>();
         item.put("username", username);
-        item.put("password", password);
+        item.put("password", getMd5(password));
 
 
 // Add a new document with a generated ID

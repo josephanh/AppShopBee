@@ -1,5 +1,7 @@
 package nta.nguyenanh.code_application;
 
+import static nta.nguyenanh.code_application.MD5.MD5.getMd5;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -27,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txt_name,txt_password;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private AppCompatButton btn_login;
+    private String username,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,30 +39,36 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     public void oncheckLogin(View v) {
+        if (txt_name.getText().toString().isEmpty()||txt_password.getText().toString().isEmpty()){
+            Toast.makeText(LoginActivity.this, "Không được để trống tài khoản ,mật khẩu", Toast.LENGTH_SHORT).show();
+            return;
+        }
         db.collection("user")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
+
                             QuerySnapshot snapshots = task.getResult();
                             for (QueryDocumentSnapshot document : snapshots) {
 
-                                String username = document.get("username").toString();
-                                String password = document.get("password").toString();
+                                 username = document.get("username").toString();
+                                 password = document.get("password").toString();
                                 Log.d("TAG", "onComplete: "+username);
                                 Log.d("TAG", "onComplete: "+password);
-                                if (txt_name.getText().toString().isEmpty()||txt_password.getText().toString().isEmpty()){
-                                    Toast.makeText(LoginActivity.this, "Không được để trống tài khoản ,mật khẩu", Toast.LENGTH_SHORT).show();
-                                }
-                                if (txt_name.getText().toString().equals(username) && txt_password.getText().toString().equals(password)) {
+                                if (txt_name.getText().toString().equals(username) && getMd5(txt_password.getText().toString()).equals(password)) {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
-                                    break;
-                                } else {
-                                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    return;
+
                                 }
                             }
+
+                                Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+
+
                         }
                     }
                 });
