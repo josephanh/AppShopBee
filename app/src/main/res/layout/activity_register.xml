@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:src="@drawable/logo"
-     />
+        />
     <EditText
-        android:id="@+id/txt_name"
+        android:id="@+id/txt_newname"
         android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -31,11 +31,11 @@
         android:background="@drawable/btn_borderbutton_login"
         />
     <EditText
-        android:id="@+id/txt_password"
+        android:id="@+id/txt_newpassword"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Mật khẩu"
+        android:hint="Mật khẩu mới"
         android:paddingStart="20dp"
         android:paddingEnd="0dp"
         android:maxLines="1"
@@ -45,26 +45,34 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/btn_borderbutton_login"
         />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/txt_confirmpassword"
         android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Xác nhận mật khẩu"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"
+        android:maxLines="1"
+        android:textSize="16sp"
+        android:inputType="text"
         android:layout_marginStart="20dp"
-        android:text="Quên mật khẩu ?"
         android:layout_marginEnd="20dp"
-        android:gravity="right"/>
+        android:background="@drawable/btn_borderbutton_login"
+        />
+
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="40dp"
         android:textColor="#FFFFFF"
-        android:text="Đăng nhập"
-        android:onClick="oncheckLogin"
+        android:text="Đăng ký"
         android:textStyle="bold"
+        android:onClick="onRegister"
         android:background="@drawable/round_back_theme"/>
 
     <LinearLayout
@@ -99,52 +107,33 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="horizontal">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#F4F2F2"
-        android:text="Google"
-        android:textAllCaps="false"
-        android:layout_weight="1"
-        android:background="@drawable/btn_borderbutton_login"
-        android:drawableLeft="@drawable/ic_google_logo"
-        android:paddingLeft="5dp"
-        android:textColor="@color/black" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#F4F2F2"
-        android:text="FaceBook"
-        android:textAllCaps="false"
-        android:layout_weight="1"
-        android:paddingLeft="5dp"
-        android:textColor="@color/black"
-        android:background="@drawable/btn_borderbutton_login"
-        android:drawableLeft="@drawable/ic_facebookicon"
-        android:layout_marginLeft="20dp"
-        />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="20dp"
-        android:gravity="center"
-        android:layout_marginEnd="20dp"
-        android:orientation="horizontal">
-        <TextView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bạn mới biết đến Shopbee ? "
-            android:textSize="18dp"/>
-        <TextView
+            android:backgroundTint="#F4F2F2"
+            android:text="Google"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:background="@drawable/btn_borderbutton_login"
+            android:drawableLeft="@drawable/ic_google_logo"
+            android:paddingLeft="5dp"
+            android:textColor="@color/black" />
+
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FF0000"
-            android:textSize="18dp"
-            android:text="Đăng ký ngay"/>
+            android:backgroundTint="#F4F2F2"
+            android:text="FaceBook"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:textColor="@color/black"
+            android:background="@drawable/btn_borderbutton_login"
+            android:drawableLeft="@drawable/ic_facebookicon"
+            android:layout_marginLeft="20dp"
+            />
+
     </LinearLayout>
+
 
 </LinearLayout>
