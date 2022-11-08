@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         txt_name = findViewById(R.id.txt_name);
         txt_password = findViewById(R.id.txt_password);
@@ -129,10 +130,49 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d("TAG", "facebook:onSuccess:" + loginResult);
-                handleFacebook(loginResult.getAccessToken());
-                Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(homeintent);
-                finish();
+                Profile.getCurrentProfile().getId();
+                Log.d("TAG", "facebook:onSuccess:" + Profile.getCurrentProfile().getId());
+                Map<String, Object> item = new HashMap<>();
+                item.put("username",  Profile.getCurrentProfile().getId());
+                db.collection("user")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    QuerySnapshot snapshots = task.getResult();
+                                    for (QueryDocumentSnapshot document : snapshots) {
+                                        username2 = document.get("username").toString();
+                                        Log.d("TAG", "onComplete: " + username2);
+                                        Log.d("TAG", "onComplete2: " + username);
+                                        if ( Profile.getCurrentProfile().getId().equals(username2)) {
+                                            Toast.makeText(LoginActivity.this, "Login thành công", Toast.LENGTH_SHORT).show();
+                                            Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
+                                            startActivity(homeintent);
+                                            finish();
+                                            return;
+                                        }
+                                    }
+                                    db.collection("user")
+                                            .add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    Toast.makeText(LoginActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(LoginActivity.this, "Failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+                            }
+
+                        });
+//                Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
+//                startActivity(homeintent);
+//                finish();
             }
             @Override
             public void onCancel() {
@@ -144,17 +184,19 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("TAG", "facebook:onError", error);
             }
         });
-        profileTracker = new ProfileTracker() {
-            @Override
-            protected void onCurrentProfileChanged(@Nullable Profile profile, @Nullable Profile profile1) {
-                if (profile != null){
 
-                    Log.d(">>>>TAG","onCurrentProfileChanged"+profile.getId());
-                    String email =profile.getId();
-                    idfacebook= email;
-                }
-            }
-        };
+//        profileTracker = new ProfileTracker() {
+//            @Override
+//            protected void onCurrentProfileChanged(@Nullable Profile profile, @Nullable Profile profile1) {
+//                if (profile != null){
+//
+//                    Log.d(">>>>TAG","onCurrentProfileChanged"+profile.getId());
+//                    String email =profile.getId();
+//                    idfacebook= email;
+//                    Log.d("TAGGGGGG", "onCurrentProfileChanged: "+idfacebook);
+//                }
+//            }
+//        };
     }
     ActivityResultLauncher<Intent> googleLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -221,9 +263,14 @@ public class LoginActivity extends AppCompatActivity {
 //        if (chktkmk.isChecked()){
 //            readlogin();
 //        }
+
         super.onResume();
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        profileTracker.stopTracking();
+    }
     public void readlogin(){
 //        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS",MODE_PRIVATE);
 //        Boolean isLoggedin = preferences.getBoolean("isLoggedin",false);
@@ -266,31 +313,11 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void handleFacebook(AccessToken accessToken){
-        Log.d(">>>TAG",accessToken.getToken());
-        Profile profile = Profile.getCurrentProfile();
-        if(profile!=null){
-            String  Facebookid =profile.getId();
-            String f_name =profile.getFirstName();
-            String m_name =profile.getMiddleName();
-            String lastname =profile.getLastName();
 
-            String profileimg =profile.getProfilePictureUri(300,300).toString();
-            Bundle bundle = new Bundle();
-            request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
-                @Override
-                public void onCompleted(@Nullable JSONObject jsonObject, @Nullable GraphResponse graphResponse) {
-                    try {
-                        String email = jsonObject.getString("email");
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-                        Log.d(">>>>TAG",""+email);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            request.executeAsync();
-        }
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

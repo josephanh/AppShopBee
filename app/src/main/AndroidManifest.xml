@@ -17,10 +17,10 @@
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="834167614477158" />
+            android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
-            android:value="0fe583e3f18c2bc44ea5d1bf4011b8654f26b34a721dbb256c5fb28fca8c65ee" />
+            android:value="@string/facebook_client_token" />
         <activity
             android:name=".RegisterActivity"
             android:exported="true">
