@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         HomeFragment homeFragment = new HomeFragment();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.framelayout, homeFragment).commit();
+        // đây là code
 //        db.collection("product").limit(10)
 //                .get()
 //                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
