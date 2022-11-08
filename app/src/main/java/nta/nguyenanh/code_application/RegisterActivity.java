@@ -95,6 +95,10 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             Toast.makeText(RegisterActivity.this, "Insert" + documentReference.getId(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                txt_newname.setText("");
+                                txt_newpassword.setText("");
+                                txt_confirmpassword.setText("");
                                 readdata();
                         }
                     })
