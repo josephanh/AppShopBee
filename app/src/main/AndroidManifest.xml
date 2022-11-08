@@ -14,6 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="834167614477158" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="0fe583e3f18c2bc44ea5d1bf4011b8654f26b34a721dbb256c5fb28fca8c65ee" />
         <activity
             android:name=".RegisterActivity"
             android:exported="true">

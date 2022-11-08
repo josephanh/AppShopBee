@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -21,6 +22,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -37,7 +49,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.internal.api.FirebaseNoSignedInUserException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,9 +67,16 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox chktkmk;
     private TextView txtdangkyngay;
     private Button btngoogle,btnfacebook;
+    //google
     GoogleSignInClient gsc ;
     private String tempmail=null;
+    private String idfacebook = null;
     String username2;
+    //facebook
+    GraphRequest request;
+    ProfileTracker profileTracker;
+    CallbackManager callbackManager ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +115,46 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //facebook
+
+        callbackManager = CallbackManager.Factory.create();
+        btnfacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("openid","public_profile","email"));
+            }
+        });
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d("TAG", "facebook:onSuccess:" + loginResult);
+//                handleFacebook(loginResult.getAccessToken());
+                Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(homeintent);
+                finish();
+            }
+            @Override
+            public void onCancel() {
+                Log.d("TAG", "facebook:onCancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("TAG", "facebook:onError", error);
+            }
+        });
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(@Nullable Profile profile, @Nullable Profile profile1) {
+                if (profile != null){
+
+                    Log.d(">>>>TAG","onCurrentProfileChanged"+profile.getId());
+                    String idfacebook2 =profile.getId();
+                    idfacebook= idfacebook2;
+                    Log.d("Tag",idfacebook);
+                }
+            }
+        };
 
     }
     ActivityResultLauncher<Intent> googleLauncher = registerForActivityResult(
@@ -182,10 +245,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
-
                             QuerySnapshot snapshots = task.getResult();
                             for (QueryDocumentSnapshot document : snapshots) {
-
                                  username = document.get("username").toString();
                                  password = document.get("password").toString();
                                 Log.d("TAG", "onComplete: "+username);
@@ -205,5 +266,32 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    private void handleFacebook(AccessToken accessToken){
+        Log.d(">>>TAG",accessToken.getToken());
+        Profile profile = Profile.getCurrentProfile();
+        if(profile!=null){
+            String  Facebookid =profile.getId();
+            String f_name =profile.getFirstName();
+            String m_name =profile.getMiddleName();
+            String lastname =profile.getLastName();
+
+            String profileimg =profile.getProfilePictureUri(300,300).toString();
+            Bundle bundle = new Bundle();
+            request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
+                @Override
+                public void onCompleted(@Nullable JSONObject jsonObject, @Nullable GraphResponse graphResponse) {
+                    try {
+                        String email = jsonObject.getString("email");
+
+                        Log.d(">>>>TAG",""+email);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            request.executeAsync();
+        }
     }
 }
