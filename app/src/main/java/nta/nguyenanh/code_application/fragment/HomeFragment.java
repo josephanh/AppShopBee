@@ -1,24 +1,32 @@
 package nta.nguyenanh.code_application.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
+import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.PhotoAdapter;
 import nta.nguyenanh.code_application.model.Photo_banner;
@@ -34,7 +42,9 @@ public class HomeFragment extends Fragment {
 
     List<Photo_banner> listPhoto, listRechargeCard;
 
-    Timer timer;
+    Timer timer, timer_2;
+
+    TextView txth,txtm,txts;
 
 
     public HomeFragment() {
@@ -62,6 +72,7 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -88,9 +99,15 @@ public class HomeFragment extends Fragment {
         photoAdapter_2.registerDataSetObserver(circleIndicator_2.getDataSetObserver());
         autoSlidereChargeCard();
 
+        // Lấy thời gian hiện tại
+
+
+
+
+
 
     }
-
+    // set data cho listbanner -- banner chính của home
     private List<Photo_banner> listBanner() {
         List<Photo_banner> list = new ArrayList<>();
         list.add(new Photo_banner(R.drawable.banner_1));
@@ -100,6 +117,7 @@ public class HomeFragment extends Fragment {
         list.add(new Photo_banner(R.drawable.banner_5));
         return list;
     }
+    // set data cho listRechargeCard -- banner nạp thẻ và dịch vụ
     private List<Photo_banner> listRechargeCard() {
         List<Photo_banner> list = new ArrayList<>();
         list.add(new Photo_banner(R.drawable.banner_napthe_1));
@@ -143,11 +161,11 @@ public class HomeFragment extends Fragment {
             return;
         }
         // Init timer
-        if(timer == null) {
-            timer = new Timer();
+        if(timer_2 == null) {
+            timer_2 = new Timer();
         }
 
-        timer.schedule(new TimerTask() {
+        timer_2.schedule(new TimerTask() {
             @Override
             public void run() {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -171,9 +189,15 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        // hủy timer khi fragment bị hủy
         if(timer != null) {
             timer.cancel();
             timer = null;
+        }
+
+        if(timer_2 != null) {
+            timer_2.cancel();
+            timer_2 = null;
         }
     }
 }
