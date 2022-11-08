@@ -108,6 +108,7 @@
         android:layout_marginEnd="20dp"
         android:orientation="horizontal">
         <Button
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#F4F2F2"
