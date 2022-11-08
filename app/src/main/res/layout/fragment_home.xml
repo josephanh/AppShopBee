@@ -396,6 +396,7 @@
                         android:textStyle="bold"
                         android:textColor="#FE6E1D"/>
                     <TextView
+                        android:id="@+id/hour_flashsale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="02"
@@ -413,6 +414,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"/>
                     <TextView
+                        android:id="@+id/min_flashsale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="19"
@@ -429,6 +431,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"/>
                     <TextView
+                        android:id="@+id/sec_flashsale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="59"
@@ -618,7 +621,7 @@
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:text="NẠP THẺ VÀ DỊCH VỤ"
+                        android:text="NẠP THẺ &amp; DỊCH VỤ"
                         android:textSize="14dp"
                         android:textStyle="bold"
                         android:textColor="#FE6E1D"/>
@@ -655,13 +658,14 @@
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/viewpageHome_2"
                         android:layout_width="match_parent"
-                        android:layout_height="140dp"/>
+                        android:layout_height="140dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
                     <me.relex.circleindicator.CircleIndicator
                         android:id="@+id/circleIndicator_2"
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="-20dp" />
+                        android:layout_marginTop="-20dp"/>
 
                 </LinearLayout>
             </LinearLayout>
