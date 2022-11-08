@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         txtdangkyngay = findViewById(R.id.txtdangkyngay);
         btngoogle = findViewById(R.id.btngoogle);
         btnfacebook = findViewById(R.id.btnfacebook);
+
         //google
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -128,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d("TAG", "facebook:onSuccess:" + loginResult);
-//                handleFacebook(loginResult.getAccessToken());
+                handleFacebook(loginResult.getAccessToken());
                 Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(homeintent);
                 finish();
@@ -149,13 +150,11 @@ public class LoginActivity extends AppCompatActivity {
                 if (profile != null){
 
                     Log.d(">>>>TAG","onCurrentProfileChanged"+profile.getId());
-                    String idfacebook2 =profile.getId();
-                    idfacebook= idfacebook2;
-                    Log.d("Tag",idfacebook);
+                    String email =profile.getId();
+                    idfacebook= email;
                 }
             }
         };
-
     }
     ActivityResultLauncher<Intent> googleLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
