@@ -6,9 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +31,8 @@ import nta.nguyenanh.code_application.model.UserModel;
 public class RegisterActivity extends AppCompatActivity {
     private EditText txt_newname,txt_newpassword,txt_confirmpassword;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private TextView txtdangnhapngay;
+
     private AppCompatButton btn_register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,14 @@ public class RegisterActivity extends AppCompatActivity {
         txt_newname = findViewById(R.id.txt_newname);
         txt_newpassword = findViewById(R.id.txt_newpassword);
         txt_confirmpassword = findViewById(R.id.txt_confirmpassword);
+        txtdangnhapngay = findViewById(R.id.txtdangnhapngay);
+        txtdangnhapngay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     public void readdata(){
         db.collection("user")
