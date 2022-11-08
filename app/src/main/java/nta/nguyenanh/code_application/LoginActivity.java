@@ -2,6 +2,10 @@ package nta.nguyenanh.code_application;
 
 import static nta.nguyenanh.code_application.MD5.MD5.getMd5;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -17,6 +21,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox chktkmk;
     private TextView txtdangkyngay;
     private Button btngoogle,btnfacebook;
+    GoogleSignInClient gsc ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +56,30 @@ public class LoginActivity extends AppCompatActivity {
         txt_password = findViewById(R.id.txt_password);
         chktkmk = findViewById(R.id.chktkmk);
         txtdangkyngay = findViewById(R.id.txtdangkyngay);
+        btngoogle = findViewById(R.id.btngoogle);
+        btnfacebook = findViewById(R.id.btnfacebook);
+        //google
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        gsc = GoogleSignIn.getClient(LoginActivity.this,gso);
+        //kiểm tra có login google hay chưa
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(LoginActivity.this);
+        if (account!=null){
+            Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(homeintent);
+            finish();
+        }
+
+        btngoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent googleIntent = gsc.getSignInIntent();
+                googleLauncher.launch(googleIntent);
+
+            }
+        });
         txtdangkyngay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +89,30 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+    ActivityResultLauncher<Intent> googleLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent data = result.getData();
+                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                    try {
+                        GoogleSignInAccount account = task.getResult(ApiException.class);
+                        String email = account.getEmail();
+                        Log.d(">>>>>>TAG","onActivityResult"+email);
+                        String name = account.getDisplayName();
+                        Log.d(">>>>>>TAG","Name :"+name);
+
+
+                        Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(homeintent);
+                        finish();
+                    }catch (Exception e){
+                        Log.d(">>>>>TAG","onActivityResult" +e.getMessage());
+                    }
+                }
+            }
+    );
 
     @Override
     protected void onResume() {
