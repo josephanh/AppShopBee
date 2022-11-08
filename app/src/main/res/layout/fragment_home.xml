@@ -12,14 +12,19 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#E3E3E3">
+        android:background="@color/color_Main"
+        android:gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/btn_search"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
             <TextView
                 android:layout_width="0dp"
@@ -58,6 +63,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     tools:ignore="SpeakableTextPresentCheck" />
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/circleIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-40dp"
+                    android:layout_marginBottom="20dp"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -192,7 +204,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
                                     android:text="Săn Sale"
-                                    android:textColor="#FEBA04"
+                                    android:textColor="@color/color_Menu"
                                     android:textSize="8dp"
                                     android:textStyle="bold" />
                             </LinearLayout>
@@ -228,7 +240,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
                                     android:text="Mã Giảm Giá"
-                                    android:textColor="#FEBA04"
+                                    android:textColor="@color/color_Menu"
                                     android:textSize="8dp"
                                     android:textStyle="bold" />
                             </LinearLayout>
@@ -265,7 +277,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
                                     android:text="Săn xu mỗi ngày"
-                                    android:textColor="#FEBA04"
+                                    android:textColor="@color/color_Menu"
                                     android:textSize="8dp"
                                     android:textStyle="bold" />
                             </LinearLayout>
@@ -302,7 +314,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
                                     android:text="Săn xu mỗi ngày"
-                                    android:textColor="#FEBA04"
+                                    android:textColor="@color/color_Menu"
                                     android:textSize="8dp"
                                     android:textStyle="bold" />
                             </LinearLayout>
@@ -339,7 +351,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:text="Săn xu mỗi ngày"
-                                android:textColor="#FEBA04"
+                                android:textColor="@color/color_Menu"
                                 android:textSize="8dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -585,6 +597,71 @@
                         </FrameLayout>
                     </LinearLayout>
 
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="NẠP THẺ VÀ DỊCH VỤ"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="#FE6E1D"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|right"
+                        android:gravity="center|right"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:gravity="center"
+                            android:text="Xem tất cả"
+                            android:textSize="10dp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_right" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewpageHome_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"/>
+                    <me.relex.circleindicator.CircleIndicator
+                        android:id="@+id/circleIndicator_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="-20dp" />
 
                 </LinearLayout>
             </LinearLayout>

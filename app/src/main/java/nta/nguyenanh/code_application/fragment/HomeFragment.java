@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import me.relex.circleindicator.CircleIndicator;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.PhotoAdapter;
 import nta.nguyenanh.code_application.model.Photo_banner;
@@ -25,9 +26,13 @@ import nta.nguyenanh.code_application.model.Photo_banner;
 public class HomeFragment extends Fragment {
 
     ViewPager viewPager;
-    PhotoAdapter photoAdapter;
+    ViewPager viewPager_2;
 
-    List<Photo_banner> listPhoto;
+    CircleIndicator circleIndicator, circleIndicator_2;
+
+    PhotoAdapter photoAdapter, photoAdapter_2;
+
+    List<Photo_banner> listPhoto, listRechargeCard;
 
     Timer timer;
 
@@ -60,13 +65,28 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // Ánh xạ
         viewPager = view.findViewById(R.id.viewpageHome);
+        viewPager_2 = view.findViewById(R.id.viewpageHome_2);
+        circleIndicator = view.findViewById(R.id.circleIndicator);
+        circleIndicator_2 = view.findViewById(R.id.circleIndicator_2);
 
+        // Khởi tạo data cho banner
         listPhoto = listBanner();
-
+        listRechargeCard = listRechargeCard();
+        // set Adapter
         photoAdapter = new PhotoAdapter(getContext(), listPhoto);
         viewPager.setAdapter(photoAdapter);
+        // Gắn circleIndicator
+        circleIndicator.setViewPager(viewPager);
+        photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
         autoSlideBanner();
+        // Tương tự như trên cho banner nạp thẻ
+        photoAdapter_2 = new PhotoAdapter(getContext(), listRechargeCard);
+        viewPager_2.setAdapter(photoAdapter_2);
+        circleIndicator_2.setViewPager(viewPager_2);
+        photoAdapter_2.registerDataSetObserver(circleIndicator_2.getDataSetObserver());
+        autoSlidereChargeCard();
 
 
     }
@@ -78,6 +98,14 @@ public class HomeFragment extends Fragment {
         list.add(new Photo_banner(R.drawable.banner_3));
         list.add(new Photo_banner(R.drawable.banner_4));
         list.add(new Photo_banner(R.drawable.banner_5));
+        return list;
+    }
+    private List<Photo_banner> listRechargeCard() {
+        List<Photo_banner> list = new ArrayList<>();
+        list.add(new Photo_banner(R.drawable.banner_napthe_1));
+        list.add(new Photo_banner(R.drawable.banner_napthe_2));
+        list.add(new Photo_banner(R.drawable.banner_napthe_3));
+        list.add(new Photo_banner(R.drawable.banner_napthe_4));
         return list;
     }
 
@@ -109,6 +137,35 @@ public class HomeFragment extends Fragment {
                 });
             }
         }, 500, 3000);
+    }
+    private void autoSlidereChargeCard() {
+        if(listPhoto == null || listPhoto.isEmpty() || viewPager == null) {
+            return;
+        }
+        // Init timer
+        if(timer == null) {
+            timer = new Timer();
+        }
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int currentItem = viewPager_2.getCurrentItem();
+                        int totalItem = listRechargeCard.size() -1;
+
+                        if(currentItem < totalItem) {
+                            currentItem ++;
+                            viewPager_2.setCurrentItem(currentItem);
+                        } else {
+                            viewPager_2.setCurrentItem(0);
+                        }
+                    }
+                });
+            }
+        }, 500, 5000);
     }
 
     @Override
