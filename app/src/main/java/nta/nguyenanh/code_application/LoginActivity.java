@@ -28,13 +28,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.internal.api.FirebaseNoSignedInUserException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import nta.nguyenanh.code_application.model.UserModel;
@@ -48,6 +52,9 @@ public class LoginActivity extends AppCompatActivity {
     private TextView txtdangkyngay;
     private Button btngoogle,btnfacebook;
     GoogleSignInClient gsc ;
+    private String tempmail=null;
+    String username2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,13 +78,11 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(homeintent);
             finish();
         }
-
         btngoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent googleIntent = gsc.getSignInIntent();
                 googleLauncher.launch(googleIntent);
-
             }
         });
         txtdangkyngay.setOnClickListener(new View.OnClickListener() {
@@ -102,11 +107,46 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d(">>>>>>TAG","onActivityResult"+email);
                         String name = account.getDisplayName();
                         Log.d(">>>>>>TAG","Name :"+name);
+                        tempmail =email;
+                        Log.d("TAG", tempmail);
+                        Map<String, Object> item = new HashMap<>();
+                        item.put("username", tempmail);
+                        db.collection("user")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            QuerySnapshot snapshots = task.getResult();
+                                            for (QueryDocumentSnapshot document : snapshots) {
+                                                username2 = document.get("username").toString();
+                                                Log.d("TAG", "onComplete: " + username2);
+                                                Log.d("TAG", "onComplete2: " + username);
+                                                if (tempmail.equals(username2)) {
+                                                    Toast.makeText(LoginActivity.this, "Login thành công", Toast.LENGTH_SHORT).show();
+                                                    Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
+                                                    startActivity(homeintent);
+                                                    finish();
+                                                    return;
+                                                }
+                                            }
+                                                db.collection("user")
+                                                        .add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                            @Override
+                                                            public void onSuccess(DocumentReference documentReference) {
+                                                                Toast.makeText(LoginActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Toast.makeText(LoginActivity.this, "Failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                        }
+                                    }
 
-
-                        Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
-                        startActivity(homeintent);
-                        finish();
+                                });
                     }catch (Exception e){
                         Log.d(">>>>>TAG","onActivityResult" +e.getMessage());
                     }
