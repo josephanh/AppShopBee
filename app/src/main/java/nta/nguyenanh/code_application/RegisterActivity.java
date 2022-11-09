@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -77,7 +78,6 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
     public void onRegister(View v) {
-
         String username = txt_newname.getText().toString();
         String password = txt_newpassword.getText().toString();
         String confirmpassword = txt_confirmpassword.getText().toString();
@@ -114,12 +114,10 @@ public class RegisterActivity extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {
-                                            Toast.makeText(RegisterActivity.this, "Insert" + documentReference.getId(), Toast.LENGTH_SHORT).show();
                                             Toast.makeText(RegisterActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                                             txt_newname.setText("");
                                             txt_newpassword.setText("");
                                             txt_confirmpassword.setText("");
-
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {

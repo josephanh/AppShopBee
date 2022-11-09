@@ -4,158 +4,128 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".LoginActivity">
-    <ImageView
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:src="@drawable/logo"
-        />
-    <EditText
-        android:id="@+id/txt_newname"
-        android:layout_marginTop="100dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Số điện thoại"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp"
-        android:maxLines="1"
-        android:textSize="16sp"
-        android:inputType="text"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="match_parent">
 
-        android:background="@drawable/btn_borderbutton_login"
-        />
-    <EditText
-        android:id="@+id/txt_newpassword"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Mật khẩu mới"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp"
-        android:maxLines="1"
-        android:textSize="16sp"
-        android:inputType="text"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/btn_borderbutton_login"
-        />
-    <EditText
-        android:id="@+id/txt_confirmpassword"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Xác nhận mật khẩu"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp"
-        android:maxLines="1"
-        android:textSize="16sp"
-        android:inputType="text"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/btn_borderbutton_login"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:src="@drawable/logo" />
+
+            <EditText
+                android:id="@+id/txt_newname"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/btn_borderbutton_login"
+                android:hint="Tài khoản"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:textSize="16sp" />
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="40dp"
-        android:textColor="#FFFFFF"
-        android:text="Đăng ký"
-        android:textStyle="bold"
-        android:onClick="onRegister"
-        android:background="@drawable/round_back_theme"/>
+            <EditText
+                android:id="@+id/txt_newpassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/btn_borderbutton_login"
+                android:hint="Mật khẩu mới"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:textSize="16sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/line6"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="  HOẶC  "
 
-            android:textSize="16sp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:src="@drawable/line6"/>
+            <EditText
+                android:id="@+id/txt_confirmpassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/btn_borderbutton_login"
+                android:hint="Xác nhận mật khẩu"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:textSize="16sp" />
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:orientation="horizontal">
-        <Button
+            <EditText
+                android:id="@+id/txtsodienthoai"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/btn_borderbutton_login"
+                android:hint="Số điện thoại"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:textSize="16sp" />
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#F4F2F2"
-            android:text="Google"
-            android:textAllCaps="false"
-            android:layout_weight="1"
-            android:background="@drawable/btn_borderbutton_login"
-            android:drawableLeft="@drawable/ic_google_logo"
-            android:paddingLeft="5dp"
-            android:textColor="@color/black" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#F4F2F2"
-            android:text="FaceBook"
-            android:textAllCaps="false"
-            android:layout_weight="1"
-            android:paddingLeft="5dp"
-            android:textColor="@color/black"
-            android:background="@drawable/btn_borderbutton_login"
-            android:drawableLeft="@drawable/ic_facebookicon"
-            android:layout_marginLeft="20dp"
-            />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/round_back_theme"
+                android:onClick="onRegister"
+                android:text="Đăng ký"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bạn đã có tài khoản Shopbee ? "
-            android:textSize="18dp"/>
-        <TextView
-            android:id="@+id/txtdangnhapngay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#FF0000"
-            android:textSize="18dp"
-            android:text="Đăng nhập ngay"/>
-    </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bạn đã có tài khoản Shopbee ? "
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/txtdangnhapngay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đăng nhập ngay"
+                    android:textColor="#FF0000"
+                    android:textSize="18dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
