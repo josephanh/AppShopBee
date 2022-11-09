@@ -158,6 +158,9 @@ public class LoginActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
                                                     Toast.makeText(LoginActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                                    Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
+                                                    startActivity(homeintent);
+                                                    
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
