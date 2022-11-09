@@ -134,6 +134,9 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("TAG", "facebook:onSuccess:" + Profile.getCurrentProfile().getId());
                 Map<String, Object> item = new HashMap<>();
                 item.put("username",  Profile.getCurrentProfile().getId());
+                item.put("address",null);
+                item.put("phonenumber",null);
+                item.put("fullname",Profile.getCurrentProfile().getName());
                 db.collection("user")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -158,8 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
                                                     Toast.makeText(LoginActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
-                                                    Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
-                                                    startActivity(homeintent);
+
                                                     
                                                 }
                                             })
@@ -188,18 +190,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        profileTracker = new ProfileTracker() {
-//            @Override
-//            protected void onCurrentProfileChanged(@Nullable Profile profile, @Nullable Profile profile1) {
-//                if (profile != null){
-//
-//                    Log.d(">>>>TAG","onCurrentProfileChanged"+profile.getId());
-//                    String email =profile.getId();
-//                    idfacebook= email;
-//                    Log.d("TAGGGGGG", "onCurrentProfileChanged: "+idfacebook);
-//                }
-//            }
-//        };
+
     }
     ActivityResultLauncher<Intent> googleLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -218,6 +209,9 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("TAG", tempmail);
                         Map<String, Object> item = new HashMap<>();
                         item.put("username", tempmail);
+                        item.put("phonenumber",null);
+                        item.put("address",null);
+                        item.put("fullname",name);
                         db.collection("user")
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
