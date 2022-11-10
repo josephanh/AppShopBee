@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Code_Application</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Tinh_ThanhPho_fragment">Tỉnh /Thành phố </string>
+    <string name="quan_huyen_fragment">Quận /Huyện</string>
+    <string name="phuongxa_fragment">Phường /Xã</string>
     <string name="facebook_app_id">3249917931896366</string>
     <string name="fb_login_protocol_scheme">834167614477158</string>
     <string name="facebook_client_token">0fe583e3f18c2bc44ea5d1bf4011b8654f26b34a721dbb256c5fb28fca8c65ee</string>
