@@ -14,13 +14,12 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import nta.nguyenanh.code_application.R;
-import nta.nguyenanh.code_application.model.Photo_banner;
 
-public class PhotoAdapter extends PagerAdapter {
+public class DetailProductImageAdapter extends PagerAdapter {
     private Context context;
-    List<Photo_banner> listPhoto;
+    List<String> listPhoto;
 
-    public PhotoAdapter(Context context, List<Photo_banner> listPhoto) {
+    public DetailProductImageAdapter(Context context, List<String> listPhoto) {
         this.context = context;
         this.listPhoto = listPhoto;
     }
@@ -28,12 +27,10 @@ public class PhotoAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_banner_home, container, false);
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_image_product, container, false);
         ImageView imgPhoto = view.findViewById(R.id.imgPhoto);
-
-        Photo_banner photo = listPhoto.get(position);
-        if(photo != null) {
-            Glide.with(context).load(photo.getResourceId()).into(imgPhoto);
+        if(listPhoto.get(position) != null) {
+            Glide.with(context).load(listPhoto.get(position)).into(imgPhoto);
         }
 
         container.addView(view);

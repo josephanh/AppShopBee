@@ -1,9 +1,12 @@
 package nta.nguyenanh.code_application;
 
+import static nta.nguyenanh.code_application.fragment.DetailProductFragment.NameFragment;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -23,10 +26,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
+import nta.nguyenanh.code_application.fragment.DetailProductFragment;
 import nta.nguyenanh.code_application.fragment.HomeFragment;
+import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
 import nta.nguyenanh.code_application.model.Product;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnClickItemProduct {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public static List<Product> listProduct = new ArrayList<>();
 
     DiaLogProgess progess;
+    FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         progess = new DiaLogProgess(MainActivity.this);
         HomeFragment homeFragment = new HomeFragment();
-        FragmentManager manager = getSupportFragmentManager();
+        manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.framelayout, homeFragment).commit();
 //        db.collection("product").limit(10)
 //                .get()
@@ -80,4 +86,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void ReplaceFragment(Product product) {
+        DetailProductFragment fragment = new DetailProductFragment().newInstance(product);
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.add(R.id.framelayout, fragment);
+        fragmentTransaction.addToBackStack(NameFragment);
+        fragmentTransaction.commit();
+    }
 }

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingTop="20dp"
+        android:paddingRight="15dp">
+
+        <ImageView
+            android:id="@+id/image_product_sheet"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/demo_product" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="100.000đ"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="@color/black" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kho: 100"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_Main"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingTop="20dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Màu sắc"
+            android:textColor="@color/black"
+            android:textSize="18dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:gravity="center">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/color_1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:cardCornerRadius="100dp"
+                android:layout_margin="5dp"/>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/color_2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:cardCornerRadius="100dp"
+                android:layout_margin="5dp"/>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/color_3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:cardCornerRadius="100dp"
+                android:layout_margin="5dp"/>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/color_4"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:cardCornerRadius="100dp"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/black"/>
+        </LinearLayout>
+        <Button
+            android:text="Thêm vào giỏ hàng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bar_daban"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="14dp"/>
+    </LinearLayout>
+</LinearLayout>
