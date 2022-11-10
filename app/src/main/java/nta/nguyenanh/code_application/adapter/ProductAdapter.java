@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,9 @@ import com.bumptech.glide.Glide;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
 import nta.nguyenanh.code_application.model.Product;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
@@ -41,11 +44,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.name_product.setText(list.get(position).getNameproduct());
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         holder.price_product.setText(formatter.format(list.get(position).getPrice())+"đ");
+        holder.saleoff.setText(list.get(position).getSale().toString()+"%");
         if(list.get(position).getSale() == 0) {
             holder.saleoff.setVisibility(View.GONE);
-        } else {
-            holder.saleoff.setText(list.get(position).getSale().toString()+"%");
         }
+
+        holder.item_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnClickItemProduct clickEvent = ((MainActivity)context);
+                clickEvent.ReplaceFragment(list.get(position));
+            }
+        });
     }
 
     @Override
@@ -59,12 +69,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image_product;
         TextView name_product, saleoff, sold, price_product;
+        LinearLayout item_product;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image_product = itemView.findViewById(R.id.image_product);
             name_product = itemView.findViewById(R.id.name_product);
             price_product = itemView.findViewById(R.id.price_product);
             saleoff = itemView.findViewById(R.id.saleoff);
+            item_product = itemView.findViewById(R.id.item_product);
         }
     }
 }
