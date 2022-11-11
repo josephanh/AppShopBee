@@ -2,12 +2,15 @@ package nta.nguyenanh.code_application.fragment;
 
 import static nta.nguyenanh.code_application.MainActivity.listProduct;
 
+import android.content.Context;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -16,9 +19,11 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.Toast;
 
@@ -103,6 +108,22 @@ public class HomeFragment extends Fragment {
         circleIndicator = view.findViewById(R.id.circleIndicator);
         circleIndicator_2 = view.findViewById(R.id.circleIndicator_2);
         recyclerView_flashsale = view.findViewById(R.id.recyclerView_flashsale);
+        NestedScrollView nestedScrollView = view.findViewById(R.id.nestedscrollviewHome);
+        nestedScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                WindowManager windowManager = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
+                Display display = windowManager.getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+
+                if(scrollY < recyclerView_flashsale.getHeight()) {
+                    recyclerView_flashsale.setNestedScrollingEnabled(false);
+                } else {
+                    recyclerView_flashsale.setNestedScrollingEnabled(true);
+                }
+            }
+        });
 
 
         // Khởi tạo data cho banner
