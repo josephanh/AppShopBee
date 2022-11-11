@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -40,11 +41,16 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
     DiaLogProgess progess;
     FragmentManager manager;
+    BottomNavigationView bottomnavigation;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bottomnavigation = findViewById(R.id.bottomNavigation);
+
+        bottomnavigation.setItemIconTintList(null);
 
         progess = new DiaLogProgess(MainActivity.this);
         HomeFragment homeFragment = new HomeFragment();
