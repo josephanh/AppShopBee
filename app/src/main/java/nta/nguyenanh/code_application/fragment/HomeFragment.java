@@ -2,7 +2,9 @@ package nta.nguyenanh.code_application.fragment;
 
 import static nta.nguyenanh.code_application.MainActivity.listProduct;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +27,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.Toast;
 
@@ -54,6 +59,7 @@ public class HomeFragment extends Fragment {
     DocumentSnapshot lastVisible;
     private boolean isScrolling;
     private boolean isLastItem;
+    private boolean check;
 
     ViewPager viewPager;
     ViewPager viewPager_2;
@@ -108,8 +114,13 @@ public class HomeFragment extends Fragment {
         circleIndicator = view.findViewById(R.id.circleIndicator);
         circleIndicator_2 = view.findViewById(R.id.circleIndicator_2);
         recyclerView_flashsale = view.findViewById(R.id.recyclerView_flashsale);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+
+        check = false;
         NestedScrollView nestedScrollView = view.findViewById(R.id.nestedscrollviewHome);
         nestedScrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 WindowManager windowManager = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -121,6 +132,22 @@ public class HomeFragment extends Fragment {
                     recyclerView_flashsale.setNestedScrollingEnabled(false);
                 } else {
                     recyclerView_flashsale.setNestedScrollingEnabled(true);
+                }
+
+
+                if (scrollY > oldScrollY + 10 && !check) {
+                    Animation animation;
+                    animation = AnimationUtils.loadAnimation(getContext(),
+                            R.anim.slide_up);
+                    toolbar.startAnimation(animation);
+                    check = true;
+                }
+                if (scrollY < oldScrollY - 10 && check) {
+                    Animation animation;
+                    animation = AnimationUtils.loadAnimation(getContext(),
+                            R.anim.slide_down);
+                    toolbar.startAnimation(animation);
+                    check = false;
                 }
             }
         });
