@@ -15,17 +15,21 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_height="wrap_content">
-    <androidx.appcompat.widget.SearchView
+    <EditText
+        android:id="@+id/edt_searchView"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
         android:background="@drawable/btn_search"
         android:layout_marginRight="20dp"
+
         android:layout_weight="1"
         app:queryHint="@string/app_name" />
         <Button
+            android:id="@+id/btn_search"
             android:layout_width="wrap_content"
             android:background="@drawable/btn_search2"
             android:text="Tìm kiếm"
+            android:onClick="add_history"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:layout_height="42dp"/>
@@ -73,9 +77,8 @@
         android:orientation="vertical">
 
 
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/Lv_History_Search"
+            android:id="@+id/rv_History_Search"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

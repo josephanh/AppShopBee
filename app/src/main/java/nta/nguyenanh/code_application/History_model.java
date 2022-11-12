@@ -2,8 +2,8 @@ package nta.nguyenanh.code_application;
 
 public class History_model {
 
-    private int id_history;
-    private String name_history;
+     int id_history;
+     String name_history;
 
     public History_model(int id_history, String name_history) {
         this.id_history = id_history;
