@@ -20,6 +20,11 @@ public class DAO_History {
         String sql = "SELECT * FROM History";
         return getData(sql);
     }
+    public List<History_model> getAllid() {
+        String sql = "SELECT id_history FROM History";
+        return getData(sql);
+    }
+
     public List<History_model> getData(String sql, String ... selectionArgs){
         List<History_model> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,selectionArgs);
@@ -37,4 +42,15 @@ public class DAO_History {
         values.put("name_history",name_history);
         return db.insert("History",null,values);
     }
+
+    public  int delete(String id_history){
+        return db.delete("History","id_history=?",new String[]{id_history});
+    }
+    public  int deleteall(){
+        return db.delete("History","1",null);
+
+    }
+
+
+
 }

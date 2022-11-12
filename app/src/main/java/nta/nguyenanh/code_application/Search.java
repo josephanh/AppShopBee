@@ -20,7 +20,7 @@ public class Search extends AppCompatActivity {
     DAO_History dao_history;
     Adapter_History adapter;
     List<History_model> ds = new ArrayList<>();
-
+    History_model hm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,7 @@ public class Search extends AppCompatActivity {
         recyclerView = findViewById(R.id.rv_History_Search);
 
         dao_history = new DAO_History(Search.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Search.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Search.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         List<History_model> ds  = dao_history.getAll();
         adapter = new Adapter_History(Search.this,ds);
@@ -48,4 +48,9 @@ public class Search extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
     }
+    public void delete_history(View v) {
+    dao_history.deleteall();
+    filldulieu();
+    }
+
 }
