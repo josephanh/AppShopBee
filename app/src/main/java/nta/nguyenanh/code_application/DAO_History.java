@@ -31,13 +31,10 @@ public class DAO_History {
             list.add(obj);
         }
         return list;
-
     }
-
     public long insert( String name_history){
         ContentValues values = new ContentValues();
         values.put("name_history",name_history);
         return db.insert("History",null,values);
     }
-
 }
