@@ -48,5 +48,8 @@ public class Search extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
     }
+    public void delete_history() {
+    ds  = dao_history.getAll();
+    }
 
 }

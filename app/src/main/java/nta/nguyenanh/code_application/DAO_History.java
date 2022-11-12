@@ -39,5 +39,8 @@ public class DAO_History {
         values.put("name_history",name_history);
         return db.insert("History",null,values);
     }
+    public  int delete(String id_history){
+        return db.delete("History","id_history=?",new String[]{id_history});
+    }
 
 }
