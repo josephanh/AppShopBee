@@ -24,6 +24,7 @@
         android:drawableRight="@drawable/ic_baseline_search_24"
         android:layout_weight="1"
         android:padding="5dp"
+        android:hint="'Chữ tìm kiếm gần nhất'"
         app:queryHint="@string/app_name" />
         <Button
             android:id="@+id/btn_search"
@@ -72,7 +73,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical">
