@@ -65,6 +65,7 @@
             android:id="@+id/tvSentOTPagain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickSendOTPagain"
             android:text="Gửi lại"
             android:layout_margin="20dp"
             android:textColor="#FF0000"
@@ -84,7 +85,7 @@
 
         android:textColor="#FFFFFF"
         android:text="xác nhận"
-
+        android:onClick="onClickVerifyOTP"
         android:textStyle="bold"
         android:background="@drawable/round_back_theme"/>
 
