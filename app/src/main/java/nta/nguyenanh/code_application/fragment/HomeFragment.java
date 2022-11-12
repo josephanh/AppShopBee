@@ -142,13 +142,7 @@ public class HomeFragment extends Fragment {
                     toolbar.startAnimation(animation);
                     check = true;
                 }
-                if (scrollY < oldScrollY - 10 && check) {
-                    Animation animation;
-                    animation = AnimationUtils.loadAnimation(getContext(),
-                            R.anim.slide_down);
-                    toolbar.startAnimation(animation);
-                    check = false;
-                }
+
             }
         });
 
@@ -176,65 +170,9 @@ public class HomeFragment extends Fragment {
         manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         loadNextPage();
 
-        EndlessRecyclerViewScrollListener scrollListener;
-        scrollListener = new EndlessRecyclerViewScrollListener(manager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
 
-//                loadNextDataFromApi(page);
-                Toast.makeText(getContext(), "Loading", Toast.LENGTH_SHORT).show();
-            }
-        };
-//        recyclerView_flashsale.addOnScrollListener(scrollListener);
-//        recyclerView_flashsale.setOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-////                Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
-//                Log.d("SCROLL", "onScrollStateChanged: "+recyclerView_flashsale.getHeight()+"W: "+recyclerView_flashsale.getWidth());
-//            }
-//
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                Toast.makeText(getContext(), "hi", Toast.LENGTH_SHORT).show();
-//                Log.d("SCROLL", "onScrolled: ");
-//            }
-//        });
     }
 
-    private void loadNextDataFromApi(int page) {
-        Query nextQuery = FirebaseFirestore.getInstance().collection("product")
-                .startAfter(lastVisible)
-                .limit(5);
-        nextQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    ArrayList<String> color = (ArrayList<String>) document.getData().get("color");
-                    ArrayList<String> images = (ArrayList<String>) document.getData().get("image");
-                    Product product = new Product(document.getId(),
-                            document.getData().get("nameproduct").toString(),
-                            document.getData().get("describe").toString(),
-                            Float.parseFloat(document.getData().get("price").toString()),
-                            Integer.parseInt(document.getData().get("available").toString()),
-                            color, images,
-                            Integer.parseInt(document.getData().get("sale").toString()),
-                            Integer.parseInt(document.getData().get("sold").toString()),
-                            Integer.parseInt(document.getData().get("total").toString()),
-                            document.getData().get("id_category").toString());
-                    listProduct.add(product);
-                }
-                Toast.makeText(getContext(), "Loading", Toast.LENGTH_SHORT).show();
-                adapter.notifyDataSetChanged();
-//                lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 2);
-
-//                if (task.getResult().size() < 30) {
-//                    isLastItem = true;
-//                }
-            }
-        });
-    }
 
 
     // set data cho listbanner -- banner chính của home
