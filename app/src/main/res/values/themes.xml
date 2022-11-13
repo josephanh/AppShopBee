@@ -14,11 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">10sp</item>
-    </style>
-
-    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">11sp</item>
+    <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/ic_logo</item>
     </style>
 </resources>
