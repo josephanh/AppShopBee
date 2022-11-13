@@ -135,14 +135,6 @@ public class HomeFragment extends Fragment {
                 }
 
 
-                if (scrollY > oldScrollY + 10 && !check) {
-                    Animation animation;
-                    animation = AnimationUtils.loadAnimation(getContext(),
-                            R.anim.slide_up);
-                    toolbar.startAnimation(animation);
-                    check = true;
-                }
-
             }
         });
 

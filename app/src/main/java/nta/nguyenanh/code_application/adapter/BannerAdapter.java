@@ -32,8 +32,6 @@ public class BannerAdapter extends PagerAdapter {
         if(listPhoto.get(position) != null) {
             Glide.with(context)
                     .load(listPhoto.get(position))
-                    .error(R.drawable.banner_5)
-                    .placeholder(R.drawable.banner_1)
                     .into(imgPhoto);
         }
 

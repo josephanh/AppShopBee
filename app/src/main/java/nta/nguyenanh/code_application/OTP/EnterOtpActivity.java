@@ -79,6 +79,7 @@ public class EnterOtpActivity extends AppCompatActivity {
     private void initUi(){
         edtOTP = findViewById(R.id.edtOTP);
         btnVerifyOTP = findViewById(R.id.btnVerifyOTP);
+        tvSentOTPagain = findViewById(R.id.tvSentOTPagain);
     }
     private void onClickSendOTPagain() {
         PhoneAuthOptions options =
