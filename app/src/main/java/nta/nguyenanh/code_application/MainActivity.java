@@ -17,9 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
-import nta.nguyenanh.code_application.adapter.Adapter_History;
-import nta.nguyenanh.code_application.dao.DAO_History;
-import nta.nguyenanh.code_application.dialog.DiaLogProgess;
+
 import nta.nguyenanh.code_application.fragment.DetailProductFragment;
 import nta.nguyenanh.code_application.fragment.HomeFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
@@ -33,17 +31,18 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
     public static List<Product> listProduct = new ArrayList<>();
 
-    DiaLogProgess progess;
     FragmentManager manager;
-    BottomNavigationView bottomnavigation;
+    public static BottomNavigationView bottomnavigation;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         bottomnavigation = findViewById(R.id.bottomNavigation);
         bottomnavigation.setItemIconTintList(null);
+
 
         HomeFragment homeFragment = new HomeFragment();
         manager = getSupportFragmentManager();
@@ -98,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         fragmentTransaction.add(R.id.framelayout, fragment);
         fragmentTransaction.addToBackStack(NameFragment);
         fragmentTransaction.commit();
+        bottomnavigation.setVisibility(View.GONE);
     }
 
 }

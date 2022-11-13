@@ -1,5 +1,7 @@
 package nta.nguyenanh.code_application.fragment;
 
+import static nta.nguyenanh.code_application.MainActivity.bottomnavigation;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,8 +35,10 @@ public class SearchFragment extends Fragment {
     DAO_History dao_history;
     Adapter_History adapter;
     List<History_model> ds = new ArrayList<>();
-    History_model hm;
+
     TextView deleteAll;
+
+    ArrayList<String> listSuggest = new ArrayList<>();
 
     public SearchFragment() {
         // Required empty public constructor
@@ -95,6 +99,9 @@ public class SearchFragment extends Fragment {
         });
 
         fillData();
+        AddlistSuggest();
+
+
 
     }
 
@@ -102,5 +109,36 @@ public class SearchFragment extends Fragment {
         ds = dao_history.getAll();
         adapter = new Adapter_History(getContext(),ds);
         recyclerView.setAdapter(adapter);
+    }
+
+    public void AddlistSuggest() {
+        listSuggest.add("Iphone 14 promax");
+        listSuggest.add("Tivi màn hình Oled");
+        listSuggest.add("Sam sung ngon");
+        listSuggest.add("Laptop Gaming");
+        listSuggest.add("Tai nghe chiến game");
+        listSuggest.add("Pc siêu cấp");
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                do {
+                    try {
+                        edt_searchView.setHint(listSuggest.get(i));
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+
+                    }
+                } while (i < listSuggest.size()-1);
+            }
+        });
+        thread.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        bottomnavigation.setVisibility(View.VISIBLE);
     }
 }

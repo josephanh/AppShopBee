@@ -1,5 +1,6 @@
 package nta.nguyenanh.code_application.fragment;
 
+import static nta.nguyenanh.code_application.MainActivity.bottomnavigation;
 import static nta.nguyenanh.code_application.MainActivity.listProduct;
 import static nta.nguyenanh.code_application.SplashCreen.lastVisible;
 
@@ -162,7 +163,7 @@ public class HomeFragment extends Fragment {
         autoSlidereChargeCard();
 
         manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        
+
         adapter = new ProductAdapter(listProduct, getContext());
         recyclerView_flashsale.setLayoutManager(manager);
         recyclerView_flashsale.setAdapter(adapter);
@@ -325,6 +326,6 @@ public class HomeFragment extends Fragment {
             timer_2.cancel();
             timer_2 = null;
         }
+        bottomnavigation.setVisibility(View.VISIBLE);
     }
-
 }
