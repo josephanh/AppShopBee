@@ -1,17 +1,21 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.adapter;
 
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import nta.nguyenanh.code_application.dao.DAO_History;
+import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.model.History_model;
 
 public class Adapter_History extends RecyclerView.Adapter<Adapter_History.ViewHolder> {
     public static Context context;
@@ -46,7 +50,8 @@ public class Adapter_History extends RecyclerView.Adapter<Adapter_History.ViewHo
         return ds.size();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView txt_name_history,txt_delete_item_history;
+        public TextView txt_name_history;
+        ImageView txt_delete_item_history;
         int MaNews;
         public ViewHolder(@NonNull View itemView){
             super(itemView);

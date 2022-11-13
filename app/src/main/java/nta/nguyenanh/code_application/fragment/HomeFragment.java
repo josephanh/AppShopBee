@@ -1,10 +1,10 @@
 package nta.nguyenanh.code_application.fragment;
 
 import static nta.nguyenanh.code_application.MainActivity.listProduct;
+import static nta.nguyenanh.code_application.SplashCreen.lastVisible;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,8 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+
 import android.widget.AbsListView;
 import android.widget.Toast;
 
@@ -46,23 +45,25 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
+import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.BannerAdapter;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
 import nta.nguyenanh.code_application.model.Product;
-import nta.nguyenanh.code_application.pagination.EndlessRecyclerViewScrollListener;
+
 
 public class HomeFragment extends Fragment {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    DocumentSnapshot lastVisible;
+
     private boolean isScrolling;
     private boolean isLastItem;
     private boolean check;
 
     ViewPager viewPager;
     ViewPager viewPager_2;
+    Toolbar toolbar;
 
     CircleIndicator circleIndicator, circleIndicator_2;
 
@@ -76,14 +77,11 @@ public class HomeFragment extends Fragment {
     ProductAdapter adapter;
     private StaggeredGridLayoutManager manager;
 
-    DiaLogProgess progess;
-
-
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    public static HomeFragment newInstance(String param1, String param2) {
+    public static HomeFragment newInstance( ) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -114,8 +112,15 @@ public class HomeFragment extends Fragment {
         circleIndicator = view.findViewById(R.id.circleIndicator);
         circleIndicator_2 = view.findViewById(R.id.circleIndicator_2);
         recyclerView_flashsale = view.findViewById(R.id.recyclerView_flashsale);
+        toolbar = view.findViewById(R.id.toolbar);
 
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
+
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getContext()).RelaceFragment(new SearchFragment());
+            }
+        });
 
         check = false;
         NestedScrollView nestedScrollView = view.findViewById(R.id.nestedscrollviewHome);
@@ -156,12 +161,70 @@ public class HomeFragment extends Fragment {
         photoAdapter_2.registerDataSetObserver(circleIndicator_2.getDataSetObserver());
         autoSlidereChargeCard();
 
-
-        progess = new DiaLogProgess(getContext());
-        progess.showDialog("Loading");
         manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        loadNextPage();
+        
+        adapter = new ProductAdapter(listProduct, getContext());
+        recyclerView_flashsale.setLayoutManager(manager);
+        recyclerView_flashsale.setAdapter(adapter);
 
+
+
+        RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                    isScrolling = true;
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int[] firstVisibleItems = null;
+                firstVisibleItems  = manager.findFirstVisibleItemPositions(firstVisibleItems );
+                int visibleItemCount = manager.getChildCount();
+                int totalItem = manager.getItemCount();
+
+                if(isScrolling && (firstVisibleItems[0] + visibleItemCount) == totalItem && !isLastItem) {
+                    isScrolling = false;
+                    Query nextQuery = FirebaseFirestore.getInstance().collection("product")
+                            .startAfter(lastVisible)
+                            .limit(10);
+                    nextQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                ArrayList<String> color = (ArrayList<String>) document.getData().get("color");
+                                ArrayList<String> images = (ArrayList<String>) document.getData().get("image");
+                                Product product = new Product(document.getId(),
+                                        document.getData().get("nameproduct").toString(),
+                                        document.getData().get("describe").toString(),
+                                        Float.parseFloat(document.getData().get("price").toString()),
+                                        Integer.parseInt(document.getData().get("available").toString()),
+                                        color, images,
+                                        Integer.parseInt(document.getData().get("sale").toString()),
+                                        Integer.parseInt(document.getData().get("sold").toString()),
+                                        Integer.parseInt(document.getData().get("total").toString()),
+                                        document.getData().get("id_category").toString());
+                                listProduct.add(product);
+                            }
+                            Toast.makeText(getContext(), "Loading", Toast.LENGTH_SHORT).show();
+                            Log.e("CHECK_SIZE", "onComplete: "+listProduct.size() );
+                            adapter.notifyDataSetChanged();
+                            lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
+
+                            if(task.getResult().size() < 10 ){
+                                isLastItem = true;
+                                return;
+                            }
+                        }
+                    });
+
+                }
+            }
+        };
+        recyclerView_flashsale.addOnScrollListener(onScrollListener);
 
     }
 
@@ -248,105 +311,6 @@ public class HomeFragment extends Fragment {
         }, 500, 5000);
     }
 
-    private void loadNextPage() {
-        db.collection("product").limit(10)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                ArrayList<String> color = (ArrayList<String>) document.getData().get("color");
-                                ArrayList<String> images = (ArrayList<String>) document.getData().get("image");
-                                Product product = new Product(document.getId(),
-                                        document.getData().get("nameproduct").toString(),
-                                        document.getData().get("describe").toString(),
-                                        Float.parseFloat(document.getData().get("price").toString()),
-                                        Integer.parseInt(document.getData().get("available").toString()),
-                                        color, images,
-                                        Integer.parseInt(document.getData().get("sale").toString()),
-                                        Integer.parseInt(document.getData().get("sold").toString()),
-                                        Integer.parseInt(document.getData().get("total").toString()),
-                                        document.getData().get("id_category").toString());
-                                listProduct.add(product);
-
-                            }
-                            progess.hideDialog();
-                            Log.d("CHECK_SIZE", "onComplete 1: " + listProduct.size());
-                            // đổ lên list
-                            recyclerView_flashsale.setLayoutManager(manager);
-                            adapter = new ProductAdapter(listProduct, getContext());
-                            recyclerView_flashsale.setAdapter(adapter);
-
-
-                            // phân trang
-                            lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
-                            Toast.makeText(getContext(), "Frist Page Product", Toast.LENGTH_SHORT).show();
-                            Log.d("DATA_FIRST", "onComplete: "+lastVisible);
-                            RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
-                                @Override
-                                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                                    super.onScrollStateChanged(recyclerView, newState);
-                                    if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                                        isScrolling = true;
-                                    }
-                                }
-
-                                @Override
-                                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                                    super.onScrolled(recyclerView, dx, dy);
-                                    int[] firstVisibleItems = null;
-                                    firstVisibleItems  = manager.findFirstVisibleItemPositions(firstVisibleItems );
-                                    int visibleItemCount = manager.getChildCount();
-                                    int totalItem = manager.getItemCount();
-
-                                    if(isScrolling && (firstVisibleItems[0] + visibleItemCount) == totalItem && !isLastItem) {
-                                        isScrolling = false;
-                                        Query nextQuery = FirebaseFirestore.getInstance().collection("product")
-                                                .startAfter(lastVisible)
-                                                .limit(10);
-                                        nextQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                                    ArrayList<String> color = (ArrayList<String>) document.getData().get("color");
-                                                    ArrayList<String> images = (ArrayList<String>) document.getData().get("image");
-                                                    Product product = new Product(document.getId(),
-                                                            document.getData().get("nameproduct").toString(),
-                                                            document.getData().get("describe").toString(),
-                                                            Float.parseFloat(document.getData().get("price").toString()),
-                                                            Integer.parseInt(document.getData().get("available").toString()),
-                                                            color, images,
-                                                            Integer.parseInt(document.getData().get("sale").toString()),
-                                                            Integer.parseInt(document.getData().get("sold").toString()),
-                                                            Integer.parseInt(document.getData().get("total").toString()),
-                                                            document.getData().get("id_category").toString());
-                                                    listProduct.add(product);
-                                                }
-                                                Toast.makeText(getContext(), "Loading", Toast.LENGTH_SHORT).show();
-                                                Log.e("CHECK_SIZE", "onComplete: "+listProduct.size() );
-                                                adapter.notifyDataSetChanged();
-                                                lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
-
-                                                if(task.getResult().size() < 10 ){
-                                                    isLastItem = true;
-                                                    return;
-                                                }
-                                            }
-                                        });
-
-                                    }
-                                }
-                            };
-                            recyclerView_flashsale.addOnScrollListener(onScrollListener);
-
-                        } else {
-                            Log.w("readDataProduct", "Error getting documents.", task.getException());
-                            progess.hideDialog();
-                        }
-                    }
-                });
-    }
 
     @Override
     public void onDestroy() {

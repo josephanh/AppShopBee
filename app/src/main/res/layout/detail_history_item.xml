@@ -8,24 +8,25 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/txt_item_search"
-
-        >
+        android:paddingLeft="15dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:gravity="center"
+        android:layout_marginRight="15dp">
         <TextView
             android:id="@+id/txt_item_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="s22 ultra"
-            android:layout_marginRight="5dp"
-
-            />
-        <TextView
+            android:layout_marginRight="5dp" />
+        <ImageView
             android:id="@+id/txt_delete_item_history"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="X"
+            android:layout_height="17dp"
             android:layout_marginRight="5dp"
-           />
+            android:src="@drawable/ic_x" />
     </LinearLayout>
 
 </LinearLayout>

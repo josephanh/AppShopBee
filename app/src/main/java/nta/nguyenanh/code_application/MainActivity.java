@@ -2,34 +2,28 @@ package nta.nguyenanh.code_application;
 
 import static nta.nguyenanh.code_application.fragment.DetailProductFragment.NameFragment;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.FrameLayout;
-import android.widget.Toast;
+import android.view.View;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+import nta.nguyenanh.code_application.adapter.Adapter_History;
+import nta.nguyenanh.code_application.dao.DAO_History;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
 import nta.nguyenanh.code_application.fragment.DetailProductFragment;
 import nta.nguyenanh.code_application.fragment.HomeFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
+import nta.nguyenanh.code_application.model.History_model;
 import nta.nguyenanh.code_application.model.Product;
 
 public class MainActivity extends AppCompatActivity implements OnClickItemProduct {
@@ -49,10 +43,8 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomnavigation = findViewById(R.id.bottomNavigation);
-
         bottomnavigation.setItemIconTintList(null);
 
-        progess = new DiaLogProgess(MainActivity.this);
         HomeFragment homeFragment = new HomeFragment();
         manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.framelayout, homeFragment).commit();
@@ -100,4 +92,12 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         fragmentTransaction.addToBackStack(NameFragment);
         fragmentTransaction.commit();
     }
+
+    public void RelaceFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.add(R.id.framelayout, fragment);
+        fragmentTransaction.addToBackStack(NameFragment);
+        fragmentTransaction.commit();
+    }
+
 }

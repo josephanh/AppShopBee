@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.helper;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

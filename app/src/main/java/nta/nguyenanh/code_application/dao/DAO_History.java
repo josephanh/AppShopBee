@@ -1,13 +1,15 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import nta.nguyenanh.code_application.helper.database;
+import nta.nguyenanh.code_application.model.History_model;
 
 public class DAO_History {
     private SQLiteDatabase db;
@@ -29,10 +31,9 @@ public class DAO_History {
         List<History_model> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,selectionArgs);
         while (c.moveToNext()){
-            History_model obj = new History_model();
-            obj.id_history = c.getInt(0);
-            obj.name_history = c.getString(1);
-            Log.d(">>>Tag", "onSucces: ");
+            int id  = c.getInt(0);
+            String name = c.getString(1);
+            History_model obj = new History_model(id, name);
             list.add(obj);
         }
         return list;
