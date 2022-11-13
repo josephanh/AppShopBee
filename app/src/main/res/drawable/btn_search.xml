@@ -6,4 +6,8 @@
     <solid android:color="@color/white"/>
     <stroke android:color="#2159cd" android:width="0.9dp" android:dashWidth="100dp" android:dashGap="0dp"/>
 
+    <corners android:radius="16dp"></corners>
+    <solid android:color="@color/white"></solid>
+
+
 </shape>
