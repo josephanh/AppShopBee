@@ -4,5 +4,6 @@
 
     <corners android:radius="10dp"/>
     <solid android:color="@color/white"/>
+    <stroke android:color="#2159cd" android:width="0.9dp" android:dashWidth="100dp" android:dashGap="0dp"/>
 
 </shape>
