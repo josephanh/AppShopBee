@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -115,13 +116,14 @@ public class DetailProductFragment extends Fragment {
 
     private void showSheet() {
         View viewDiaLog = getLayoutInflater().inflate(R.layout.custom_layout_addcart, null);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.MyTransparentBottomSheetDialogTheme);
         bottomSheetDialog.setContentView(viewDiaLog);
         bottomSheetDialog.setCanceledOnTouchOutside(false);
         bottomSheetDialog.show();
 
-        CardView color_1, color_2, color_3, color_4;
+        RoundedImageView color_1, color_2, color_3, color_4;
         color_1 = viewDiaLog.findViewById(R.id.color_1);
+
         color_2 = viewDiaLog.findViewById(R.id.color_2);
         color_3 = viewDiaLog.findViewById(R.id.color_3);
         color_4 = viewDiaLog.findViewById(R.id.color_4);

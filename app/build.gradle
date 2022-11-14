@@ -50,4 +50,7 @@ dependencies {
     //Google,facbook
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+
+    //làm bo tròn
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }
