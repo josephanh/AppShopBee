@@ -1,5 +1,7 @@
 package nta.nguyenanh.code_application.fragment;
 
+import static nta.nguyenanh.code_application.MainActivity.bottomnavigation;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -37,7 +39,7 @@ public class AddressFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        bottomnavigation.setVisibility(View.GONE);
         return inflater.inflate(R.layout.fragment_address, container, false);
     }
 }

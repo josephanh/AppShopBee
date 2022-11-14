@@ -69,7 +69,7 @@ public class DetailProductFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        bottomnavigation.setVisibility(View.GONE);
         return inflater.inflate(R.layout.fragment_detail_product, container, false);
     }
 
@@ -91,7 +91,7 @@ public class DetailProductFragment extends Fragment {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         price_product.setText(formatter.format(product.getPrice())+"đ");
 
-        String[] words = product.getDescribe().split("\\.");
+        String[] words = product.getDescribe().split("\\. ");
         for (String w : words) {
            describe.setText(describe.getText().toString() + android.text.Html.fromHtml("<div>"+w+"</div><br>"));
         }

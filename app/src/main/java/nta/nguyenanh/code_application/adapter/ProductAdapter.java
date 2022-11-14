@@ -1,5 +1,6 @@
 package nta.nguyenanh.code_application.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -39,13 +41,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Glide.with(context).load(list.get(position).getImage().get(0)).into(holder.image_product);
         holder.name_product.setText(list.get(position).getNameproduct());
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         holder.price_product.setText(formatter.format(list.get(position).getPrice())+"đ");
         holder.saleoff.setText(list.get(position).getSale().toString()+"%");
-        if(list.get(position).getSale() == 0) {
+        if(list.get(position).getSale() != 0) {
+            holder.freeship.setVisibility(View.VISIBLE);
+        } else {
+            holder.freeship.setVisibility(View.GONE);
             holder.saleoff.setVisibility(View.GONE);
         }
 
@@ -67,7 +72,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView image_product;
+        RoundedImageView image_product;
+        ImageView freeship;
         TextView name_product, saleoff, sold, price_product;
         LinearLayout item_product;
         public ViewHolder(@NonNull View itemView) {
@@ -77,6 +83,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             price_product = itemView.findViewById(R.id.price_product);
             saleoff = itemView.findViewById(R.id.saleoff);
             item_product = itemView.findViewById(R.id.item_product);
+            freeship = itemView.findViewById(R.id.freeship);
         }
     }
 }

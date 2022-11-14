@@ -11,11 +11,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/image_product"
-                android:layout_width="200dp"
-                android:layout_height="220dp"
-                android:scaleType="centerInside"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:scaleType="fitStart"
+                app:riv_corner_radius_top_left="20dp"
+                app:riv_corner_radius_top_right="20dp"
                 android:src="@drawable/demo_product"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,25 +102,43 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-
-                    android:paddingBottom="0dp">
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:src="@drawable/ic_fire"
-                        android:layout_gravity="center"/>
-                    <TextView
-                        android:id="@+id/total_product"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:paddingBottom="0dp">
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:src="@drawable/ic_fire"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:id="@+id/total_product"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Còn hàng"
+                            android:textColor="#636363"
+                            android:textSize="12dp"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Còn hàng"
-                        android:textColor="#636363"
-                        android:textSize="12dp"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"/>
+                        android:orientation="horizontal"
+                        android:paddingBottom="0dp">
+                        <ImageView
+                            android:id="@+id/freeship"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/ic_delivery_truck_free"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
                 </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 </LinearLayout>
