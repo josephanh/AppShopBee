@@ -99,7 +99,6 @@ public class SearchFragment extends Fragment {
         });
 
         fillData();
-        AddlistSuggest();
 
 
 
@@ -110,7 +109,7 @@ public class SearchFragment extends Fragment {
         adapter = new Adapter_History(getContext(),ds);
         recyclerView.setAdapter(adapter);
     }
-    
+
 
     @Override
     public void onDestroy() {
