@@ -20,12 +20,13 @@ import java.util.List;
 
 import nta.nguyenanh.code_application.fragment.DetailProductFragment;
 import nta.nguyenanh.code_application.fragment.HomeFragment;
+import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
 import nta.nguyenanh.code_application.model.History_model;
 import nta.nguyenanh.code_application.model.Product;
 import nta.nguyenanh.code_application.model.UserModel;
 
-public class MainActivity extends AppCompatActivity implements OnClickItemProduct {
+public class MainActivity extends AppCompatActivity implements OnClickItemProduct, OnClickDiaLogConfirm {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static UserModel userModel = null;
@@ -105,5 +106,10 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void ClickButtonAgree() {
+
     }
 }

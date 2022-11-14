@@ -30,10 +30,11 @@ import me.relex.circleindicator.CircleIndicator;
 import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.DetailProductImageAdapter;
+import nta.nguyenanh.code_application.dialog.DialogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.model.Product;
 
-public class DetailProductFragment extends Fragment implements OnClickDiaLogConfirm {
+public class DetailProductFragment extends Fragment {
 
     Product product;
     ArrayList<String> listUrlImage = new ArrayList<>();
@@ -42,6 +43,8 @@ public class DetailProductFragment extends Fragment implements OnClickDiaLogConf
     TextView name_product, price_product, describe;
 
     public static final String NameFragment = DetailProductFragment.class.getName();
+
+    DialogConfirm dialogConfirm;
 
     public DetailProductFragment() {
         // Required empty public constructor
@@ -113,12 +116,11 @@ public class DetailProductFragment extends Fragment implements OnClickDiaLogConf
             @Override
             public void onClick(View v) {
                 if(userModel == null) {
-
+                    dialogConfirm = new DialogConfirm(getContext());
+                    dialogConfirm.showDialog(product);
                 } else {
-
+                    showSheet();
                 }
-
-                showSheet();
             }
         });
     }
@@ -150,8 +152,4 @@ public class DetailProductFragment extends Fragment implements OnClickDiaLogConf
         bottomnavigation.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void ClickButtonAgree(Product product) {
-
-    }
 }

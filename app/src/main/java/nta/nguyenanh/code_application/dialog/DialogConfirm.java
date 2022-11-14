@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
+import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
+import nta.nguyenanh.code_application.model.Product;
 
 public class DialogConfirm {
     Context context;
@@ -18,7 +22,7 @@ public class DialogConfirm {
         this.context = context;
     }
 
-    public void showDialog(String dongy, String huy) {
+    public void showDialog(Product product) {
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.custom_dialog_progess);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -36,7 +40,8 @@ public class DialogConfirm {
         btndongy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                OnClickDiaLogConfirm clickEvent = ((MainActivity)context);
+                clickEvent.ClickButtonAgree();
             }
         });
         dialog.create();
