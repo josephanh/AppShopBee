@@ -110,31 +110,7 @@ public class SearchFragment extends Fragment {
         adapter = new Adapter_History(getContext(),ds);
         recyclerView.setAdapter(adapter);
     }
-
-    public void AddlistSuggest() {
-        listSuggest.add("Iphone 14 promax");
-        listSuggest.add("Tivi màn hình Oled");
-        listSuggest.add("Sam sung ngon");
-        listSuggest.add("Laptop Gaming");
-        listSuggest.add("Tai nghe chiến game");
-        listSuggest.add("Pc siêu cấp");
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int i = 0;
-                do {
-                    try {
-                        edt_searchView.setHint(listSuggest.get(i));
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-
-                    }
-                } while (i < listSuggest.size()-1);
-            }
-        });
-        thread.start();
-    }
+    
 
     @Override
     public void onDestroy() {
