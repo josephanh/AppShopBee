@@ -49,6 +49,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.saleoff.setText(list.get(position).getSale().toString()+"%");
         if(list.get(position).getSale() != 0) {
             holder.freeship.setVisibility(View.VISIBLE);
+            holder.saleoff.setVisibility(View.VISIBLE);
         } else {
             holder.freeship.setVisibility(View.GONE);
             holder.saleoff.setVisibility(View.GONE);
