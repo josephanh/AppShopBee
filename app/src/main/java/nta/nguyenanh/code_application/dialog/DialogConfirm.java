@@ -24,9 +24,10 @@ public class DialogConfirm {
 
     public void showDialog(Product product) {
         dialog = new Dialog(context);
-        dialog.setContentView(R.layout.custom_dialog_progess);
+        dialog.setContentView(R.layout.custom_dialog_confirm);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setCanceledOnTouchOutside(false);
+
         TextView titleprogess = dialog.findViewById(R.id.title_progess);
         Button btndongy = dialog.findViewById(R.id.btn_dongy);
         Button btnhuy = dialog.findViewById(R.id.btn_huy);
