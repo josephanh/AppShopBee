@@ -71,7 +71,7 @@ public class DetailProductFragment extends Fragment {
         ImageView btn_back = view.findViewById(R.id.btn_back);
         ViewPager viewPager = view.findViewById(R.id.viewpageImage);
         CircleIndicator circleIndicator = view.findViewById(R.id.circleIndicatorImageDetail);
-        Button show_sheet = view.findViewById(R.id.show_sheet);
+        TextView show_sheet = view.findViewById(R.id.show_sheet);
 
         name_product = view.findViewById(R.id.name_product);
         price_product = view.findViewById(R.id.price_product);
