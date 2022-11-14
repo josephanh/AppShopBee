@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,8 @@ public class Adapter_History extends RecyclerView.Adapter<Adapter_History.ViewHo
         return ds.size();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView txt_name_history,txt_delete_item_history;
+        public TextView txt_name_history;
+        public ImageView txt_delete_item_history;
         int MaNews;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
