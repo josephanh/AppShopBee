@@ -135,7 +135,7 @@
         android:paddingLeft="5dp"
         android:textColor="@color/black"
         android:background="@drawable/btn_borderbutton_login"
-        android:drawableLeft="@drawable/ic_home_slt"
+        android:drawableLeft="@drawable/ic_facebookicon"
         android:layout_marginLeft="20dp"
         />
 

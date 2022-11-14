@@ -30,9 +30,10 @@ import me.relex.circleindicator.CircleIndicator;
 import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.DetailProductImageAdapter;
+import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.model.Product;
 
-public class DetailProductFragment extends Fragment {
+public class DetailProductFragment extends Fragment implements OnClickDiaLogConfirm {
 
     Product product;
     ArrayList<String> listUrlImage = new ArrayList<>();
@@ -147,5 +148,10 @@ public class DetailProductFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         bottomnavigation.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void ClickButtonAgree(Product product) {
+
     }
 }

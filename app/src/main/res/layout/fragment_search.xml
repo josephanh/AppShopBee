@@ -36,7 +36,7 @@
                 android:textSize="14dp"
                 android:hint="Chữ tìm kiếm gần nhất"
                 app:queryHint="@string/app_name"
-                android:background="@drawable/bg_button_tv"
+                android:background="@drawable/custom_border_item_product"
                 android:layout_gravity="center"/>
             <ImageView
                 android:layout_width="30dp"
@@ -95,7 +95,7 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical">
@@ -105,6 +105,13 @@
             android:id="@+id/rv_History_Search"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
+
+
     </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_Result_Search"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

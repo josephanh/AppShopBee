@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment {
 
     Timer timer, timer_2;
 
-    RecyclerView recyclerView_flashsale;
+    RecyclerView recyclerView_product;
     ProductAdapter adapter;
     private StaggeredGridLayoutManager manager;
 
@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment {
         viewPager_2 = view.findViewById(R.id.viewpageHome_2);
         circleIndicator = view.findViewById(R.id.circleIndicator);
         circleIndicator_2 = view.findViewById(R.id.circleIndicator_2);
-        recyclerView_flashsale = view.findViewById(R.id.recyclerView_flashsale);
+        recyclerView_product = view.findViewById(R.id.recyclerView_product);
         toolbar = view.findViewById(R.id.toolbar);
 
 
@@ -132,10 +132,10 @@ public class HomeFragment extends Fragment {
                 Point size = new Point();
                 display.getSize(size);
 
-                if(scrollY < recyclerView_flashsale.getHeight()) {
-                    recyclerView_flashsale.setNestedScrollingEnabled(false);
+                if(scrollY < recyclerView_product.getHeight()) {
+                    recyclerView_product.setNestedScrollingEnabled(false);
                 } else {
-                    recyclerView_flashsale.setNestedScrollingEnabled(true);
+                    recyclerView_product.setNestedScrollingEnabled(true);
                 }
 
 
@@ -163,8 +163,8 @@ public class HomeFragment extends Fragment {
         manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         adapter = new ProductAdapter(listProduct, getContext());
-        recyclerView_flashsale.setLayoutManager(manager);
-        recyclerView_flashsale.setAdapter(adapter);
+        recyclerView_product.setLayoutManager(manager);
+        recyclerView_product.setAdapter(adapter);
 
 
 
@@ -223,7 +223,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-        recyclerView_flashsale.addOnScrollListener(onScrollListener);
+        recyclerView_product.addOnScrollListener(onScrollListener);
 
     }
 

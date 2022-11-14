@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FBF7F7"
-    android:orientation="vertical"
-    tools:context=".MainActivity2">
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
             android:gravity="center|left"
             android:drawableLeft="@drawable/ic_vector"

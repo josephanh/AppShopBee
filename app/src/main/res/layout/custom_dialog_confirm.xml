@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thông báo"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/ic_baseline_notifications_24"
+            android:textColor="#CD000000"/>
+
+        <TextView
+            android:id="@+id/title_progess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bạn có muốn đăng nhập để tiếp tục không?"
+            android:textSize="18dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:gravity="right">
+            <Button
+                android:id="@+id/btn_huy"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="Hủy"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/txt_item_search"/>
+            <Button
+                android:id="@+id/btn_dongy"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="Đồng ý"
+                android:textColor="@color/white"
+                android:background="@drawable/custom_button_confirm"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
