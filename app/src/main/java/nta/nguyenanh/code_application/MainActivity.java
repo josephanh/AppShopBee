@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         fragmentTransaction.add(R.id.framelayout, fragment);
         fragmentTransaction.addToBackStack(NameFragment);
         fragmentTransaction.commit();
+        bottomnavigation.setVisibility(View.GONE);
     }
 
     public void RelaceFragment(Fragment fragment) {
@@ -100,4 +101,8 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         bottomnavigation.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

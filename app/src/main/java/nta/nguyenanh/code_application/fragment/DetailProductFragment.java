@@ -1,5 +1,7 @@
 package nta.nguyenanh.code_application.fragment;
 
+import static nta.nguyenanh.code_application.MainActivity.bottomnavigation;
+
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -12,12 +14,12 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDragHandleView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -71,7 +73,7 @@ public class DetailProductFragment extends Fragment {
         ImageView btn_back = view.findViewById(R.id.btn_back);
         ViewPager viewPager = view.findViewById(R.id.viewpageImage);
         CircleIndicator circleIndicator = view.findViewById(R.id.circleIndicatorImageDetail);
-        TextView show_sheet = view.findViewById(R.id.show_sheet);
+        ImageView show_sheet = view.findViewById(R.id.show_sheet);
 
         name_product = view.findViewById(R.id.name_product);
         price_product = view.findViewById(R.id.price_product);
@@ -131,4 +133,9 @@ public class DetailProductFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        bottomnavigation.setVisibility(View.VISIBLE);
+    }
 }

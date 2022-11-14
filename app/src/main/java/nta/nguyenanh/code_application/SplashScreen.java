@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,10 +19,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.model.Product;
 
-public class SplashCreen extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
     // thời gian chờ
     int SLASH_TIME_OUT = 3000;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -75,7 +73,7 @@ public class SplashCreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashCreen.this, MainActivity.class);
+                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(intent);
 
                 finish();

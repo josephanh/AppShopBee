@@ -2,7 +2,7 @@ package nta.nguyenanh.code_application.fragment;
 
 import static nta.nguyenanh.code_application.MainActivity.bottomnavigation;
 import static nta.nguyenanh.code_application.MainActivity.listProduct;
-import static nta.nguyenanh.code_application.SplashCreen.lastVisible;
+import static nta.nguyenanh.code_application.SplashScreen.lastVisible;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -34,7 +34,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -50,7 +49,6 @@ import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.BannerAdapter;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
-import nta.nguyenanh.code_application.dialog.DiaLogProgess;
 import nta.nguyenanh.code_application.model.Product;
 
 
