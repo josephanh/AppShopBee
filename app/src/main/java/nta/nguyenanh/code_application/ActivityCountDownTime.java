@@ -4,19 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
-import java.util.TimeZone;
 
-public class timer extends AppCompatActivity {
+public class ActivityCountDownTime extends AppCompatActivity {
 
 
     private String EVENT_DATE_TIME = "2022-11-13 16:30:00";

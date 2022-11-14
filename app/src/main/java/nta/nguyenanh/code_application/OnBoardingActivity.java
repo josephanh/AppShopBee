@@ -1,7 +1,6 @@
 package nta.nguyenanh.code_application;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -62,7 +61,7 @@ public class OnBoardingActivity extends AppCompatActivity {
                 else{
                     layout_main.setVisibility(View.GONE);
                     frameGetStart.setVisibility(View.VISIBLE);
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.alpha_enter, R.animator.alpha_exit).add(R.id.getStart, GetStarted.class, null).commit();
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.alpha_enter, R.animator.alpha_exit).add(R.id.getStart, GetStarted_Fragment.class, null).commit();
                 }
             }
         });

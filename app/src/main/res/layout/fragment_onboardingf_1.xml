@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".onboardingf_1">
+    tools:context=".Onboarding_Fragment_1">
 
     <ImageView
         android:id="@+id/imageView"
