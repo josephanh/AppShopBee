@@ -23,11 +23,12 @@ import nta.nguyenanh.code_application.fragment.HomeFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
 import nta.nguyenanh.code_application.model.History_model;
 import nta.nguyenanh.code_application.model.Product;
+import nta.nguyenanh.code_application.model.UserModel;
 
 public class MainActivity extends AppCompatActivity implements OnClickItemProduct {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    public static UserModel userModel = null;
 
     public static List<Product> listProduct = new ArrayList<>();
 

@@ -55,13 +55,11 @@ public class SplashScreen extends AppCompatActivity {
                             }
                             Log.d("CHECK_SIZE", "onComplete 1: " + listProduct.size());
 
-
-
                             // phân trang
                             lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
-
-
-
+                            Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
 
                         } else {
                             Log.w("readDataProduct", "Error getting documents.", task.getException());
@@ -69,16 +67,5 @@ public class SplashScreen extends AppCompatActivity {
                         }
                     }
                 });
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-                startActivity(intent);
-
-                finish();
-            }
-        },SLASH_TIME_OUT);
-
     }
 }

@@ -21,7 +21,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/background_image_detail">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize" />
@@ -83,13 +84,12 @@
                             android:gravity="center"
                             android:background="@drawable/round_back_theme"/>
                     </LinearLayout>
-                    <TextView
-                        android:id="@+id/describe"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+
                 </LinearLayout>
-
-
+                <TextView
+                    android:id="@+id/describe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

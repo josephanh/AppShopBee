@@ -1,6 +1,7 @@
 package nta.nguyenanh.code_application.fragment;
 
 import static nta.nguyenanh.code_application.MainActivity.bottomnavigation;
+import static nta.nguyenanh.code_application.MainActivity.userModel;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator;
+import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.DetailProductImageAdapter;
 import nta.nguyenanh.code_application.model.Product;
@@ -109,6 +111,12 @@ public class DetailProductFragment extends Fragment {
         show_sheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(userModel == null) {
+
+                } else {
+
+                }
+
                 showSheet();
             }
         });
@@ -116,7 +124,7 @@ public class DetailProductFragment extends Fragment {
 
     private void showSheet() {
         View viewDiaLog = getLayoutInflater().inflate(R.layout.custom_layout_addcart, null);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.MyTransparentBottomSheetDialogTheme);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.ThemeOverlay_App_BottomSheetDialog);
         bottomSheetDialog.setContentView(viewDiaLog);
         bottomSheetDialog.setCanceledOnTouchOutside(false);
         bottomSheetDialog.show();
