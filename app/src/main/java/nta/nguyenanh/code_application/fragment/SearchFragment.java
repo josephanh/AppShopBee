@@ -17,6 +17,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +43,8 @@ public class SearchFragment extends Fragment {
     DAO_History dao_history;
     Adapter_History adapter;
     List<History_model> ds = new ArrayList<>();
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     TextView deleteAll;
 
@@ -108,6 +118,28 @@ public class SearchFragment extends Fragment {
         ds = dao_history.getAll();
         adapter = new Adapter_History(getContext(),ds);
         recyclerView.setAdapter(adapter);
+    }
+
+    public void findData(String s) {
+        db.collection("product")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot doc:task.getResult()){
+                            String nameproduct = doc.getString("nameproduct");
+                            if (nameproduct.contains(s)){
+                                Log.d("TAG 1000", "onComplete: "+doc.getString("nameproduct"));
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Không tìm thấy", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 
