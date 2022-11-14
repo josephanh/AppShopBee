@@ -31,12 +31,12 @@
             android:layout_width="wrap_content"
             android:background="@drawable/btn_search2"
             android:text="Tìm kiếm"
-            android:onClick="add_history"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:layout_height="42dp"/>
 </LinearLayout>
     <LinearLayout
+        android:id="@+id/ln_lichsutimkiem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -83,6 +83,10 @@
             android:id="@+id/rv_History_Search"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
