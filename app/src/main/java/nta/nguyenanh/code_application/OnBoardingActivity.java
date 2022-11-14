@@ -46,7 +46,9 @@ public class OnBoardingActivity extends AppCompatActivity {
         tv_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                layout_main.setVisibility(View.GONE);
+                frameGetStart.setVisibility(View.VISIBLE);
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.alpha_enter, R.animator.alpha_exit).add(R.id.getStart, GetStarted_Fragment.class, null).commit();
             }
         });
     }
