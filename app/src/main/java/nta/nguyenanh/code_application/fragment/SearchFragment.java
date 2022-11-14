@@ -124,9 +124,6 @@ public class SearchFragment extends Fragment {
         });
 
         fillData();
-
-
-
     }
 
     public  void fillData() {
