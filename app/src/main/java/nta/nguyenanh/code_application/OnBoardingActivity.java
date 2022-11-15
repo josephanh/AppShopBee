@@ -39,7 +39,6 @@ public class OnBoardingActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPaperAdapter);
         circleIndicator.setViewPager(viewPager);
 
-
     }
 
     private void setOnboarding_skip(){
