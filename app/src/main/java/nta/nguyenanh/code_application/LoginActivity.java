@@ -97,12 +97,12 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
         gsc = GoogleSignIn.getClient(LoginActivity.this,gso);
         //kiểm tra có login google hay chưa
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(LoginActivity.this);
-        if (account!=null){
-            Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
-            startActivity(homeintent);
-            finish();
-        }
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(LoginActivity.this);
+//        if (account!=null){
+//            Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
+//            startActivity(homeintent);
+//            finish();
+//        }
         btngoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,13 +269,13 @@ public class LoginActivity extends AppCompatActivity {
 //        profileTracker.stopTracking();
     }
     public void readlogin(){
-//        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS",MODE_PRIVATE);
-//        Boolean isLoggedin = preferences.getBoolean("isLoggedin",false);
-//        if (isLoggedin){
-//            Intent homeintent =new Intent(LoginActivity.this,MainActivity.class);
-//            startActivity(homeintent);
-//            finish();
-//        }
+        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS",MODE_PRIVATE);
+        Boolean isLoggedin = preferences.getBoolean("isLoggedin",false);
+        if (isLoggedin){
+            Intent homeintent =new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(homeintent);
+            finish();
+        }
     }
     public void oncheckLogin(View v) {
         if (txt_name.getText().toString().isEmpty()||txt_password.getText().toString().isEmpty()){

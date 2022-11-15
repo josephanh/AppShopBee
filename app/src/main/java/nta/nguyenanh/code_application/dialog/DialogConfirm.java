@@ -2,12 +2,14 @@ package nta.nguyenanh.code_application.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import nta.nguyenanh.code_application.LoginActivity;
 import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
@@ -43,6 +45,7 @@ public class DialogConfirm {
             public void onClick(View v) {
                 OnClickDiaLogConfirm clickEvent = ((MainActivity)context);
                 clickEvent.ClickButtonAgree();
+                hideDialog();
             }
         });
         dialog.create();

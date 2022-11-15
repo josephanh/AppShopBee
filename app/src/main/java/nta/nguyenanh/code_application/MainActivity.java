@@ -8,8 +8,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,14 +24,13 @@ import nta.nguyenanh.code_application.fragment.DetailProductFragment;
 import nta.nguyenanh.code_application.fragment.HomeFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
-import nta.nguyenanh.code_application.model.History_model;
 import nta.nguyenanh.code_application.model.Product;
 import nta.nguyenanh.code_application.model.UserModel;
 
 public class MainActivity extends AppCompatActivity implements OnClickItemProduct, OnClickDiaLogConfirm {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public static UserModel userModel = null;
+    public static UserModel userModel;
 
     public static List<Product> listProduct = new ArrayList<>();
 
@@ -110,6 +111,13 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
     @Override
     public void ClickButtonAgree() {
+        Intent intentLogin = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intentLogin);
 
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
     }
 }
