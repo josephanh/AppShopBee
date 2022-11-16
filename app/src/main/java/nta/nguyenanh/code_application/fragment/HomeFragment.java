@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
 
     ViewPager viewPager;
     ViewPager viewPager_2;
-    Toolbar toolbar;
+    Toolbar toolbar, toolbar_0;
 
     CircleIndicator circleIndicator, circleIndicator_2;
 
@@ -112,6 +112,7 @@ public class HomeFragment extends Fragment {
         circleIndicator_2 = view.findViewById(R.id.circleIndicator_2);
         recyclerView_product = view.findViewById(R.id.recyclerView_product);
         toolbar = view.findViewById(R.id.toolbar);
+        toolbar_0 = view.findViewById(R.id.toolbar_0);
 
 
         toolbar.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +132,9 @@ public class HomeFragment extends Fragment {
                 Display display = windowManager.getDefaultDisplay();
                 Point size = new Point();
                 display.getSize(size);
+
+                toolbar.setAlpha((float) (scrollY*0.005));
+                toolbar_0.setAlpha((float) (1 - scrollY*0.005));
 
                 if(scrollY < recyclerView_product.getHeight()) {
                     recyclerView_product.setNestedScrollingEnabled(false);
