@@ -663,7 +663,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/transparent"
+            android:background="@color/color_Main"
             android:gravity="center">
 
             <LinearLayout
@@ -697,7 +697,7 @@
             android:id="@+id/toolbar_0"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@color/color_Main"
+            android:background="#315AC4"
             android:gravity="center">
 
             <LinearLayout

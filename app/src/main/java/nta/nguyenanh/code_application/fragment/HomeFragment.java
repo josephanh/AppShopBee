@@ -133,8 +133,7 @@ public class HomeFragment extends Fragment {
                 Point size = new Point();
                 display.getSize(size);
 
-                toolbar.setAlpha((float) (scrollY*0.005));
-                toolbar_0.setAlpha((float) (1 - scrollY*0.005));
+                toolbar_0.setAlpha((float) (1 - scrollY*0.003));
 
                 if(scrollY < recyclerView_product.getHeight()) {
                     recyclerView_product.setNestedScrollingEnabled(false);
