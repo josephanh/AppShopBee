@@ -150,9 +150,9 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.d("TAG", "onComplete2: " + username);
                                         if ( Profile.getCurrentProfile().getId().equals(username2)) {
                                             Toast.makeText(LoginActivity.this, "Login thành công", Toast.LENGTH_SHORT).show();
-                                            Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
-                                            startActivity(homeintent);
-                                            finish();
+//                                            Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
+//                                            startActivity(homeintent);
+//                                            finish();
                                             return;
                                         }
                                     }
@@ -224,10 +224,11 @@ public class LoginActivity extends AppCompatActivity {
                                                 Log.d("TAG", "onComplete: " + username2);
                                                 Log.d("TAG", "onComplete2: " + username);
                                                 if (tempmail.equals(username2)) {
-                                                    Toast.makeText(LoginActivity.this, "Login thành công", Toast.LENGTH_SHORT).show();
-                                                    Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
-                                                    startActivity(homeintent);
-                                                    finish();
+                                                    writeLogin((UserModel) document.getData());
+//                                                    Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
+//                                                    startActivity(homeintent);
+                                                    Toast.makeText(LoginActivity.this, "Chạy qua main", Toast.LENGTH_SHORT).show();
+//                                                    onBackPressed();
                                                     return;
                                                 }
                                             }
@@ -268,6 +269,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onDestroy();
 //        profileTracker.stopTracking();
     }
+
+    // lưu trạng thái login vào shored preferences
+    private void writeLogin(UserModel user){
+        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isLogin", true);
+        editor.putString("userid", user.getUserID());
+        editor.putString("username", user.getUsername());
+        editor.putString("fullname", user.getFullname());
+        editor.putString("password", user.getPassword());
+        editor.putString("address", user.getAddress());
+        editor.putString("numberphone", user.getPhonenumber());
+        editor.commit();
+    }
+    // đọc trạng thái login
     public void readlogin(){
         SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS",MODE_PRIVATE);
         Boolean isLoggedin = preferences.getBoolean("isLoggedin",false);

@@ -57,7 +57,7 @@ public class SplashScreen extends AppCompatActivity {
 
                             // phân trang
                             lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
-                            Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+                            Intent intent = new Intent(SplashScreen.this, MainActivity.class);
                             startActivity(intent);
                             finish();
 

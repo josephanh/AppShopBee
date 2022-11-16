@@ -2,7 +2,7 @@ package nta.nguyenanh.code_application.model;
 
 public class UserModel {
     private int id ;
-    private String address,datebirth,fullname,password,phonenumber,username,userID;
+    private String address,datebirth,fullname,password,phonenumber,username,userID, numberphone;
 
     public String getUserID() {
         return userID;
@@ -15,7 +15,7 @@ public class UserModel {
     public UserModel() {
     }
 
-    public UserModel(int id, String address, String datebirth, String fullname, String password, String phonenumber, String username) {
+    public UserModel(int id, String address, String datebirth, String fullname, String password, String phonenumber, String username, String userID, String numberphone) {
         this.id = id;
         this.address = address;
         this.datebirth = datebirth;
@@ -23,6 +23,19 @@ public class UserModel {
         this.password = password;
         this.phonenumber = phonenumber;
         this.username = username;
+        this.userID = userID;
+        this.numberphone = numberphone;
+    }
+
+    public UserModel(String address, String datebirth, String fullname, String password, String phonenumber, String username, String userID, String numberphone) {
+        this.address = address;
+        this.datebirth = datebirth;
+        this.fullname = fullname;
+        this.password = password;
+        this.phonenumber = phonenumber;
+        this.username = username;
+        this.userID = userID;
+        this.numberphone = numberphone;
     }
 
     public int getId() {

@@ -113,11 +113,5 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
     public void ClickButtonAgree() {
         Intent intentLogin = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intentLogin);
-
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show();
     }
 }
