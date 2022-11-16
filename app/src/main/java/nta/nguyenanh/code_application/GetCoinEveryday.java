@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,15 +24,31 @@ import nta.nguyenanh.code_application.sqllite_tin.sql_date;
 
 public class GetCoinEveryday extends Fragment {
 
-    private String DATE_FORMAT = "ddMMyyyy";
+    private String DATE_FORMAT = "yyyyMMdd";
     private CoordinatorLayout btn_getcoin_check;
     private CoordinatorLayout btn_getcoin_check_done;
+
     private LinearLayout getcoin_day1_check;
     private LinearLayout getcoin_day1_check_done;
+    private LinearLayout getcoin_day2_check;
+    private LinearLayout getcoin_day2_check_done;
+    private LinearLayout getcoin_day3_check;
+    private LinearLayout getcoin_day3_check_done;
+    private LinearLayout getcoin_day4_check;
+    private LinearLayout getcoin_day4_check_done;
+    private LinearLayout getcoin_day5_check;
+    private LinearLayout getcoin_day5_check_done;
+    private LinearLayout getcoin_day6_check;
+    private LinearLayout getcoin_day6_check_done;
+    private LinearLayout getcoin_day7_check;
+    private LinearLayout getcoin_day7_check_done;
+
     private nta.nguyenanh.code_application.sqllite_tin.sql_date sql_date;
     private SQLiteDatabase db;
+    private String lastday;
     private String today;
-    private String formattedDate;
+    private Integer whatday;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,53 +74,110 @@ public class GetCoinEveryday extends Fragment {
         btn_getcoin_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getcoin_day1_check.setVisibility(View.GONE);
-                getcoin_day1_check_done.setVisibility(View.VISIBLE);
+                date_test();
                 btn_getcoin_check.setVisibility(View.GONE);
                 btn_getcoin_check_done.setVisibility(View.VISIBLE);
                 db = sql_date.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("_id", 0);
-                values.put("date", formattedDate);
+                values.put("date", today);
+                values.put("whatday", whatday+1);
                 db.update("date_tb", values, "_id=0", null);
+                get_date();
+                date_test();
             }
         });
 
     }
 
     private void date_test(){
-        Cursor c = db.rawQuery("select * from date_tb", null);
-        if (c.moveToFirst()){
-            today = c.getString(1);
-            Log.d(">>>>TAG:", today);
-        }
-
-        if (formattedDate.equals(today)){
-            getcoin_day1_check.setVisibility(View.GONE);
-            getcoin_day1_check_done.setVisibility(View.VISIBLE);
+        if (Integer.parseInt(today) <= Integer.parseInt(lastday))
+        {
             btn_getcoin_check.setVisibility(View.GONE);
             btn_getcoin_check_done.setVisibility(View.VISIBLE);
-        }else {
+        }
+        else
+        {
             btn_getcoin_check.setVisibility(View.VISIBLE);
             btn_getcoin_check_done.setVisibility(View.GONE);
+            if (whatday == 7){
+                whatday = 0;
+                Log.d(">>>>TAG:", "Today: "+ today);
+                Log.d(">>>>TAG:", "Lastday: "+lastday+" Whatday: "+whatday);
+            }
 
+        }
+        if (whatday != null){
+                if (whatday > 0){
+                    getcoin_day1_check.setVisibility(View.GONE);
+                    getcoin_day1_check_done.setVisibility(View.VISIBLE);
+                }
+                if (whatday > 1){
+                    getcoin_day2_check.setVisibility(View.GONE);
+                    getcoin_day2_check_done.setVisibility(View.VISIBLE);
+                }
+                if (whatday > 2){
+                    getcoin_day3_check.setVisibility(View.GONE);
+                    getcoin_day3_check_done.setVisibility(View.VISIBLE);
+                }
+                if (whatday > 3){
+                    getcoin_day4_check.setVisibility(View.GONE);
+                    getcoin_day4_check_done.setVisibility(View.VISIBLE);
+                }
+                if (whatday > 4){
+                    getcoin_day5_check.setVisibility(View.GONE);
+                    getcoin_day5_check_done.setVisibility(View.VISIBLE);
+                }
+                if (whatday > 5){
+                    getcoin_day6_check.setVisibility(View.GONE);
+                    getcoin_day6_check_done.setVisibility(View.VISIBLE);
+                }
+                if (whatday > 6){
+                    getcoin_day7_check.setVisibility(View.GONE);
+                    getcoin_day7_check_done.setVisibility(View.VISIBLE);
+                }
         }
     }
 
     private void get_date(){
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-        formattedDate = sdf.format(currentTime);
-        Log.d(">>>>TAG:", "Today:--"+ formattedDate);
-
+        today = sdf.format(currentTime);
+        Log.d(">>>>TAG:", "Today: "+ today);
+        Cursor c = db.rawQuery("select * from date_tb", null);
+        if (c.moveToFirst()){
+            lastday = c.getString(1);
+            whatday = Integer.parseInt(c.getString(2));
+            Log.d(">>>>TAG:", "Lastday: "+lastday+" Whatday: "+whatday);
+        }
     }
 
     private void initUI(View view){
         btn_getcoin_check = view.findViewById(R.id.btn_getcoin_check);
         btn_getcoin_check_done = view.findViewById(R.id.btn_getcoin_check_done);
+
+
         getcoin_day1_check = view.findViewById(R.id.getcoin_day1_check);
         getcoin_day1_check_done = view.findViewById(R.id.getcoin_day1_check_done);
+        getcoin_day2_check = view.findViewById(R.id.getcoin_day2_check);
+        getcoin_day2_check_done = view.findViewById(R.id.getcoin_day2_check_done);
+        getcoin_day3_check = view.findViewById(R.id.getcoin_day3_check);
+        getcoin_day3_check_done = view.findViewById(R.id.getcoin_day3_check_done);
+        getcoin_day4_check = view.findViewById(R.id.getcoin_day4_check);
+        getcoin_day4_check_done = view.findViewById(R.id.getcoin_day4_check_done);
+        getcoin_day5_check = view.findViewById(R.id.getcoin_day5_check);
+        getcoin_day5_check_done = view.findViewById(R.id.getcoin_day5_check_done);
+        getcoin_day6_check = view.findViewById(R.id.getcoin_day6_check);
+        getcoin_day6_check_done = view.findViewById(R.id.getcoin_day6_check_done);
+        getcoin_day7_check = view.findViewById(R.id.getcoin_day7_check);
+        getcoin_day7_check_done = view.findViewById(R.id.getcoin_day7_check_done);
+
+
+
+
         sql_date = new sql_date(getActivity());
         db = sql_date.getWritableDatabase();
+
+
     }
 }

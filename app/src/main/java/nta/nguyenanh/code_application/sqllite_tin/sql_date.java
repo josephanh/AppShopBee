@@ -20,10 +20,11 @@ public class sql_date extends SQLiteOpenHelper {
         String sql_date_tin = "create table date_tb" +
                 "( " +
                 "_id integer primary key, " +
-                "date text" +
+                "date text," +
+                "whatday integer" +
                 ")";
         db.execSQL(sql_date_tin);
-        db.execSQL("INSERT INTO date_tb VALUES (0, '01011979')");
+        db.execSQL("INSERT INTO date_tb VALUES (0, '19090101', 0)");
     }
 
     @Override

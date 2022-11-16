@@ -187,7 +187,33 @@
                         android:layout_weight="0"
                         android:src="@drawable/ic_coin" />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/getcoin_day2_check_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_item_getcoin_done"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp"
+                    android:visibility="gone">
 
+                    <TextView
+                        android:id="@+id/textView1352"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+100"
+                        android:textColor="#2E2E2E"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageV2iew183"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_coin_check_done" />
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/getcoin_day3_check"
                     android:layout_width="wrap_content"
@@ -214,7 +240,33 @@
                         android:layout_weight="0"
                         android:src="@drawable/ic_coin" />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/getcoin_day3_check_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_item_getcoin_done"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp"
+                    android:visibility="gone">
 
+                    <TextView
+                        android:id="@+id/tex4tView152"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+100"
+                        android:textColor="#2E2E2E"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/i4ageView183"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_coin_check_done" />
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/getcoin_day4_check"
                     android:layout_width="wrap_content"
@@ -241,7 +293,33 @@
                         android:layout_weight="0"
                         android:src="@drawable/ic_coin" />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/getcoin_day4_check_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_item_getcoin_done"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp"
+                    android:visibility="gone">
 
+                    <TextView
+                        android:id="@+id/tex43tView152"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+100"
+                        android:textColor="#2E2E2E"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/ima34geView183"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_coin_check_done" />
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/getcoin_day5_check"
                     android:layout_width="wrap_content"
@@ -268,7 +346,33 @@
                         android:layout_weight="0"
                         android:src="@drawable/ic_coin" />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/getcoin_day5_check_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_item_getcoin_done"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp"
+                    android:visibility="gone">
 
+                    <TextView
+                        android:id="@+id/textVie65w152"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+100"
+                        android:textColor="#2E2E2E"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/image65View183"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_coin_check_done" />
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/getcoin_day6_check"
                     android:layout_width="wrap_content"
@@ -295,13 +399,40 @@
                         android:layout_weight="0"
                         android:src="@drawable/ic_coin" />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/getcoin_day6_check_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_item_getcoin_done"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="6dp"
+                    android:visibility="gone">
 
+                    <TextView
+                        android:id="@+id/text56View152"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+100"
+                        android:textColor="#2E2E2E"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageV5iew183"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_coin_check_done" />
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/getcoin_day7_check"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_item_getcoin_default"
                     android:gravity="center"
+                    android:visibility="visible"
                     android:orientation="vertical"
                     android:padding="6dp">
 
@@ -320,6 +451,31 @@
                         android:layout_marginTop="6dp"
                         android:layout_weight="0"
                         android:src="@drawable/ic_getcoin_special" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/getcoin_day7_check_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_item_getcoin_done"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+
+                    <TextView
+                        android:id="@+id/textVie3w75"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="+200"
+                        android:textColor="#FF6B00"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_coin_check_done"/>
                 </LinearLayout>
             </LinearLayout>
 
