@@ -20,9 +20,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import nta.nguyenanh.code_application.sqllite_tin.sql_date;
+import nta.nguyenanh.code_application.helper.database;
 
-public class GetCoinEveryday extends Fragment {
+public class GetCoinEverydayFragment extends Fragment {
 
     private String DATE_FORMAT = "yyyyMMdd";
     private CoordinatorLayout btn_getcoin_check;
@@ -43,7 +43,7 @@ public class GetCoinEveryday extends Fragment {
     private LinearLayout getcoin_day7_check;
     private LinearLayout getcoin_day7_check_done;
 
-    private nta.nguyenanh.code_application.sqllite_tin.sql_date sql_date;
+    private nta.nguyenanh.code_application.helper.database sql_date;
     private SQLiteDatabase db;
     private String lastday;
     private String today;
@@ -175,7 +175,7 @@ public class GetCoinEveryday extends Fragment {
 
 
 
-        sql_date = new sql_date(getActivity());
+        sql_date = new database(getActivity());
         db = sql_date.getWritableDatabase();
 
 

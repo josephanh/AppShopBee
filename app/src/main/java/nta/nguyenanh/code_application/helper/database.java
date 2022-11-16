@@ -22,13 +22,12 @@ public class database extends SQLiteOpenHelper {
         String sql_date_tin = "create table date_tb" +
                 "( " +
                 "_id integer primary key, " +
-                "date text" +
+                "date text," +
+                "whatday integer"+
                 ")";
         db.execSQL(sql_date_tin);
-        db.execSQL("INSERT INTO date_tb VALUES (0, '01011979')");
+        db.execSQL("INSERT INTO date_tb VALUES (0, '01011979',0)");
 
-        db.execSQL("insert into History (name_history) values ('s22 ultra');");
-        db.execSQL("insert into History (name_history) values ('iphone 14');");
 
 
 

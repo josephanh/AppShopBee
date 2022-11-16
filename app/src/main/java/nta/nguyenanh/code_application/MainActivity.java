@@ -23,7 +23,7 @@ import java.util.List;
 
 
 import nta.nguyenanh.code_application.fragment.DetailProductFragment;
-import nta.nguyenanh.code_application.fragment.GetCoinEverydayFragment;
+
 import nta.nguyenanh.code_application.fragment.HomeFragment;
 import nta.nguyenanh.code_application.fragment.NotificationFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
                         fragment = new NotificationFragment();
                         break;
                     case R.id.bt_user:
+                        fragment = new NotificationFragment();
                         break;
                     default:
                         fragment = new HomeFragment();
