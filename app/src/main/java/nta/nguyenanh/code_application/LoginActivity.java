@@ -72,9 +72,8 @@ public class LoginActivity extends AppCompatActivity {
     private String tempmail=null;
     private String idfacebook = null;
     String username2;
+    boolean checklogin=false;
     //facebook
-    GraphRequest request;
-    ProfileTracker profileTracker;
     CallbackManager callbackManager ;
 
 
@@ -212,6 +211,8 @@ public class LoginActivity extends AppCompatActivity {
                         item.put("phonenumber",null);
                         item.put("address",null);
                         item.put("fullname",name);
+
+
                         db.collection("user")
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -224,14 +225,16 @@ public class LoginActivity extends AppCompatActivity {
                                                 Log.d("TAG", "onComplete: " + username2);
                                                 Log.d("TAG", "onComplete2: " + username);
                                                 if (tempmail.equals(username2)) {
-                                                    writeLogin((UserModel) document.getData());
+//                                                    writeLogin((UserModel) document.getData());
 //                                                    Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
 //                                                    startActivity(homeintent);
+                                                    checklogin = true;
                                                     Toast.makeText(LoginActivity.this, "Chạy qua main", Toast.LENGTH_SHORT).show();
-//                                                    onBackPressed();
-                                                    return;
+                                                    onBackPressed();
+
                                                 }
                                             }
+                                            if (!checklogin) {
                                                 db.collection("user")
                                                         .add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                             @Override
@@ -245,6 +248,7 @@ public class LoginActivity extends AppCompatActivity {
                                                                 Toast.makeText(LoginActivity.this, "Failed" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                                             }
                                                         });
+                                            }
                                         }
                                     }
 
