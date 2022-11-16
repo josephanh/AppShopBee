@@ -9,7 +9,8 @@
     android:orientation="vertical">
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedscrollviewHome"
             android:layout_width="match_parent"
@@ -652,8 +653,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="800dp"
                     android:layout_weight="1"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="?attr/actionBarSize"/>
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
 
@@ -731,7 +731,17 @@
 
     </FrameLayout>
 
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="bottom"
+        android:background="@drawable/custom_bottom_navigation"
+        android:elevation="10dp"
+        app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
+        app:itemTextAppearanceInactive="@style/BottomNavigationView"
+        app:itemTextColor="@color/color_bottom_navigation"
+        app:menu="@menu/menu_bottom_navigation"/>
 
 
 </LinearLayout>

@@ -39,17 +39,13 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
     public static List<Product> listProduct = new ArrayList<>();
 
     FragmentManager manager;
-    public static BottomNavigationView bottomnavigation;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        bottomnavigation = findViewById(R.id.bottomNavigation);
-        bottomnavigation.setItemIconTintList(null);
-
 
         HomeFragment homeFragment = new HomeFragment();
         manager = getSupportFragmentManager();
@@ -88,35 +84,6 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 //                    }
 //                });
 
-
-        bottomnavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                switch (item.getItemId()) {
-                    case R.id.bt_home:
-                        fragment = new HomeFragment();
-                        break;
-                    case R.id.bt_flashsale:
-                        fragment = new GetCoinEverydayFragment();
-                        break;
-                    case  R.id.bt_notification:
-                        fragment = new NotificationFragment();
-                        break;
-                    case R.id.bt_user:
-                        fragment = new NotificationFragment();
-                        break;
-                    default:
-                        fragment = new HomeFragment();
-                }
-
-                FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, fragment);
-                fragmentTransaction.commit();
-
-                return true;
-            }
-        });
     }
 
     @Override
@@ -126,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         fragmentTransaction.add(R.id.framelayout, fragment);
         fragmentTransaction.addToBackStack(NameFragment);
         fragmentTransaction.commit();
-        bottomnavigation.setVisibility(View.GONE);
+
     }
 
     public void RelaceFragment(Fragment fragment) {
@@ -134,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         fragmentTransaction.add(R.id.framelayout, fragment);
         fragmentTransaction.addToBackStack(NameFragment);
         fragmentTransaction.commit();
-        bottomnavigation.setVisibility(View.GONE);
     }
 
     @Override
@@ -147,4 +113,34 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         Intent intentLogin = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intentLogin);
     }
+
+    public BottomNavigationView.OnNavigationItemSelectedListener setMenuBottom = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment = null;
+            switch (item.getItemId()) {
+                case R.id.bt_home:
+                    fragment = new HomeFragment();
+                    break;
+                case R.id.bt_flashsale:
+                    fragment = new GetCoinEverydayFragment();
+                    break;
+                case  R.id.bt_notification:
+                    fragment = new NotificationFragment();
+                    break;
+                case R.id.bt_user:
+                    fragment = new NotificationFragment();
+                    break;
+                default:
+                    fragment = new HomeFragment();
+            }
+
+            FragmentTransaction fragmentTransaction = manager.beginTransaction();
+            fragmentTransaction.replace(R.id.framelayout, fragment);
+            fragmentTransaction.commit();
+
+            return true;
+        }
+    };
+
 }

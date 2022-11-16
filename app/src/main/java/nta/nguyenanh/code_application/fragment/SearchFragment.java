@@ -1,7 +1,5 @@
 package nta.nguyenanh.code_application.fragment;
 
-import static nta.nguyenanh.code_application.MainActivity.bottomnavigation;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -81,7 +79,6 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        bottomnavigation.setVisibility(View.GONE);
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
@@ -178,10 +175,4 @@ public class SearchFragment extends Fragment {
                 });
     }
 
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        bottomnavigation.setVisibility(View.VISIBLE);
-    }
 }

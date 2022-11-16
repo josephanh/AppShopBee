@@ -1,6 +1,5 @@
 package nta.nguyenanh.code_application.fragment;
 
-import static nta.nguyenanh.code_application.MainActivity.bottomnavigation;
 import static nta.nguyenanh.code_application.MainActivity.userModel;
 
 import android.graphics.Color;
@@ -69,7 +68,6 @@ public class DetailProductFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        bottomnavigation.setVisibility(View.GONE);
         return inflater.inflate(R.layout.fragment_detail_product, container, false);
     }
 
@@ -146,9 +144,4 @@ public class DetailProductFragment extends Fragment {
 
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        bottomnavigation.setVisibility(View.VISIBLE);
-    }
 }

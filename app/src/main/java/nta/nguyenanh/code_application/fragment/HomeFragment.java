@@ -1,6 +1,5 @@
 package nta.nguyenanh.code_application.fragment;
 
-import static nta.nguyenanh.code_application.MainActivity.bottomnavigation;
 import static nta.nguyenanh.code_application.MainActivity.listProduct;
 import static nta.nguyenanh.code_application.SplashScreen.lastVisible;
 
@@ -30,16 +29,21 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import android.widget.AbsListView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -60,9 +64,19 @@ public class HomeFragment extends Fragment {
     private boolean isLastItem;
     private boolean check;
 
+    private String EVENT_DATE_TIME = "2022-11-13 16:30:00";
+    private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    long unixSeconds = 	1668761968;
+    private TextView hour_flashsale, min_flashsale, sec_flashsale;
+    private Handler handler = new Handler();
+    private Runnable runnable;
+
+    private BottomNavigationView bottomnavigation;
+
     ViewPager viewPager;
     ViewPager viewPager_2;
     Toolbar toolbar, toolbar_0;
+
 
     CircleIndicator circleIndicator, circleIndicator_2;
 
@@ -113,6 +127,13 @@ public class HomeFragment extends Fragment {
         recyclerView_product = view.findViewById(R.id.recyclerView_product);
         toolbar = view.findViewById(R.id.toolbar);
         toolbar_0 = view.findViewById(R.id.toolbar_0);
+        hour_flashsale = view.findViewById(R.id.hour_flashsale);
+        min_flashsale = view.findViewById(R.id.min_flashsale);
+        sec_flashsale = view.findViewById(R.id.sec_flashsale);
+
+        bottomnavigation = view.findViewById(R.id.bottomNavigation);
+        bottomnavigation.setItemIconTintList(null);
+        bottomnavigation.setOnNavigationItemSelectedListener(((MainActivity)getContext()).setMenuBottom);
 
 
         toolbar.setOnClickListener(new View.OnClickListener() {
@@ -228,6 +249,8 @@ public class HomeFragment extends Fragment {
         };
         recyclerView_product.addOnScrollListener(onScrollListener);
 
+        countDownStart();
+
     }
 
 
@@ -328,5 +351,38 @@ public class HomeFragment extends Fragment {
             timer_2 = null;
         }
         bottomnavigation.setVisibility(View.VISIBLE);
+    }
+
+    private void countDownStart() {
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    handler.postDelayed(this, 1000);
+                    Date date = new Date(unixSeconds*(1000L));
+                    SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+                    String formattedDate = sdf.format(date);
+                    Date event_date = sdf.parse(formattedDate);
+                    Date current_date = new Date();
+                    if (!current_date.after(event_date)) {
+                        long diff = event_date.getTime() - current_date.getTime();
+                        long Days = diff / (24 * 60 * 60 * 1000);
+                        long Hours = diff / (60 * 60 * 1000) % 24;
+                        long Minutes = diff / (60 * 1000) % 60;
+                        long Seconds = diff / 1000 % 60;
+                        //
+//                        tv_days.setText(String.format("%02d", Days));
+                        hour_flashsale.setText(String.format("%02d", Hours));
+                        min_flashsale.setText(String.format("%02d", Minutes));
+                        sec_flashsale.setText(String.format("%02d", Seconds));
+                    } else {
+                        handler.removeCallbacks(runnable);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        handler.postDelayed(runnable, 0);
     }
 }
