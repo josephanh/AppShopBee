@@ -146,4 +146,9 @@ public class DetailProductFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        bottomnavigation.setVisibility(View.VISIBLE);
+    }
 }

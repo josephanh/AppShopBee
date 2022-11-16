@@ -2,6 +2,7 @@ package nta.nguyenanh.code_application;
 
 import static nta.nguyenanh.code_application.fragment.DetailProductFragment.NameFragment;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -10,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,7 +23,9 @@ import java.util.List;
 
 
 import nta.nguyenanh.code_application.fragment.DetailProductFragment;
+import nta.nguyenanh.code_application.fragment.GetCoinEverydayFragment;
 import nta.nguyenanh.code_application.fragment.HomeFragment;
+import nta.nguyenanh.code_application.fragment.NotificationFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
 import nta.nguyenanh.code_application.model.Product;
@@ -84,6 +88,34 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 //                    }
 //                });
 
+
+        bottomnavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment = null;
+                switch (item.getItemId()) {
+                    case R.id.bt_home:
+                        fragment = new HomeFragment();
+                        break;
+                    case R.id.bt_flashsale:
+                        fragment = new GetCoinEverydayFragment();
+                        break;
+                    case  R.id.bt_notification:
+                        fragment = new NotificationFragment();
+                        break;
+                    case R.id.bt_user:
+                        break;
+                    default:
+                        fragment = new HomeFragment();
+                }
+
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, fragment);
+                fragmentTransaction.commit();
+
+                return true;
+            }
+        });
     }
 
     @Override

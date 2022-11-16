@@ -10,18 +10,20 @@ import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import nta.nguyenanh.code_application.R;
-import nta.nguyenanh.code_application.sqllite_tin.sql_date;
+import nta.nguyenanh.code_application.helper.database;
 
 public class GetCoinEverydayFragment extends Fragment {
 
@@ -30,11 +32,12 @@ public class GetCoinEverydayFragment extends Fragment {
     private CoordinatorLayout btn_getcoin_check_done;
     private LinearLayout getcoin_day1_check;
     private LinearLayout getcoin_day1_check_done;
-    private nta.nguyenanh.code_application.sqllite_tin.sql_date sql_date;
+    private nta.nguyenanh.code_application.helper.database sql_date;
     private SQLiteDatabase db;
     private String today;
     private String formattedDate;
-
+    private TextView txtGetCoin;
+    int coin;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,9 @@ public class GetCoinEverydayFragment extends Fragment {
                 values.put("_id", 0);
                 values.put("date", formattedDate);
                 db.update("date_tb", values, "_id=0", null);
+                coin = 0;
+                txtGetCoin.setText("100");
+
             }
         });
 
@@ -105,7 +111,8 @@ public class GetCoinEverydayFragment extends Fragment {
         btn_getcoin_check_done = view.findViewById(R.id.btn_getcoin_check_done);
         getcoin_day1_check = view.findViewById(R.id.getcoin_day1_check);
         getcoin_day1_check_done = view.findViewById(R.id.getcoin_day1_check_done);
-        sql_date = new sql_date(getActivity());
+        txtGetCoin = view.findViewById(R.id.txtGetCoin);
+        sql_date = new database(getActivity());
         db = sql_date.getWritableDatabase();
     }
 }

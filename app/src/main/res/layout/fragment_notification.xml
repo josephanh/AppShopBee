@@ -3,244 +3,255 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F4F0F0"
     android:orientation="vertical"
-    tools:context=".NotificationFragment">
+    tools:context=".fragment.NotificationFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarNotification"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="10dp"
-        android:background="@color/white"/>
-    <LinearLayout
+        android:background="@color/white"
+        app:title="Thông báo"/>
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:padding="8dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/btn_search"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/custom_item_notification">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_coupon"
-                android:padding="10dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:paddingLeft="20dp"
-            android:layout_weight="1">
-            <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:textSize="14dp"
-                android:text="Khuyến mãi"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:padding="8dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/btn_search"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/custom_item_notification">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_coupon"
+                        android:padding="10dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:paddingLeft="20dp"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textSize="14dp"
+                        android:text="Khuyến mãi"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textSize="14dp"
+                        android:text="Vocher hoàn 150k xu đơn hàng 150k  "
+                        android:textColor="#8C8C8C"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:padding="15dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/btn_search"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    android:background="@drawable/custom_item_notification">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_notification"
+                        android:padding="10dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:paddingLeft="20dp"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textSize="14dp"
+                        android:text="Hoạt động"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textSize="14dp"
+                        android:text="Chưa có hoạt động "
+                        android:textColor="#8C8C8C"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:padding="15dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/btn_search"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    android:background="@drawable/custom_item_notification">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_logo"
+                        android:padding="10dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:paddingLeft="20dp"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textSize="14dp"
+                        android:text="Cập nhật Shopbee "
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textSize="14dp"
+                        android:text="Lâu rồi mình chưa gặp nhau nhỉ "
+                        android:textColor="#8C8C8C"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:padding="15dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/btn_search"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    android:background="@drawable/custom_item_notification">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_gift"
+                        android:padding="10dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:paddingLeft="20dp"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textSize="14dp"
+                        android:text="Giải thưởng Shopbee"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textSize="14dp"
+                        android:text="Chỉ vài lần tưới rinh liền xu khủng"
+                        android:textColor="#8C8C8C"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:padding="15dp"
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"/>
-            <TextView
+                android:text="Cập nhật đơn hàng"
+                />
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:textSize="14dp"
-                android:text="Vocher hoàn 150k xu đơn hàng 150k  "
-                android:textColor="#8C8C8C"
-                android:layout_marginTop="5dp"
-                android:layout_height="wrap_content"/>
-
+                android:background="#FEFEFE"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_height="200dp">
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitXY" />
+                <Button
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:textColor="#2196F3"
+                    android:background="@drawable/btn_musam"
+                    android:text="Mua sắm ngay"/>
+            </LinearLayout>
         </LinearLayout>
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_chevron_right"
-            android:padding="15dp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="8dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/btn_search"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
 
-            android:background="@drawable/custom_item_notification">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_notification"
-                android:padding="10dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:paddingLeft="20dp"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="match_parent"
-                android:textSize="14dp"
-                android:text="Hoạt động"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:textSize="14dp"
-                android:text="Chưa có hoạt động "
-                android:textColor="#8C8C8C"
-                android:layout_marginTop="5dp"
-                android:layout_height="wrap_content"/>
+    </androidx.core.widget.NestedScrollView>
 
-        </LinearLayout>
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_chevron_right"
-            android:padding="15dp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="8dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/btn_search"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-
-            android:background="@drawable/custom_item_notification">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_logo"
-                android:padding="10dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:paddingLeft="20dp"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="match_parent"
-                android:textSize="14dp"
-                android:text="Cập nhật Shopbee "
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:textSize="14dp"
-                android:text="Lâu rồi mình chưa gặp nhau nhỉ "
-                android:textColor="#8C8C8C"
-                android:layout_marginTop="5dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_chevron_right"
-            android:padding="15dp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="8dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/btn_search"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-
-            android:background="@drawable/custom_item_notification">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_gift"
-                android:padding="10dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:paddingLeft="20dp"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="match_parent"
-                android:textSize="14dp"
-                android:text="Giải thưởng Shopbee"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:textSize="14dp"
-                android:text="Chỉ vài lần tưới rinh liền xu khủng"
-                android:textColor="#8C8C8C"
-                android:layout_marginTop="5dp"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_chevron_right"
-            android:padding="15dp"
-            />
-    </LinearLayout>
-    <TextView
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:textColor="@color/black"
-        android:text="Cập nhật đơn hàng"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:background="#FEFEFE"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:layout_height="200dp">
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="fitXY"
-            android:background="@drawable/ic_background_muasam"/>
-        <Button
-            android:layout_width="125dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:textColor="#2196F3"
-            android:background="@drawable/btn_musam"
-            android:text="Mua sắm ngay"/>
-    </LinearLayout>
 
 </LinearLayout>
