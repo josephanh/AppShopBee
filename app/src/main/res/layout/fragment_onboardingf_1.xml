@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Onboarding_Fragment_1">
+    tools:context=".fragment.Onboarding_Fragment_1"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/imageView"
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="#4F75A3"
-        android:textSize="22sp"
+        android:textSize="18dp"
         android:textStyle="bold"
         android:text="Đăng nhập nhanh chóng,\ndễ dàng và bảo mật" />
 </LinearLayout>

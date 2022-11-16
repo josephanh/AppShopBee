@@ -226,10 +226,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 Log.d("TAG", "onComplete2: " + username);
                                                 if (tempmail.equals(username2)) {
 //                                                    writeLogin((UserModel) document.getData());
-//                                                    Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
-//                                                    startActivity(homeintent);
                                                     checklogin = true;
-                                                    Toast.makeText(LoginActivity.this, "Chạy qua main", Toast.LENGTH_SHORT).show();
                                                     onBackPressed();
 
                                                 }
@@ -278,7 +275,6 @@ public class LoginActivity extends AppCompatActivity {
     private void writeLogin(UserModel user){
         SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("isLogin", true);
         editor.putString("userid", user.getUserID());
         editor.putString("username", user.getUsername());
         editor.putString("fullname", user.getFullname());

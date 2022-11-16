@@ -1,13 +1,17 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class ViewPaperAdapter extends FragmentStatePagerAdapter {
+import nta.nguyenanh.code_application.fragment.Onboarding_Fragment_1;
+import nta.nguyenanh.code_application.fragment.Onboarding_Fragment_2;
+import nta.nguyenanh.code_application.fragment.Onboarding_Fragment_3;
 
-    public ViewPaperAdapter(@NonNull FragmentManager fm, int behavior) {
+public class ViewOnBoardPaperAdapter extends FragmentStatePagerAdapter {
+
+    public ViewOnBoardPaperAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 

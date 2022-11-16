@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".OnBoardingActivity" >
+    tools:context=".OnBoardingActivity"
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/layout_main_onboarding"
@@ -60,14 +61,17 @@
 
                 <Button
                     android:id="@+id/btn_next_onboarding"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_weight="0"
                     android:background="#2196F3"
                     android:text="Next"
+                    android:textColor="@color/white"
                     android:textAllCaps="false"
-                    android:textSize="22sp"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     app:backgroundTint="@null" />
 
             </androidx.cardview.widget.CardView>

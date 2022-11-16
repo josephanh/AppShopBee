@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.fragment;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -17,13 +17,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.sqllite_tin.sql_date;
 
-public class GetCoinEveryday extends Fragment {
+public class GetCoinEverydayFragment extends Fragment {
 
     private String DATE_FORMAT = "ddMMyyyy";
     private CoordinatorLayout btn_getcoin_check;

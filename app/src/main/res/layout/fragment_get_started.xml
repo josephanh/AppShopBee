@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".GetStarted_Fragment">
+    android:background="@color/white"
+    tools:context=".fragment.GetStarted_Fragment">
 
 
     <View
@@ -19,7 +20,7 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_logo" />
+        app:srcCompat="@drawable/lg_logo" />
 
     <View
         android:id="@+id/view2"
@@ -51,7 +52,7 @@
         app:cardCornerRadius="10dp">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonGetStart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -59,6 +60,7 @@
             android:text="Get Started"
             android:textAllCaps="false"
             android:textSize="18sp"
+            android:textColor="@color/white"
             app:backgroundTint="@null" />
 
     </androidx.cardview.widget.CardView>

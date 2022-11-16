@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F4F0F0"
-    tools:context=".GetCoinEveryday">
+    tools:context=".fragment.GetCoinEverydayFragment">
 
     <ImageView
         android:id="@+id/imageView4"

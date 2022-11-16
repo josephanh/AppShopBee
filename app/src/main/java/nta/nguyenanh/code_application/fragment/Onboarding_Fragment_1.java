@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.fragment;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import nta.nguyenanh.code_application.R;
 
 
 public class Onboarding_Fragment_1 extends Fragment {

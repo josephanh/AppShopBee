@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import me.relex.circleindicator.CircleIndicator;
+import nta.nguyenanh.code_application.adapter.ViewOnBoardPaperAdapter;
+import nta.nguyenanh.code_application.fragment.GetStarted_Fragment;
 
 public class OnBoardingActivity extends AppCompatActivity {
 
@@ -20,7 +23,7 @@ public class OnBoardingActivity extends AppCompatActivity {
     private LinearLayout layoutButton;
     private CircleIndicator circleIndicator;
     private Button btn_next;
-    private ViewPaperAdapter viewPaperAdapter;
+    private ViewOnBoardPaperAdapter viewOnBoardPaperAdapter;
     private FrameLayout frameGetStart;
     private LinearLayout layout_main;
 
@@ -35,8 +38,8 @@ public class OnBoardingActivity extends AppCompatActivity {
     }
 
     private void setViewPager(){
-        viewPaperAdapter = new ViewPaperAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPager.setAdapter(viewPaperAdapter);
+        viewOnBoardPaperAdapter = new ViewOnBoardPaperAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPager.setAdapter(viewOnBoardPaperAdapter);
         circleIndicator.setViewPager(viewPager);
 
     }
@@ -47,7 +50,7 @@ public class OnBoardingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 layout_main.setVisibility(View.GONE);
                 frameGetStart.setVisibility(View.VISIBLE);
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.alpha_enter, R.animator.alpha_exit).add(R.id.getStart, GetStarted_Fragment.class, null).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.alpha_enter, R.anim.alpha_exit).add(R.id.getStart, GetStarted_Fragment.class, null).commit();
             }
         });
     }
@@ -62,7 +65,7 @@ public class OnBoardingActivity extends AppCompatActivity {
                 else{
                     layout_main.setVisibility(View.GONE);
                     frameGetStart.setVisibility(View.VISIBLE);
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.alpha_enter, R.animator.alpha_exit).add(R.id.getStart, GetStarted_Fragment.class, null).commit();
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.alpha_enter, R.anim.alpha_exit).add(R.id.getStart, GetStarted_Fragment.class, null).commit();
                 }
             }
         });
@@ -76,6 +79,12 @@ public class OnBoardingActivity extends AppCompatActivity {
         btn_next = findViewById(R.id.btn_next_onboarding);
         frameGetStart = findViewById(R.id.getStart);
         layout_main = findViewById(R.id.layout_main_onboarding);
+    }
+
+    public void goToMain() {
+        Intent intent = new Intent(OnBoardingActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
