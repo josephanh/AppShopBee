@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
     public static List<Product> listProduct = new ArrayList<>();
 
     FragmentManager manager;
-
+    private BottomNavigationView bottomnavigation;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         HomeFragment homeFragment = new HomeFragment();
         manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.framelayout, homeFragment).commit();
+
+        bottomnavigation = findViewById(R.id.bottomNavigation);
+        bottomnavigation.setItemIconTintList(null);
+        bottomnavigation.setOnNavigationItemSelectedListener(setMenuBottom);
+
 //        db.collection("product").limit(10)
 //                .get()
 //                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

@@ -71,7 +71,6 @@ public class HomeFragment extends Fragment {
     private Handler handler = new Handler();
     private Runnable runnable;
 
-    private BottomNavigationView bottomnavigation;
 
     ViewPager viewPager;
     ViewPager viewPager_2;
@@ -130,11 +129,6 @@ public class HomeFragment extends Fragment {
         hour_flashsale = view.findViewById(R.id.hour_flashsale);
         min_flashsale = view.findViewById(R.id.min_flashsale);
         sec_flashsale = view.findViewById(R.id.sec_flashsale);
-
-        bottomnavigation = view.findViewById(R.id.bottomNavigation);
-        bottomnavigation.setItemIconTintList(null);
-        bottomnavigation.setOnNavigationItemSelectedListener(((MainActivity)getContext()).setMenuBottom);
-
 
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -350,7 +344,6 @@ public class HomeFragment extends Fragment {
             timer_2.cancel();
             timer_2 = null;
         }
-        bottomnavigation.setVisibility(View.VISIBLE);
     }
 
     private void countDownStart() {
