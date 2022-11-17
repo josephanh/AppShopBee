@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.fragment;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.helper.database;
 
 public class GetCoinEverydayFragment extends Fragment {

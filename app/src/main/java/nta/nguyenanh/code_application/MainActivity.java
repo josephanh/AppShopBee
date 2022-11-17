@@ -1,6 +1,6 @@
 package nta.nguyenanh.code_application;
 
-import static nta.nguyenanh.code_application.fragment.DetailProductFragment.NameFragment;
+import static nta.nguyenanh.code_application.DetailProductActivity.NameFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +12,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,8 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import nta.nguyenanh.code_application.fragment.DetailProductFragment;
-
+import nta.nguyenanh.code_application.fragment.GetCoinEverydayFragment;
 import nta.nguyenanh.code_application.fragment.HomeFragment;
 import nta.nguyenanh.code_application.fragment.NotificationFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
@@ -91,15 +88,6 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
     }
 
-    @Override
-    public void ReplaceFragment(Product product) {
-        DetailProductFragment fragment = new DetailProductFragment().newInstance(product);
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.add(R.id.framelayout, fragment);
-        fragmentTransaction.addToBackStack(NameFragment);
-        fragmentTransaction.commit();
-
-    }
 
     public void RelaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
@@ -148,4 +136,11 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         }
     };
 
+
+    @Override
+    public void GoToActivity(Product product) {
+        Intent intent = new Intent(MainActivity.this, DetailProductActivity.class);
+        intent.putExtra("product", product);
+        startActivity(intent);
+    }
 }

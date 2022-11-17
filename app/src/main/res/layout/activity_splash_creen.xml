@@ -13,8 +13,7 @@
     <ImageView
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/lg_logo"
-        android:layout_marginRight="5dp"/>
+        android:src="@drawable/lg_logo" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +21,6 @@
         android:layout_marginTop="20dp"
         android:textColor="#1569AC"
         android:textStyle="bold"
-        android:textSize="18dp"
-        android:layout_marginLeft="5dp"/>
+        android:textSize="20dp" />
 
 </LinearLayout>

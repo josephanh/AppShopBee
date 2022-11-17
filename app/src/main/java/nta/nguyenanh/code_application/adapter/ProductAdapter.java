@@ -59,7 +59,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 OnClickItemProduct clickEvent = ((MainActivity)context);
-                clickEvent.ReplaceFragment(list.get(position));
+                clickEvent.GoToActivity(list.get(position));
             }
         });
     }
