@@ -1,6 +1,7 @@
 package nta.nguyenanh.code_application;
 
 import static nta.nguyenanh.code_application.MD5.MD5.getMd5;
+import static nta.nguyenanh.code_application.MainActivity.userModel;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -226,6 +227,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 Log.d("TAG", "onComplete2: " + username);
                                                 if (tempmail.equals(username2)) {
 //                                                    writeLogin((UserModel) document.getData());
+//                                                    userModel = new UserModel(user.getAddress(), String datebirth, String fullname, String password, String phonenumber, String username, String userID, String numberphone);
                                                     checklogin = true;
                                                     onBackPressed();
 
@@ -333,4 +335,5 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }

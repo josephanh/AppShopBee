@@ -12,9 +12,6 @@ public class UserModel {
         this.userID = userID;
     }
 
-    public UserModel() {
-    }
-
     public UserModel(int id, String address, String datebirth, String fullname, String password, String phonenumber, String username, String userID, String numberphone) {
         this.id = id;
         this.address = address;
