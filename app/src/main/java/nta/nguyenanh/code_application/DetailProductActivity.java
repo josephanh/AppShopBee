@@ -38,6 +38,7 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
     DetailProductImageAdapter photoAdapter;
 
     TextView name_product, price_product, describe;
+    ImageView banner_detail;
 
 
     DialogConfirm dialogConfirm;
@@ -50,6 +51,9 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         ViewPager viewPager = findViewById(R.id.viewpageImage);
         CircleIndicator circleIndicator = findViewById(R.id.circleIndicatorImageDetail);
         ImageView show_sheet = findViewById(R.id.show_sheet);
+        banner_detail = findViewById(R.id.banner_detail);
+
+        Glide.with(this).load("https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/531d71103270429.5f492a411e5db.gif").into(banner_detail);
 
         setSupportActionBar(toolbar);
 //        getSupportActionBar().set

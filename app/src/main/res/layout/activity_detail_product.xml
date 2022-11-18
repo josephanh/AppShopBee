@@ -86,10 +86,17 @@
                     </LinearLayout>
 
                 </LinearLayout>
+                <ImageView
+                    android:id="@+id/banner_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:src="@drawable/bar_daban"/>
                 <TextView
                     android:id="@+id/describe"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:padding="10dp"/>
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
