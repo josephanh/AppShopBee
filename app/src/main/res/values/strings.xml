@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Code_Application</string>
+    <string name="app_name">ShopBee</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="Tinh_ThanhPho_fragment">Tỉnh /Thành phố </string>
     <string name="quan_huyen_fragment">Quận /Huyện</string>

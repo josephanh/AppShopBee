@@ -1,6 +1,5 @@
 package nta.nguyenanh.code_application;
 
-import static nta.nguyenanh.code_application.DetailProductActivity.NameFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,7 +28,7 @@ import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
 import nta.nguyenanh.code_application.model.Product;
 import nta.nguyenanh.code_application.model.UserModel;
 
-public class MainActivity extends AppCompatActivity implements OnClickItemProduct, OnClickDiaLogConfirm {
+public class MainActivity extends AppCompatActivity implements OnClickItemProduct {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static UserModel userModel;
@@ -92,19 +92,13 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
     public void RelaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.add(R.id.framelayout, fragment);
-        fragmentTransaction.addToBackStack(NameFragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-    @Override
-    public void ClickButtonAgree() {
-        Intent intentLogin = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(intentLogin);
     }
 
     public BottomNavigationView.OnNavigationItemSelectedListener setMenuBottom = new BottomNavigationView.OnNavigationItemSelectedListener() {

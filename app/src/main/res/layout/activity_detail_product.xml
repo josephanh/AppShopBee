@@ -93,19 +93,12 @@
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
-        <Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/custom_toolbar_detailproduct"
             android:title="Hello">
-            <ImageView
-                android:id="@+id/btn_back"
-                android:layout_width="25dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_back"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp" />
             <TextView
                 android:id="@+id/detailProduct"
                 android:layout_width="match_parent"
@@ -115,7 +108,7 @@
                 android:text="Chi tiết sản phẩm"
                 android:textSize="18dp"
                 android:textColor="@color/black"/>
-        </Toolbar>
+        </androidx.appcompat.widget.Toolbar>
     </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"

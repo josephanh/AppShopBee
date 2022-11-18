@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
+//        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         txt_name = findViewById(R.id.txt_name);
         txt_password = findViewById(R.id.txt_password);
@@ -223,12 +223,21 @@ public class LoginActivity extends AppCompatActivity {
                                             QuerySnapshot snapshots = task.getResult();
                                             for (QueryDocumentSnapshot document : snapshots) {
                                                 username2 = document.get("username").toString();
-                                                Log.d("TAG", "onComplete: " + username2);
-                                                Log.d("TAG", "onComplete2: " + username);
+//                                                Log.d("TAG", "onComplete: " + username2);
+//                                                Log.d("TAG", "onComplete2: " + username);
                                                 if (tempmail.equals(username2)) {
 //                                                    writeLogin((UserModel) document.getData());
-//                                                    userModel = new UserModel(user.getAddress(), String datebirth, String fullname, String password, String phonenumber, String username, String userID, String numberphone);
+                                                    userModel = new UserModel(
+                                                            document.get("address")+"",
+                                                            document.get("datebirth")+"",
+                                                            document.get("fullname")+"",
+                                                            document.get("password")+"",
+                                                            document.get("phonenumber")+"",
+                                                            document.get("username")+"",
+                                                            document.getId());
                                                     checklogin = true;
+                                                    writeLogin(userModel);
+                                                    Log.d("User", "onComplete: "+userModel.getFullname());
                                                     onBackPressed();
 
                                                 }
@@ -261,10 +270,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-//        if (chktkmk.isChecked()){
-//            readlogin();
-//        }
-
+        readlogin();
         super.onResume();
     }
     @Override
@@ -277,6 +283,7 @@ public class LoginActivity extends AppCompatActivity {
     private void writeLogin(UserModel user){
         SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isLoggedin", true);
         editor.putString("userid", user.getUserID());
         editor.putString("username", user.getUsername());
         editor.putString("fullname", user.getFullname());
@@ -290,9 +297,14 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS",MODE_PRIVATE);
         Boolean isLoggedin = preferences.getBoolean("isLoggedin",false);
         if (isLoggedin){
-            Intent homeintent =new Intent(LoginActivity.this,MainActivity.class);
-            startActivity(homeintent);
-            finish();
+            String userid = preferences.getString("userid", null);
+            String username = preferences.getString("username", null);
+            String fullname = preferences.getString("fullname", null);
+            String password = preferences.getString("password", null);
+            String address = preferences.getString("address", null);
+            String numberphone = preferences.getString("numberphone", null);
+            userModel = new UserModel(address, null, fullname, password, numberphone, username, userid);
+            onBackPressed();
         }
     }
     public void oncheckLogin(View v) {
@@ -329,11 +341,11 @@ public class LoginActivity extends AppCompatActivity {
                 });
      }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 
 }

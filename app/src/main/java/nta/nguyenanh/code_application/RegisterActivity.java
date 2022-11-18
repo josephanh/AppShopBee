@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 String username = map.get("username").toString();
                                 String password = map.get("password").toString();
 
-                                UserModel userModel =new UserModel(-1, null,null,null,null,password,null,username, null);
+                                UserModel userModel =new UserModel(-1, null,null,null,null,password,null,username);
                                 userModel.setUserID(document.getId());
                                 list.add(userModel);
                             }
