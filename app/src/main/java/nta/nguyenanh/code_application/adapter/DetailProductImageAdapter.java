@@ -17,7 +17,7 @@ import nta.nguyenanh.code_application.R;
 
 public class DetailProductImageAdapter extends PagerAdapter {
     private Context context;
-    List<String> listPhoto;
+    List<String> listPhoto;               
 
     public DetailProductImageAdapter(Context context, List<String> listPhoto) {
         this.context = context;
