@@ -2,6 +2,7 @@ package nta.nguyenanh.code_application.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import nta.nguyenanh.code_application.DetailProductActivity;
 import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
@@ -58,8 +60,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.item_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnClickItemProduct clickEvent = ((MainActivity)context);
-                clickEvent.GoToActivity(list.get(position));
+                Intent intent = new Intent(context, DetailProductActivity.class);
+                intent.putExtra("product", list.get(position));
+                context.startActivity(intent);
             }
         });
     }

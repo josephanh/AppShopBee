@@ -66,87 +66,131 @@
             android:text="Màu sắc"
             android:textColor="@color/black"
             android:textSize="18dp"/>
-
-        <LinearLayout
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:paddingLeft="10dp"
-            android:gravity="center">
-
+            android:scrollbarStyle="insideOverlay">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/color_1"
-                    android:scaleType="fitCenter"
-                    app:riv_corner_radius="30dp"
-                    app:riv_mutate_background="true"
-                    app:riv_tile_mode="repeat"
-                    app:riv_oval="true"
-                    app:riv_border_color="@color/purple_700"
-                    app:riv_border_width="1dp"
-                    android:layout_height="30dp"
-                    android:layout_width="30dp"/>
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp">
+                <LinearLayout
+                    android:id="@+id/group_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn_borderbutton_login"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <ImageView
+                        android:id="@+id/image_1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/demo_product"/>
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/color_1"
+                        android:scaleType="fitCenter"
+                        app:riv_corner_radius="5dp"
+                        app:riv_mutate_background="true"
+                        app:riv_tile_mode="repeat"
+                        app:riv_oval="false"
+                        app:riv_border_color="@color/color_Main"
+                        app:riv_border_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_width="30dp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/group_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn_borderbutton_login"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <ImageView
+                        android:id="@+id/image_2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/demo_product"/>
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/color_2"
+                        android:scaleType="fitCenter"
+                        app:riv_corner_radius="5dp"
+                        app:riv_mutate_background="true"
+                        app:riv_tile_mode="repeat"
+                        app:riv_oval="false"
+                        app:riv_border_color="@color/color_Main"
+                        app:riv_border_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_width="30dp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/group_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn_borderbutton_login"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <ImageView
+                        android:id="@+id/image_3"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/demo_product"/>
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/color_3"
+                        android:scaleType="fitCenter"
+                        app:riv_corner_radius="5dp"
+                        app:riv_mutate_background="true"
+                        app:riv_tile_mode="repeat"
+                        app:riv_oval="false"
+                        app:riv_border_color="@color/color_Main"
+                        app:riv_border_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_width="30dp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/group_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn_borderbutton_login"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <ImageView
+                        android:id="@+id/image_4"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/demo_product"/>
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/color_4"
+                        android:scaleType="fitCenter"
+                        app:riv_corner_radius="5dp"
+                        app:riv_mutate_background="true"
+                        app:riv_tile_mode="repeat"
+                        app:riv_oval="false"
+                        app:riv_border_color="@color/color_Main"
+                        app:riv_border_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_width="30dp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_search"
-                android:layout_margin="10dp">
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/color_2"
-                    android:scaleType="fitCenter"
-                    app:riv_corner_radius="30dp"
-                    app:riv_mutate_background="true"
-                    app:riv_tile_mode="repeat"
-                    app:riv_oval="true"
-                    app:riv_border_color="@color/color_Main"
-                    app:riv_border_width="1dp"
-                    android:layout_height="30dp"
-                    android:layout_width="30dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_search"
-                android:layout_margin="10dp">
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/color_3"
-                    android:scaleType="fitCenter"
-                    app:riv_corner_radius="30dp"
-                    app:riv_mutate_background="true"
-                    app:riv_tile_mode="repeat"
-                    app:riv_oval="true"
-                    app:riv_border_color="@color/color_Main"
-                    app:riv_border_width="1dp"
-                    android:layout_height="30dp"
-                    android:layout_width="30dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_search"
-                android:layout_margin="10dp">
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/color_4"
-                    android:scaleType="fitCenter"
-                    app:riv_corner_radius="30dp"
-                    app:riv_mutate_background="true"
-                    app:riv_tile_mode="repeat"
-                    app:riv_oval="true"
-                    app:riv_border_color="@color/color_Main"
-                    app:riv_border_width="1dp"
-                    android:layout_height="30dp"
-                    android:layout_width="30dp"/>
-            </LinearLayout>
+        </HorizontalScrollView>
 
-
-
-        </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -169,37 +213,39 @@
             android:layout_marginTop="20dp"
             android:gravity="center|right"
             android:layout_marginBottom="10dp">
-            <Button
-                android:layout_width="25dp"
-                android:layout_height="20dp"
-                android:textStyle="bold"
-                android:gravity="center|top"
-                android:textSize="18dp"
-                android:background="@drawable/ic_minus"/>
+            <ImageView
+                android:id="@+id/minus"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_minus"/>
             <TextView
-                android:layout_width="100dp"
+                android:id="@+id/total"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="1"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
-            <Button
-                android:layout_width="25dp"
-                android:layout_height="20dp"
-                android:text=""
-                android:textStyle="bold"
-                android:gravity="center|top"
-                android:textSize="18dp"
-                android:background="@drawable/ic_plus"/>
+            <ImageView
+                android:id="@+id/plus"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_plus"/>
 
         </LinearLayout>
         <Button
+            android:id="@+id/addCart"
             android:text="Thêm vào giỏ hàng"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bar_daban"
-            android:layout_margin="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="14dp"/>

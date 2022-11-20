@@ -25,6 +25,13 @@ public class Product implements Serializable {
         this.id_category = id_category;
     }
 
+    public Product(String id, Float price, ArrayList<String> color, Integer total) {
+        this.id = id;
+        this.price = price;
+        this.color = color;
+        this.total = total;
+    }
+
     public String getId() {
         return id;
     }
