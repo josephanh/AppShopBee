@@ -16,10 +16,11 @@
 
         <ImageView
             android:id="@+id/image_product_sheet"
-            android:layout_width="100dp"
-            android:layout_height="120dp"
+            android:layout_width="110dp"
+            android:layout_height="130dp"
             android:scaleType="centerInside"
-            android:src="@drawable/demo_product" />
+            android:src="@drawable/demo_product"
+            android:padding="5dp"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -78,7 +79,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_search"
                 android:layout_margin="10dp">
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/color_1"
@@ -87,6 +87,8 @@
                     app:riv_mutate_background="true"
                     app:riv_tile_mode="repeat"
                     app:riv_oval="true"
+                    app:riv_border_color="@color/purple_700"
+                    app:riv_border_width="1dp"
                     android:layout_height="30dp"
                     android:layout_width="30dp"/>
             </LinearLayout>
@@ -102,6 +104,8 @@
                     app:riv_mutate_background="true"
                     app:riv_tile_mode="repeat"
                     app:riv_oval="true"
+                    app:riv_border_color="@color/color_Main"
+                    app:riv_border_width="1dp"
                     android:layout_height="30dp"
                     android:layout_width="30dp"/>
             </LinearLayout>
@@ -117,6 +121,8 @@
                     app:riv_mutate_background="true"
                     app:riv_tile_mode="repeat"
                     app:riv_oval="true"
+                    app:riv_border_color="@color/color_Main"
+                    app:riv_border_width="1dp"
                     android:layout_height="30dp"
                     android:layout_width="30dp"/>
             </LinearLayout>
@@ -132,11 +138,60 @@
                     app:riv_mutate_background="true"
                     app:riv_tile_mode="repeat"
                     app:riv_oval="true"
+                    app:riv_border_color="@color/color_Main"
+                    app:riv_border_width="1dp"
                     android:layout_height="30dp"
                     android:layout_width="30dp"/>
             </LinearLayout>
 
 
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_Main"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Số lượng"
+            android:textColor="@color/black"
+            android:textSize="18dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center|right"
+            android:layout_marginBottom="10dp">
+            <Button
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:textStyle="bold"
+                android:gravity="center|top"
+                android:textSize="18dp"
+                android:background="@drawable/ic_minus"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <Button
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:text=""
+                android:textStyle="bold"
+                android:gravity="center|top"
+                android:textSize="18dp"
+                android:background="@drawable/ic_plus"/>
 
         </LinearLayout>
         <Button

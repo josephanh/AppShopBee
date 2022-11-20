@@ -89,11 +89,16 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
     }
 
 
-    public void RelaceFragment(Fragment fragment) {
+    public void relaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.add(R.id.framelayout, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void goToSearch() {
+        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(intent);
     }
 
     @Override

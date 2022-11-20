@@ -5,6 +5,7 @@ import static nta.nguyenanh.code_application.SplashScreen.lastVisible;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,6 +52,7 @@ import java.util.TimerTask;
 import me.relex.circleindicator.CircleIndicator;
 import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.SearchActivity;
 import nta.nguyenanh.code_application.adapter.BannerAdapter;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.model.Product;
@@ -66,7 +68,7 @@ public class HomeFragment extends Fragment {
 
     private String EVENT_DATE_TIME = "2022-11-13 16:30:00";
     private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    long unixSeconds = 	1668761968;
+    long unixSeconds = 	1669761968;
     private TextView hour_flashsale, min_flashsale, sec_flashsale;
     private Handler handler = new Handler();
     private Runnable runnable;
@@ -133,7 +135,7 @@ public class HomeFragment extends Fragment {
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getContext()).RelaceFragment(new SearchFragment());
+                ((MainActivity)getContext()).goToSearch();
             }
         });
 

@@ -1,22 +1,19 @@
-package nta.nguyenanh.code_application.fragment;
+package nta.nguyenanh.code_application;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,13 +29,11 @@ import java.util.List;
 import nta.nguyenanh.code_application.adapter.Adapter_History;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.dao.DAO_History;
-import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
 import nta.nguyenanh.code_application.model.History_model;
 import nta.nguyenanh.code_application.model.Product;
 
-public class SearchFragment extends Fragment {
-
+public class SearchActivity extends AppCompatActivity {
 
     Button btn_search;
     EditText edt_searchView;
@@ -56,58 +51,33 @@ public class SearchFragment extends Fragment {
 
     DiaLogProgess progess;
 
-    public SearchFragment() {
-        // Required empty public constructor
-    }
-
-    public static SearchFragment newInstance(String param1, String param2) {
-        SearchFragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        setContentView(R.layout.activity_search);
 
-        }
-    }
+        btn_search = findViewById(R.id.btn_search);
+        edt_searchView = findViewById(R.id.edt_searchView);
+        recyclerViewHistory = findViewById(R.id.rv_History_Search);
+        recyclerViewResult = findViewById(R.id.rv_Result_Search);
+        deleteAll = findViewById(R.id.deleteAll);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_search, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        btn_search = view.findViewById(R.id.btn_search);
-        edt_searchView = view.findViewById(R.id.edt_searchView);
-        recyclerViewHistory = view.findViewById(R.id.rv_History_Search);
-        recyclerViewResult = view.findViewById(R.id.rv_Result_Search);
-        deleteAll = view.findViewById(R.id.deleteAll);
-
-        dao_history = new DAO_History(getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        dao_history = new DAO_History(SearchActivity.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SearchActivity.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewHistory.setLayoutManager(linearLayoutManager);
 
-        progess = new DiaLogProgess(getContext());
+        progess = new DiaLogProgess(SearchActivity.this);
 
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    if(!edt_searchView.getText().toString().isEmpty()) {
-                        progess.showDialog("Searching");
-                        findData(edt_searchView.getText().toString());
-                        dao_history.insert(edt_searchView.getText().toString());
-                        Log.d("HISTORY", "onClick: ");
-                        fillData();
-                    }
+                if(!edt_searchView.getText().toString().isEmpty()) {
+                    progess.showDialog("Searching");
+                    findData(edt_searchView.getText().toString());
+                    dao_history.insert(edt_searchView.getText().toString());
+                    Log.d("HISTORY", "onClick: ");
+                    fillData();
+                }
 
             }
         });
@@ -126,7 +96,7 @@ public class SearchFragment extends Fragment {
     public  void fillData() {
         ds = dao_history.getAll();
         Collections.reverse(ds);
-        adapterHistory = new Adapter_History(getContext(),ds);
+        adapterHistory = new Adapter_History(SearchActivity.this,ds);
         recyclerViewHistory.setAdapter(adapterHistory);
     }
 
@@ -161,7 +131,7 @@ public class SearchFragment extends Fragment {
 
 
                         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-                        productAdapter = new ProductAdapter(listResult, getContext());
+                        productAdapter = new ProductAdapter(listResult, SearchActivity.this);
                         recyclerViewResult.setLayoutManager(staggeredGridLayoutManager);
                         recyclerViewResult.setAdapter(productAdapter);
                     }
@@ -170,9 +140,8 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progess.hideDialog();
-                        Toast.makeText(getContext(), "Không tìm thấy", Toast.LENGTH_LONG).show();
+                        Toast.makeText(SearchActivity.this, "Không tìm thấy", Toast.LENGTH_LONG).show();
                     }
                 });
     }
-
 }

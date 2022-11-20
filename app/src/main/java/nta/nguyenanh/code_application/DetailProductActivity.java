@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -53,15 +54,15 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         ImageView show_sheet = findViewById(R.id.show_sheet);
         banner_detail = findViewById(R.id.banner_detail);
 
-        Glide.with(this).load("https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/531d71103270429.5f492a411e5db.gif").into(banner_detail);
+        Glide.with(this).load("https://gcp-img.slatic.net/lazada/9a6cb2e4-5f74-4733-8435-6e76b4f8ee36_VN-1188-470.gif").into(banner_detail);
 
         setSupportActionBar(toolbar);
 //        getSupportActionBar().set
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_back);
-
-
+        getSupportActionBar().setTitle("Chi tiết sản phẩm");
+        Log.d("TAG", "onCreate: "+toolbar.getTitle());
         product = (Product) getIntent().getSerializableExtra("product");
 
         name_product = findViewById(R.id.name_product);
@@ -121,6 +122,18 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         price.setText(formatter.format(product.getPrice())+"đ");
         total.setText("Kho: " +product.getTotal());
 
+        if(product.getColor().get(0).equals("#000000")) {
+            color_1.setVisibility(View.GONE);
+        }
+        if(product.getColor().get(1).equals("#000000")) {
+            color_2.setVisibility(View.GONE);
+        }
+        if(product.getColor().get(2).equals("#000000")) {
+            color_3.setVisibility(View.GONE);
+        }
+        if(product.getColor().get(3).equals("#000000")) {
+            color_4.setVisibility(View.GONE);
+        }
 
         color_1.setBackgroundColor(Color.parseColor(product.getColor().get(0)));
         color_2.setBackgroundColor(Color.parseColor(product.getColor().get(1)));

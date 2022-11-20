@@ -24,6 +24,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".SearchActivity"/>
         <activity
             android:name=".OTP.VerifyPhoneNumber"
             android:exported="false">

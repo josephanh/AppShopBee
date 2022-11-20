@@ -89,7 +89,7 @@
                 <ImageView
                     android:id="@+id/banner_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="140dp"
                     android:src="@drawable/bar_daban"/>
                 <TextView
                     android:id="@+id/describe"
@@ -105,16 +105,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/custom_toolbar_detailproduct"
-            android:title="Hello">
-            <TextView
-                android:id="@+id/detailProduct"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center|left"
-                android:paddingLeft="2dp"
-                android:text="Chi tiết sản phẩm"
-                android:textSize="18dp"
-                android:textColor="@color/black"/>
+            android:title="Hello"
+            app:titleTextColor="@color/black">
+
         </androidx.appcompat.widget.Toolbar>
     </FrameLayout>
     <LinearLayout
