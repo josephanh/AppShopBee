@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:background="@drawable/edt_borderedittext_diachi">
+
+    <ImageView
+        android:id="@+id/image_product"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center"
+        android:scaleType="fitStart"
+        android:src="@drawable/demo_product" />
+
+    <TextView
+        android:id="@+id/price_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="đ 1.900.000"
+        android:textColor="#FF3D3D"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <FrameLayout
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <TextView
+            android:id="@+id/bar_tong"
+            android:layout_width="120dp"
+            android:layout_height="13dp"
+            android:background="@drawable/bar_tong" />
+
+        <TextView
+            android:id="@+id/bar_daban"
+            android:layout_width="50dp"
+            android:layout_height="13dp"
+            android:background="@drawable/bar_daban" />
+
+        <TextView
+            android:id="@+id/sold"
+            android:layout_width="match_parent"
+            android:layout_height="13dp"
+            android:gravity="center"
+            android:text="ĐÃ BÁN 99"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+</LinearLayout>

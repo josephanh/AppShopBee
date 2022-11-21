@@ -9,9 +9,12 @@
     android:background="@color/color_Main">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:title="Giỏ hàng của tôi"
+        app:subtitle="Hello"
+        app:subtitleTextColor="@color/teal_200"
         app:titleTextColor="@color/black"
         android:background="@color/white"/>
     <androidx.core.widget.NestedScrollView

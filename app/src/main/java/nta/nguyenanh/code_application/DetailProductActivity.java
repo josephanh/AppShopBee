@@ -61,6 +61,11 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product);
+
+        if(savedInstanceState != null) {
+            product = (Product) savedInstanceState.getSerializable("product");
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         ViewPager viewPager = findViewById(R.id.viewpageImage);
         CircleIndicator circleIndicator = findViewById(R.id.circleIndicatorImageDetail);
@@ -71,9 +76,13 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
 
         setSupportActionBar(toolbar);
 //        getSupportActionBar().set
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         getSupportActionBar().setTitle("Chi tiết sản phẩm");
         Log.d("TAG", "onCreate: "+toolbar.getTitle());
         product = (Product) getIntent().getSerializableExtra("product");
@@ -176,6 +185,7 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         switch (item.getItemId()) {
             case R.id.cart: {
                 Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
+
                 startActivity(intent);
                 return true;
             }
@@ -183,5 +193,29 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        product = (Product) savedInstanceState.getSerializable("product");
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("product", product);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("SAVE", "onDestroy");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("SAVE", "onStop");
     }
 }

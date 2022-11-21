@@ -32,7 +32,7 @@ public class FlashsaleAdapter extends RecyclerView.Adapter<FlashsaleAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.detail_item_flashsale,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_detail_flashsale,parent,false);
         return new ViewHolder(view);
     }
 
@@ -68,7 +68,7 @@ public class FlashsaleAdapter extends RecyclerView.Adapter<FlashsaleAdapter.View
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgFlashsale;
         TextView nameFlashsale,oldpriceFlashsale,newpriceFlashsale,saleFlashsale, txt_Flashsale_mount,txt_Flashsale_line,txt_Flashsale_lineTong;
 

@@ -4,11 +4,13 @@ import static nta.nguyenanh.code_application.MainActivity.userModel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,6 +36,7 @@ public class CartActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewCart, recyclerViewMore;
     CartAdapter adapterCart;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,19 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerViewCart = findViewById(R.id.recyclerViewCart);
         recyclerViewMore = findViewById(R.id.recyclerViewMore);
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        getSupportActionBar().setTitle("Giỏ hàng của tôi");
+        getSupportActionBar().setSubtitle(userModel.getFullname());
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         LinearLayoutManager manager = new LinearLayoutManager(CartActivity.this);
 

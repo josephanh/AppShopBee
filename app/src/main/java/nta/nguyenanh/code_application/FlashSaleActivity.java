@@ -51,7 +51,7 @@ public class FlashSaleActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FlashsaleAdapter flashsaleAdapter;
     Float sale;
-    static List<Product> Flashsalelist = new ArrayList<>();
+    public static List<Product> Flashsalelist = new ArrayList<>();
     TextView txt_Flashsale_1,txt_Flashsale_2,txt_Flashsale_3,txt_Flashsale_4;
     @SuppressLint("MissingInflatedId")
     @Override

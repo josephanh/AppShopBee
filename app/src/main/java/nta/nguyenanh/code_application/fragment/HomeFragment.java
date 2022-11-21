@@ -1,5 +1,6 @@
 package nta.nguyenanh.code_application.fragment;
 
+import static nta.nguyenanh.code_application.FlashSaleActivity.Flashsalelist;
 import static nta.nguyenanh.code_application.MainActivity.listProduct;
 import static nta.nguyenanh.code_application.SplashScreen.lastVisible;
 
@@ -16,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
@@ -54,6 +56,7 @@ import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.SearchActivity;
 import nta.nguyenanh.code_application.adapter.BannerAdapter;
+import nta.nguyenanh.code_application.adapter.FlashSaleHomeAdapter;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.model.Product;
 
@@ -87,8 +90,9 @@ public class HomeFragment extends Fragment {
 
     Timer timer, timer_2;
 
-    RecyclerView recyclerView_product;
+    RecyclerView recyclerView_product, recyclerViewFlash;
     ProductAdapter adapter;
+    FlashSaleHomeAdapter saleHomeAdapter;
     private StaggeredGridLayoutManager manager;
 
     public HomeFragment() {
@@ -126,6 +130,7 @@ public class HomeFragment extends Fragment {
         circleIndicator = view.findViewById(R.id.circleIndicator);
         circleIndicator_2 = view.findViewById(R.id.circleIndicator_2);
         recyclerView_product = view.findViewById(R.id.recyclerView_product);
+        recyclerViewFlash = view.findViewById(R.id.recyclerViewFlashSale);
         toolbar = view.findViewById(R.id.toolbar);
         toolbar_0 = view.findViewById(R.id.toolbar_0);
         hour_flashsale = view.findViewById(R.id.hour_flashsale);
@@ -182,12 +187,18 @@ public class HomeFragment extends Fragment {
 
         manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
+        // list product
         adapter = new ProductAdapter(listProduct, getContext());
         recyclerView_product.setLayoutManager(manager);
         recyclerView_product.setAdapter(adapter);
 
+        // list flashsale
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        saleHomeAdapter = new FlashSaleHomeAdapter(getContext(), Flashsalelist);
+        recyclerViewFlash.setLayoutManager(layoutManager);
+        recyclerViewFlash.setAdapter(saleHomeAdapter);
 
-
+        // set scrollview
         RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
