@@ -5,9 +5,11 @@ import static nta.nguyenanh.code_application.MainActivity.userModel;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,10 +24,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ import java.util.Map;
 
 import me.relex.circleindicator.CircleIndicator;
 import nta.nguyenanh.code_application.adapter.DetailProductImageAdapter;
-import nta.nguyenanh.code_application.dialog.BottomSheet;
+import nta.nguyenanh.code_application.bottomsheet.BottomSheet;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
 import nta.nguyenanh.code_application.dialog.DialogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
@@ -146,34 +146,46 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         progess = new DiaLogProgess(DetailProductActivity.this);
         progess.showDialog("Waiting");
         Map<String, Object> cart = new HashMap<>();
-        cart.put("id_user", userModel.getUserID());
-        cart.put("id_product", products);
-        db.collection("detailcart")
-                .add(cart)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        cart.put(products.getId()+"-"+System.currentTimeMillis(), products);
+
+        db.collection("cart").document(userModel.getUserID())
+                .update(cart)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        documentReference.getId();
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put(documentReference.getId(), documentReference.getId());
-                        db.collection("cart").document(userModel.getUserID())
-                                .update(map)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        progess.hideDialog();
-                                        Toast.makeText(DetailProductActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                    public void onSuccess(Void unused) {
+                        progess.hideDialog();
+                        Log.d("TAG>>>", "Thêm dữ liệu thành công ");
+                        Toast.makeText(DetailProductActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("TAG>>>", "Thêm dữ liệu lỗi");
+                        Log.d("TAG>>>", "Thêm dữ liệu thất bạn ");
                         progess.hideDialog();
                     }
                 });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_cart, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.cart: {
+                Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
     }
 }

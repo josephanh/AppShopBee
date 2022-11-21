@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application.dialog;
+package nta.nguyenanh.code_application.bottomsheet;
 
 import android.content.Context;
 import android.content.Intent;

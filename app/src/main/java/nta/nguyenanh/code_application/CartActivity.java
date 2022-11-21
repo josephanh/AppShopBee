@@ -1,8 +1,11 @@
 package nta.nguyenanh.code_application;
 
+import static nta.nguyenanh.code_application.MainActivity.userModel;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
@@ -21,6 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,25 +37,27 @@ public class CartActivity extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DiaLogProgess progess;
+    ArrayList<CartModel> listCart = new ArrayList<>();
+
+    RecyclerView recyclerViewCart, recyclerViewMore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         progess = new DiaLogProgess(CartActivity.this);
+//        ArrayList<Product> products = new ArrayList<>();
+//        ArrayList<String> color = new ArrayList<>();
+//        color.add("#000000");
+//        products.add(new Product("092L0PpqaprCFh7bP3Ru", 1200000F, color, 1));
+//
+//        Map<String, Object> cart = new HashMap<>();
+//        cart.put("id_user", "2DhfKW5XRl2NPYtmwq0I");
+//        cart.put("092L0PpqaprCFh7bP3Ru-" + System.currentTimeMillis(), products);
 
-//        findCart("2DhfKW5XRl2NPYtmwq0I");
+        recyclerViewCart = findViewById(R.id.recyclerViewCart);
+        recyclerViewMore = findViewById(R.id.recyclerViewMore);
 
-        ArrayList<Product> products = new ArrayList<>();
-        ArrayList<String> color = new ArrayList<>();
-        color.add("#000000");
-        products.add(new Product("", 1800000F, color, 1));
-
-        Map<String, Object> cart = new HashMap<>();
-        cart.put("id_user", "2DhfKW5XRl2NPYtmwq0I");
-        cart.put("id_product", products);
-
-        ArrayList<CartModel> listCart = new ArrayList<>();
 
 
         db.collection("cart")
@@ -59,54 +65,84 @@ public class CartActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
-
+                        progess.showDialog("Loading");
+                        if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
-                                Map<String, Object> cart = document.getData();
-                                Set<Map.Entry<String, Object> > entrySet = cart.entrySet();
-                                ArrayList<Map.Entry<String, Object> > listOfEntry = new ArrayList<Map.Entry<String, Object>>(entrySet);
-                                for (int i = 0; i < listOfEntry.size(); i++) {
-                                    listCart.add(new CartModel(listOfEntry.get(i).getKey(), listOfEntry.get(i).getValue().toString()));
-                                    Log.d("DATA CART", "onComplete: "+listOfEntry.get(i).getKey());
+                                // lấy ra giỏ hàng có id trùng với id của người dùng
+                                if(document.getId().equals(userModel.getUserID())) {
+                                    Map<String, Object> cart = document.getData();
+                                    // trả về tất cả dữ liệu của giỏ hàng qua map là cart
+                                    for (String key : cart.keySet()) {
+                                        // check kiểm tra. Nếu cái key trong map là id_user thì bỏ qua
+                                        // vì trong map có chứa id của người dùng và các item của giỏ hàng
+                                        if(!key.equals("id_user")) {
+                                            // nếu không phải là id thì
+                                            // tiếp tục convert item của giỏ hàng qua 1 map tiếp (vì firebase trả về 1 map)
+                                            // map nhận được có key là id sản phẩm + timeline
+                                            Log.d("KEYDATA", "Sản phẩm: " + key);
+                                            // bắt đầu convert Map qua ArrayList --
+                                            Map<String, Object> itemCart = (Map<String, Object>) cart.get(key);
+                                            Set<Map.Entry<String, Object>> entr = itemCart.entrySet();
+                                            ArrayList<Map.Entry<String, Object>> listOf = new ArrayList<Map.Entry<String, Object>>(entr);
+                                            // end - convert map qua ArrayList
+
+                                            String id = null, name = null, color = null;
+                                            Float price = 0F;
+                                            Integer total = 1;
+                                            for (int j = 0; j < listOf.size(); j++) {
+                                                // chạy vòng lặp để gắn các dữ liệu từ map qua ArrayList
+                                                Log.d("KEYDATA", listOf.get(j).getKey()+" : " + listOf.get(j).getValue());
+                                                String result = String.valueOf(listOf.get(j).getValue());
+                                                if(listOf.get(j).getKey().equals("id")) {
+                                                    id = result;
+                                                }
+                                                if(listOf.get(j).getKey().equals("nameproduct")) {
+                                                    name = result;
+                                                }
+                                                if(listOf.get(j).getKey().equals("price")) {
+                                                    price = Float.parseFloat(result) ;
+                                                }
+                                                if(listOf.get(j).getKey().equals("total")) {
+                                                    total = Integer.parseInt(result);
+                                                }
+                                                if(listOf.get(j).getKey().equals("total")) {
+                                                    color = result;
+                                                }
+                                            }
+                                            Log.d("KEYDATA", "-----------\n");
+                                            listCart.add(new CartModel(id, name, color, price, total));
+                                        }
+                                    }
                                 }
 
-
                             }
+                            progess.hideDialog();
 
-                            Log.d("DATA CART", "onComplete:  Helloo "+listCart.get(0).getId());
                         }
+                        Log.d("LISTDATA", "onCreate: "+listCart.get(0).getNameProduct());
+                        Log.d("LISTDATA", "list size: "+listCart.size());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
+                        Toast.makeText(CartActivity.this, "Lấy dữ liệu lỗi", Toast.LENGTH_SHORT).show();
+                        progess.hideDialog();
                     }
                 });
 
-//        db.collection("detailcart")
-//                .add(cart)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//        db.collection("cart").document("2EhfKW5XRl2NPYtmwq0I")
+//                .update(cart)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
 //                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d("TAG>>>", "Thêm dữ liệu thành công "+documentReference.getId());
-//                        documentReference.getId();
-//                        HashMap<String, String> map = new HashMap<>();
-//                        map.put(documentReference.getId(), documentReference.getId());
-//                        db.collection("cart").document("2DhfKW5XRl2NPYtmwq0I")
-//                                .set(map)
-//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void unused) {
-//                                        Log.d("TAG>>>", "Thêm dữ liệu thành công vào Cart");
-//                                    }
-//                                });
+//                    public void onSuccess(Void unused) {
+//                        Log.d("TAG>>>", "Thêm dữ liệu thành công " + unused);
 //                    }
 //                })
 //                .addOnFailureListener(new OnFailureListener() {
 //                    @Override
 //                    public void onFailure(@NonNull Exception e) {
-//                        Log.d("TAG>>>", "Thêm dữ liệu lỗi");
+//                        Log.d("TAG>>>", "Thêm dữ liệu thất bạn ");
 //                    }
 //                });
 
@@ -120,10 +156,10 @@ public class CartActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for (DocumentSnapshot document:task.getResult()){
+                        for (DocumentSnapshot document : task.getResult()) {
                             String id_user = document.getString("id_user");
-                            if (id_user.contains(s)){
-                                Log.d("TAG 1000", "onComplete: "+document.getData().get("id_product"));
+                            if (id_user.contains(s)) {
+                                Log.d("TAG 1000", "onComplete: " + document.getData().get("id_product"));
 
 //                                listResult.add(product);
                             }

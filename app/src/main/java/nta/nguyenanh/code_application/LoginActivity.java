@@ -247,7 +247,9 @@ public class LoginActivity extends AppCompatActivity {
                                                         .add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                             @Override
                                                             public void onSuccess(DocumentReference documentReference) {
-                                                                Toast.makeText(LoginActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                                                addCartUser(documentReference.getId());
+                                                                Log.d("ADD DATA", "onSuccess: Thêm thành công");
+                                                                onBackPressed();
                                                             }
                                                         })
                                                         .addOnFailureListener(new OnFailureListener() {
@@ -347,5 +349,24 @@ public class LoginActivity extends AppCompatActivity {
 //        callbackManager.onActivityResult(requestCode, resultCode, data);
 //        super.onActivityResult(requestCode, resultCode, data);
 //    }
+
+    public void addCartUser(String id) {
+        Map<String, Object> cart = new HashMap<>();
+        cart.put("id_user", id);
+        db.collection("cart").document(id)
+                .set(cart)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("TAG>>>", "Thêm dữ liệu thành công ");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG>>>", "Thêm dữ liệu thất bại");
+                    }
+                });
+    }
 
 }
