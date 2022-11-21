@@ -10,6 +10,23 @@ public class Product implements Serializable {
     private ArrayList<String> color, image;
     private Integer sale, sold, total;
     private String id_category;
+    private Long datestart,dateend;
+
+    public Product(String id, String nameproduct, String describe, Float price, Integer available, ArrayList<String> color, ArrayList<String> image, Integer sale, Integer sold, Integer total, String id_category, Long datestart, Long dateend) {
+        this.id = id;
+        this.nameproduct = nameproduct;
+        this.describe = describe;
+        this.price = price;
+        this.available = available;
+        this.color = color;
+        this.image = image;
+        this.sale = sale;
+        this.sold = sold;
+        this.total = total;
+        this.id_category = id_category;
+        this.datestart = datestart;
+        this.dateend = dateend;
+    }
 
     public Product(String id, String nameproduct, String describe, Float price, Integer available, ArrayList<String> color, ArrayList<String> image, Integer sale, Integer sold, Integer total, String id_category) {
         this.id = id;
@@ -118,5 +135,21 @@ public class Product implements Serializable {
 
     public void setId_category(String id_category) {
         this.id_category = id_category;
+    }
+
+    public Long getDatestart() {
+        return datestart;
+    }
+
+    public void setDatestart(Long datestart) {
+        this.datestart = datestart;
+    }
+
+    public Long getDateend() {
+        return dateend;
+    }
+
+    public void setDateend(Long dateend) {
+        this.dateend = dateend;
     }
 }

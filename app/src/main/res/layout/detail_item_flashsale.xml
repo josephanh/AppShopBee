@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/btn_search"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp">
+            <ImageView
+                android:id="@+id/imgFlashsale"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_question"
+                android:scaleType="centerCrop"
+                />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/nameFlashsale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Mặt nạ ironman"/>
+            <TextView
+                android:id="@+id/oldpriceFlashsale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textColor="#D9D9D9"
+                android:text="200.000đ"/>
+
+                <TextView
+                    android:id="@+id/newpriceFlashsale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textColor="#F65858"
+                    android:textStyle="bold"
+                    android:text="100.000đ"/>
+
+            <FrameLayout
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/txt_Flashsale_lineTong"
+                    android:layout_width="120dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/bar_tong"/>
+                <TextView
+                    android:id="@+id/txt_Flashsale_line"
+                    android:layout_width="100dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/bar_daban"/>
+                <TextView
+                    android:id="@+id/txt_Flashsale_mount"
+                    android:layout_width="120dp"
+                    android:layout_height="10dp"
+                    android:text="ĐÃ BÁN 99"
+                    android:textSize="8dp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+            </FrameLayout>
+
+
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right">
+                <TextView
+                    android:id="@+id/saleFlashsale"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#F65858"
+                    android:text="-50%"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    />
+                <ImageView
+                    android:src="@drawable/voucher_flash"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+            </FrameLayout>
+
+            <Button
+                android:layout_marginTop="25dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:textSize="14dp"
+                android:background="@drawable/custom_buttom_flash"
+                android:text="Mua ngay"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
