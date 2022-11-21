@@ -26,6 +26,7 @@ import java.util.Set;
 
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
+import nta.nguyenanh.code_application.model.CartModel;
 import nta.nguyenanh.code_application.model.Product;
 
 public class CartActivity extends AppCompatActivity {
@@ -50,31 +51,64 @@ public class CartActivity extends AppCompatActivity {
         cart.put("id_user", "2DhfKW5XRl2NPYtmwq0I");
         cart.put("id_product", products);
 
-        db.collection("detailcart")
-                .add(cart)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        ArrayList<CartModel> listCart = new ArrayList<>();
+
+
+        db.collection("cart")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("TAG>>>", "Thêm dữ liệu thành công "+documentReference.getId());
-                        documentReference.getId();
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put(documentReference.getId(), documentReference.getId());
-                        db.collection("cart").document("2DhfKW5XRl2NPYtmwq0I")
-                                .set(map)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Log.d("TAG>>>", "Thêm dữ liệu thành công vào Cart");
-                                    }
-                                });
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+
+                            for (DocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> cart = document.getData();
+                                Set<Map.Entry<String, Object> > entrySet = cart.entrySet();
+                                ArrayList<Map.Entry<String, Object> > listOfEntry = new ArrayList<Map.Entry<String, Object>>(entrySet);
+                                for (int i = 0; i < listOfEntry.size(); i++) {
+                                    listCart.add(new CartModel(listOfEntry.get(i).getKey(), listOfEntry.get(i).getValue().toString()));
+                                    Log.d("DATA CART", "onComplete: "+listOfEntry.get(i).getKey());
+                                }
+
+
+                            }
+
+                            Log.d("DATA CART", "onComplete:  Helloo "+listCart.get(0).getId());
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("TAG>>>", "Thêm dữ liệu lỗi");
+
                     }
                 });
+
+//        db.collection("detailcart")
+//                .add(cart)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d("TAG>>>", "Thêm dữ liệu thành công "+documentReference.getId());
+//                        documentReference.getId();
+//                        HashMap<String, String> map = new HashMap<>();
+//                        map.put(documentReference.getId(), documentReference.getId());
+//                        db.collection("cart").document("2DhfKW5XRl2NPYtmwq0I")
+//                                .set(map)
+//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void unused) {
+//                                        Log.d("TAG>>>", "Thêm dữ liệu thành công vào Cart");
+//                                    }
+//                                });
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.d("TAG>>>", "Thêm dữ liệu lỗi");
+//                    }
+//                });
 
 
     }
