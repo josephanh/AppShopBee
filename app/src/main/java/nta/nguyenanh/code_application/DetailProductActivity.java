@@ -138,10 +138,6 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         }
     }
 
-    public void addDetailCart() {
-
-    }
-
     public void addCartToFirestore(ProductCart products) {
         progess = new DiaLogProgess(DetailProductActivity.this);
         progess.showDialog("Waiting");

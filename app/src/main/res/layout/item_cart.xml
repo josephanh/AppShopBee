@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="5dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,15 +42,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center"
             android:layout_marginTop="10dp">
-
             <CheckBox
                 android:id="@+id/checkboxCart"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:button="@drawable/custom_checkbox"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck"
+                android:layout_marginTop="20dp"/>
             <ImageView
                 android:id="@+id/image_product"
                 android:layout_width="80dp"
@@ -72,20 +71,22 @@
                     android:layout_weight="1"
                     android:text="Điện thoại ngon lành cành đào Điện thoại ngon lành cành đào Điện thoại ngon lành cành đào"
                     android:textColor="@color/black"
-                    android:textSize="14dp"
-                    android:lines="2"/>
+                    android:textSize="12dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal"
                     android:padding="5dp"
+                    android:gravity="center"
                     android:background="@drawable/btn_borderbutton_login">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Màu"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         android:textColor="#9E9D9D"
                         android:layout_marginRight="5dp"/>
                     <com.makeramen.roundedimageview.RoundedImageView
@@ -107,9 +108,10 @@
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center|right">
                     <TextView
+                        android:id="@+id/price_product"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -119,14 +121,14 @@
                         android:textColor="@color/color_Menu"/>
                     <ImageView
                         android:id="@+id/minus"
-                        android:layout_width="45dp"
-                        android:layout_height="40dp"
-                        android:padding="10dp"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:padding="3dp"
                         android:src="@drawable/ic_minus"/>
                     <TextView
-                        android:id="@+id/total"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/total_product"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="1"
                         android:textSize="16dp"
@@ -134,9 +136,9 @@
                         android:textColor="@color/black"/>
                     <ImageView
                         android:id="@+id/plus"
-                        android:layout_width="55dp"
-                        android:layout_height="40dp"
-                        android:padding="10dp"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:padding="3dp"
                         android:src="@drawable/ic_plus"/>
 
                 </LinearLayout>

@@ -217,6 +217,7 @@ public class BottomSheet {
             product1.setNameproduct(product.getNameproduct());
             product1.setColor(colorSelect);
             product1.setTotal(totalSelect);
+            product1.setImage(product.getImage().get(0));
 
 
             return product1;

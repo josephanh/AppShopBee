@@ -3,10 +3,9 @@ package nta.nguyenanh.code_application;
 import static nta.nguyenanh.code_application.MainActivity.userModel;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,32 +13,27 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import nta.nguyenanh.code_application.adapter.ProductAdapter;
+import nta.nguyenanh.code_application.adapter.CartAdapter;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
-import nta.nguyenanh.code_application.model.CartModel;
-import nta.nguyenanh.code_application.model.Product;
+import nta.nguyenanh.code_application.model.ProductCart;
 
 public class CartActivity extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DiaLogProgess progess;
-    ArrayList<CartModel> listCart = new ArrayList<>();
+    ArrayList<ProductCart> listCart = new ArrayList<>();
 
     RecyclerView recyclerViewCart, recyclerViewMore;
+    CartAdapter adapterCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +52,7 @@ public class CartActivity extends AppCompatActivity {
         recyclerViewCart = findViewById(R.id.recyclerViewCart);
         recyclerViewMore = findViewById(R.id.recyclerViewMore);
 
-
+        LinearLayoutManager manager = new LinearLayoutManager(CartActivity.this);
 
         db.collection("cart")
                 .get()
@@ -86,7 +80,7 @@ public class CartActivity extends AppCompatActivity {
                                             ArrayList<Map.Entry<String, Object>> listOf = new ArrayList<Map.Entry<String, Object>>(entr);
                                             // end - convert map qua ArrayList
 
-                                            String id = null, name = null, color = null;
+                                            String id = null, name = null, color = null, image = null;
                                             Float price = 0F;
                                             Integer total = 1;
                                             for (int j = 0; j < listOf.size(); j++) {
@@ -105,21 +99,29 @@ public class CartActivity extends AppCompatActivity {
                                                 if(listOf.get(j).getKey().equals("total")) {
                                                     total = Integer.parseInt(result);
                                                 }
-                                                if(listOf.get(j).getKey().equals("total")) {
+                                                if(listOf.get(j).getKey().equals("color")) {
                                                     color = result;
+                                                }
+
+                                                if(listOf.get(j).getKey().equals("image")) {
+                                                    image = result;
                                                 }
                                             }
                                             Log.d("KEYDATA", "-----------\n");
-                                            listCart.add(new CartModel(id, name, color, price, total));
+                                            listCart.add(new ProductCart(id, name, image, price,color, total));
                                         }
                                     }
                                 }
 
                             }
+                            Log.d("KEYDATA", "-----------\n"+listCart.get(0).getColor());
                             progess.hideDialog();
+                            adapterCart = new CartAdapter(listCart, CartActivity.this);
+                            recyclerViewCart.setLayoutManager(manager);
+                            recyclerViewCart.setAdapter(adapterCart);
 
                         }
-                        Log.d("LISTDATA", "onCreate: "+listCart.get(0).getNameProduct());
+                        Log.d("LISTDATA", "onCreate: "+listCart.get(0).getNameproduct());
                         Log.d("LISTDATA", "list size: "+listCart.size());
                     }
                 })

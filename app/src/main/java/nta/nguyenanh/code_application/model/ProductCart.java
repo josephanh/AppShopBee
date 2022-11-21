@@ -3,7 +3,7 @@ package nta.nguyenanh.code_application.model;
 import java.util.ArrayList;
 
 public class ProductCart {
-    private String id, nameproduct;
+    private String id, nameproduct, image;
     private Float price;
     private String color;
     private Integer total;
@@ -17,6 +17,23 @@ public class ProductCart {
         this.price = price;
         this.color = color;
         this.total = total;
+    }
+
+    public ProductCart(String id, String nameproduct, String image, Float price, String color, Integer total) {
+        this.id = id;
+        this.nameproduct = nameproduct;
+        this.image = image;
+        this.price = price;
+        this.color = color;
+        this.total = total;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getId() {
