@@ -123,19 +123,28 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <RadioButton
-                        android:id="@+id/radio1"
-                        android:layout_width="wrap_content"
+                    android:orientation="vertical">
+                    <RadioGroup
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Nhà"/>
-                    <RadioButton
-                        android:id="@+id/radio2"
-                        android:layout_marginLeft="20dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Văn phòng"/>
+                        android:checkedButton="@+id/radio1"
+                        android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/radio1"
+                            android:button="@drawable/custom_checkbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nhà" />
+                        <RadioButton
+                            android:id="@+id/radio2"
+                            android:button="@drawable/custom_checkbox"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:text="Văn phòng"/>
+                    </RadioGroup>
+
                 </LinearLayout>
             </RadioGroup>
 
