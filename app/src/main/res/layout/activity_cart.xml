@@ -50,12 +50,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:background="@color/white">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="0dp"
@@ -63,43 +65,45 @@
                 android:layout_weight="1"
                 android:text="Tổng tiền"
                 android:textColor="@color/black"
-                android:textSize="14dp"/>
+                android:textSize="12dp"/>
             <TextView
                 android:id="@+id/totalMoneyProduct"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="120.000đ"
+                android:text="0đ"
                 android:textColor="@color/black"
-                android:textSize="14dp"/>
+                android:textSize="12dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Phí vận chuyển"
                 android:textColor="@color/black"
-                android:textSize="14dp"/>
+                android:textSize="12dp"/>
             <TextView
                 android:id="@+id/shipMoney"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="20.000đ"
+                android:text="0đ"
                 android:textColor="@color/black"
-                android:textSize="14dp"/>
+                android:textSize="12dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="0dp"
@@ -107,27 +111,29 @@
                 android:layout_weight="1"
                 android:text="Giảm giá 2%"
                 android:textColor="@color/black"
-                android:textSize="14dp"/>
+                android:textSize="12dp"/>
             <TextView
                 android:id="@+id/voucher"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="-20.000đ"
+                android:text="-0đ"
                 android:textColor="#CECACA"
-                android:textSize="14dp"/>
+                android:textSize="12dp"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:background="@color/color_Main"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="0dp"
@@ -136,27 +142,31 @@
                 android:text="Thành tiền"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="14dp"/>
+                android:textSize="16dp"/>
             <TextView
                 android:id="@+id/totalMoney"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="80.000đ"
+                android:text="0đ"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="14dp"/>
+                android:textSize="16dp"/>
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_continue"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="Tiếp tục"
             android:textAllCaps="false"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/btn_search2"/>
     </LinearLayout>
 

@@ -1,6 +1,8 @@
 package nta.nguyenanh.code_application;
 
 
+import static nta.nguyenanh.code_application.SplashScreen.Flashsalelist;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -9,7 +11,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -20,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import nta.nguyenanh.code_application.fragment.FlashSaleFragment;
 import nta.nguyenanh.code_application.fragment.GetCoinEverydayFragment;
 import nta.nguyenanh.code_application.fragment.HomeFragment;
 import nta.nguyenanh.code_application.fragment.NotificationFragment;
@@ -32,8 +37,6 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static UserModel userModel;
-
-    public static List<Product> listProduct = new ArrayList<>();
 
     FragmentManager manager;
     private BottomNavigationView bottomnavigation;
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         bottomnavigation = findViewById(R.id.bottomNavigation);
         bottomnavigation.setItemIconTintList(null);
         bottomnavigation.setOnNavigationItemSelectedListener(setMenuBottom);
+        Log.d("TAG 2000", "onComplete: "+Flashsalelist.size());
 
 //        db.collection("product").limit(10)
 //                .get()
@@ -88,6 +92,18 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
+//        registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        unregisterReceiver(broadcastReceiver);
+    }
 
     public void relaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
@@ -115,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
                     fragment = new HomeFragment();
                     break;
                 case R.id.bt_flashsale:
-                    fragment = new GetCoinEverydayFragment();
+                    fragment = new FlashSaleFragment();
                     break;
                 case  R.id.bt_notification:
                     fragment = new NotificationFragment();

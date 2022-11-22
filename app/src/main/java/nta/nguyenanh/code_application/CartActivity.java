@@ -8,9 +8,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -37,6 +41,11 @@ public class CartActivity extends AppCompatActivity {
     RecyclerView recyclerViewCart, recyclerViewMore;
     CartAdapter adapterCart;
     Toolbar toolbar;
+    LinearLayoutManager manager;
+    Float totalMoney = 0F;
+
+    TextView totalMoneyProduct, shipMoney, voucher, totalMoneys;
+    Button btn_continue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,12 @@ public class CartActivity extends AppCompatActivity {
         recyclerViewMore = findViewById(R.id.recyclerViewMore);
         toolbar = findViewById(R.id.toolbar);
 
+        totalMoneyProduct = findViewById(R.id.totalMoneyProduct);
+        shipMoney = findViewById(R.id.shipMoney);
+        voucher = findViewById(R.id.voucher);
+        totalMoneys = findViewById(R.id.totalMoney);
+        btn_continue = findViewById(R.id.btn_continue);
+
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_back);
         getSupportActionBar().setTitle("Giỏ hàng của tôi");
@@ -68,8 +83,61 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayoutManager manager = new LinearLayoutManager(CartActivity.this);
+        btn_continue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userModel == null) {
+                    Toast.makeText(CartActivity.this, "Cần đăng nhập trước khi thực hiện thao tác", Toast.LENGTH_SHORT).show();
+                } else {
+                    if(userModel.getAddress().equals("null") || userModel.getPhonenumber().equals("null")) {
+                        Intent intent = new Intent(CartActivity.this, AddressActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(CartActivity.this, "Đủ thông tin"+userModel.getAddress(), Toast.LENGTH_SHORT).show();
 
+                    }
+                }
+            }
+        });
+
+        manager = new LinearLayoutManager(CartActivity.this);
+        getDataCart();
+
+    }
+
+    public void changeTotal(int total, int oldTotal, float price){
+
+        if(total < oldTotal) {
+            totalMoney = totalMoney - (oldTotal - total)*price;
+        } else {
+            totalMoney = totalMoney + (total - oldTotal)*price;
+        }
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        totalMoneyProduct.setText(formatter.format(totalMoney)+"đ");
+        shipMoney.setText("30.000đ");
+        voucher.setText("-"+formatter.format(totalMoney*0.02)+"đ");
+        totalMoneys.setText(formatter.format((totalMoney*0.98)+30000)+"đ");
+    }
+
+    public void changeChecked(boolean check,int total, float price) {
+        if(check) {
+            totalMoney = totalMoney + total*price;
+        } else {
+            totalMoney = totalMoney - total*price;
+        }
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        totalMoneyProduct.setText(formatter.format(totalMoney)+"đ");
+        if(totalMoney != 0) {
+            shipMoney.setText("30.000đ");
+            totalMoneys.setText(formatter.format((totalMoney*0.98)+30000)+"đ");
+        } else {
+            shipMoney.setText("0đ");
+            totalMoneys.setText("0đ");
+        }
+        voucher.setText("-"+formatter.format(totalMoney*0.02)+"đ");
+    }
+
+    public void getDataCart() {
         db.collection("cart")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -125,6 +193,7 @@ public class CartActivity extends AppCompatActivity {
                                             }
                                             Log.d("KEYDATA", "-----------\n");
                                             listCart.add(new ProductCart(id, name, image, price,color, total));
+                                            totalMoney += price*total;
                                         }
                                     }
                                 }
@@ -139,6 +208,11 @@ public class CartActivity extends AppCompatActivity {
                         }
                         Log.d("LISTDATA", "onCreate: "+listCart.get(0).getNameproduct());
                         Log.d("LISTDATA", "list size: "+listCart.size());
+                        DecimalFormat formatter = new DecimalFormat("###,###,###");
+                        totalMoneyProduct.setText(formatter.format(totalMoney)+"đ");
+                        shipMoney.setText("30.000đ");
+                        voucher.setText("-"+formatter.format(totalMoney*0.02)+"đ");
+                        totalMoneys.setText(formatter.format((totalMoney*0.98)+30000)+"đ");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -163,6 +237,7 @@ public class CartActivity extends AppCompatActivity {
 //                        Log.d("TAG>>>", "Thêm dữ liệu thất bạn ");
 //                    }
 //                });
+
 
 
     }

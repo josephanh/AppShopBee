@@ -184,9 +184,13 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cart: {
-                Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
-
-                startActivity(intent);
+                if(userModel == null) {
+                    dialogConfirm = new DialogConfirm(DetailProductActivity.this);
+                    dialogConfirm.showDialog(product);
+                } else {
+                    Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
+                    startActivity(intent);
+                }
                 return true;
             }
             default:

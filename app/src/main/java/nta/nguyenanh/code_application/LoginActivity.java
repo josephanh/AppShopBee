@@ -235,8 +235,9 @@ public class LoginActivity extends AppCompatActivity {
                                                             document.get("phonenumber")+"",
                                                             document.get("username")+"",
                                                             document.getId());
-                                                    checklogin = true;
+
                                                     writeLogin(userModel);
+                                                    checklogin = true;
                                                     Log.d("User", "onComplete: "+userModel.getFullname());
                                                     onBackPressed();
 
@@ -322,21 +323,25 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()) {
                             QuerySnapshot snapshots = task.getResult();
                             for (QueryDocumentSnapshot document : snapshots) {
-                                 username = document.get("username").toString();
-                                 password = document.get("password").toString();
+                                 username = String.valueOf(document.get("username"));
+                                 password = String.valueOf(document.get("password"));
                                 Log.d("TAG", "onComplete: "+username);
                                 Log.d("TAG", "onComplete: "+password);
                                 if (txt_name.getText().toString().equals(username) && getMd5(txt_password.getText().toString()).equals(password)) {
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    return;
-
+                                    userModel = new UserModel(
+                                            document.get("address")+"",
+                                            document.get("datebirth")+"",
+                                            document.get("fullname")+"",
+                                            document.get("password")+"",
+                                            document.get("phonenumber")+"",
+                                            document.get("username")+"",
+                                            document.getId());
+                                    writeLogin(userModel);
+                                    onBackPressed();
                                 }
                             }
 
                                 Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
-
 
                         }
                     }

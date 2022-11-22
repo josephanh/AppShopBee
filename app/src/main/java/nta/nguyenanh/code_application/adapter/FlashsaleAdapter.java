@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.adapter;
 
 import android.content.Context;
 import android.text.Html;
@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 
-
+import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.model.Product;
 
 public class FlashsaleAdapter extends RecyclerView.Adapter<FlashsaleAdapter.ViewHolder> {

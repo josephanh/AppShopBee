@@ -31,7 +31,7 @@ import java.util.Map;
 import nta.nguyenanh.code_application.model.UserModel;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText txt_newname,txt_newpassword,txt_confirmpassword;
+    private EditText txt_newname,txt_newpassword,txt_confirmpassword, txtsodienthoai;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private TextView txtdangnhapngay;
     String username2,password2;
@@ -44,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         txt_newname = findViewById(R.id.txt_newname);
         txt_newpassword = findViewById(R.id.txt_newpassword);
         txt_confirmpassword = findViewById(R.id.txt_confirmpassword);
+        txtsodienthoai = findViewById(R.id.txtsodienthoai);
         txtdangnhapngay = findViewById(R.id.txtdangnhapngay);
         txtdangnhapngay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
         String username = txt_newname.getText().toString();
         String password = txt_newpassword.getText().toString();
         String confirmpassword = txt_confirmpassword.getText().toString();
+        String phonenumber = txtsodienthoai.getText().toString();
         if (username.isEmpty() || password.isEmpty() || confirmpassword.isEmpty()) {
             Toast.makeText(this, "Không được để trống username,password,confirmpassword", Toast.LENGTH_SHORT).show();
             return;
@@ -107,17 +109,24 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             }
                             Map<String, Object> item = new HashMap<>();
-                            item.put("username", username);
+                            item.put("username", phonenumber);
+                            item.put("fullname", username);
                             item.put("password", getMd5(password));
+                            item.put("address",null);
+                            item.put("phonenumber",phonenumber);
                             db.collection("user")
                                     .add(item)
                                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {
-                                            Toast.makeText(RegisterActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(RegisterActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
+                                            addCartUser(documentReference.getId());
                                             txt_newname.setText("");
                                             txt_newpassword.setText("");
                                             txt_confirmpassword.setText("");
+                                            txtsodienthoai.setText("");
+                                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                            startActivity(intent);
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -129,6 +138,25 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
 
+                });
+    }
+
+    public void addCartUser(String id) {
+        Map<String, Object> cart = new HashMap<>();
+        cart.put("id_user", id);
+        db.collection("cart").document(id)
+                .set(cart)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("TAG>>>", "Thêm dữ liệu thành công ");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG>>>", "Thêm dữ liệu thất bại");
+                    }
                 });
     }
 

@@ -1,7 +1,6 @@
 package nta.nguyenanh.code_application.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import nta.nguyenanh.code_application.FlashsaleAdapter;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.model.Product;
 

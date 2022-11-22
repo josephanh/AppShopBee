@@ -1,12 +1,11 @@
 package nta.nguyenanh.code_application.fragment;
 
-import static nta.nguyenanh.code_application.FlashSaleActivity.Flashsalelist;
-import static nta.nguyenanh.code_application.MainActivity.listProduct;
-import static nta.nguyenanh.code_application.SplashScreen.lastVisible;
+import static nta.nguyenanh.code_application.SplashScreen.Flashsalelist;
+import static nta.nguyenanh.code_application.SplashScreen.lastVisibleProduct;
+import static nta.nguyenanh.code_application.SplashScreen.listProduct;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,13 +31,11 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import android.widget.AbsListView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -54,7 +51,6 @@ import java.util.TimerTask;
 import me.relex.circleindicator.CircleIndicator;
 import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
-import nta.nguyenanh.code_application.SearchActivity;
 import nta.nguyenanh.code_application.adapter.BannerAdapter;
 import nta.nguyenanh.code_application.adapter.FlashSaleHomeAdapter;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
@@ -193,6 +189,7 @@ public class HomeFragment extends Fragment {
         recyclerView_product.setAdapter(adapter);
 
         // list flashsale
+        Log.d("TAG 2000", "onComplete: "+Flashsalelist.size());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         saleHomeAdapter = new FlashSaleHomeAdapter(getContext(), Flashsalelist);
         recyclerViewFlash.setLayoutManager(layoutManager);
@@ -219,7 +216,7 @@ public class HomeFragment extends Fragment {
                 if(isScrolling && (firstVisibleItems[0] + visibleItemCount) == totalItem && !isLastItem) {
                     isScrolling = false;
                     Query nextQuery = FirebaseFirestore.getInstance().collection("product")
-                            .startAfter(lastVisible)
+                            .startAfter(lastVisibleProduct)
                             .limit(10);
                     nextQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -242,7 +239,7 @@ public class HomeFragment extends Fragment {
                             Toast.makeText(getContext(), "Loading", Toast.LENGTH_SHORT).show();
                             Log.e("CHECK_SIZE", "onComplete: "+listProduct.size() );
                             adapter.notifyDataSetChanged();
-                            lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
+                            lastVisibleProduct = task.getResult().getDocuments().get(task.getResult().size() - 1);
 
                             if(task.getResult().size() < 10 ){
                                 isLastItem = true;

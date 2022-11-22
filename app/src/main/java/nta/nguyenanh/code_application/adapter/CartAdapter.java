@@ -1,5 +1,6 @@
 package nta.nguyenanh.code_application.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import nta.nguyenanh.code_application.CartActivity;
 import nta.nguyenanh.code_application.R;
 
 import nta.nguyenanh.code_application.model.ProductCart;
@@ -43,12 +45,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.checkboxCart.setChecked(true);
         holder.checkboxCart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                ((CartActivity)context).changeChecked(isChecked, Integer.parseInt(holder.total_product.getText().toString()) ,list.get(position).getPrice());
             }
         });
         Glide.with(context).load(list.get(position).getImage()).into(holder.image_product);
@@ -64,6 +66,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     Toast.makeText(context, "Không được mua quá 20 sản phẩm", Toast.LENGTH_SHORT).show();
                 } else {
                     int total = Integer.parseInt(holder.total_product.getText().toString()) + 1;
+                    ((CartActivity)context).changeTotal(total, Integer.parseInt(holder.total_product.getText().toString()) ,list.get(position).getPrice());
                     holder.total_product.setText(total+"");
                 }
 
@@ -78,6 +81,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     Toast.makeText(context, "Số lượng phải ít nhất là 1", Toast.LENGTH_SHORT).show();
                 } else  {
                     total = Integer.parseInt(holder.total_product.getText().toString()) - 1;
+                    ((CartActivity)context).changeTotal(total, Integer.parseInt(holder.total_product.getText().toString()) , list.get(position).getPrice());
                     holder.total_product.setText(total+"");
                 }
             }

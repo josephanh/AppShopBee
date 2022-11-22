@@ -1,18 +1,13 @@
 package nta.nguyenanh.code_application.adapter;
 
-import android.widget.Switch;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import nta.nguyenanh.code_application.fragment.PhuongXaFragment;
-import nta.nguyenanh.code_application.fragment.Quan_HuyenFragment;
-import nta.nguyenanh.code_application.fragment.Tinh_ThanhphoFragment;
+import nta.nguyenanh.code_application.fragment.AddressFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
@@ -33,13 +28,13 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return new Tinh_ThanhphoFragment();
+                return new AddressFragment();
             case 1:
-                return new Quan_HuyenFragment();
+                return new AddressFragment();
             case 2:
-                return new PhuongXaFragment();
+                return new AddressFragment();
             default:
-                return new Tinh_ThanhphoFragment();
+                return new AddressFragment();
         }
 
     }

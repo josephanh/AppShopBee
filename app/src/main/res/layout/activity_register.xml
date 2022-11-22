@@ -14,13 +14,14 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:gravity="center"
                 android:src="@drawable/lg_logo" />
 
@@ -29,16 +30,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="80dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/btn_borderbutton_login"
-                android:hint="Tài khoản"
+                android:hint="Họ và tên"
                 android:inputType="text"
                 android:maxLines="1"
                 android:paddingStart="20dp"
                 android:paddingEnd="0dp"
                 android:textSize="16sp" />
 
+            <EditText
+                android:id="@+id/txtsodienthoai"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/btn_borderbutton_login"
+                android:hint="Số điện thoại"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/txt_newpassword"
@@ -72,22 +87,6 @@
                 android:textSize="16sp" />
 
 
-            <EditText
-                android:id="@+id/txtsodienthoai"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/btn_borderbutton_login"
-                android:hint="Số điện thoại"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingStart="20dp"
-                android:paddingEnd="0dp"
-                android:textSize="16sp" />
-
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
@@ -115,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bạn đã có tài khoản Shopbee ? "
-                    android:textSize="18dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/txtdangnhapngay"
@@ -123,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:text="Đăng nhập ngay"
                     android:textColor="#FF0000"
-                    android:textSize="18dp" />
+                    android:textSize="14dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

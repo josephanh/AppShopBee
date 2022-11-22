@@ -10,7 +10,7 @@
     tools:context=".LoginActivity">
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:gravity="center"
         android:src="@drawable/lg_logo"
      />
@@ -24,7 +24,7 @@
         android:paddingEnd="0dp"
         android:maxLines="1"
         android:textSize="16sp"
-        android:inputType="text"
+        android:inputType="phone"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
 
@@ -40,7 +40,7 @@
         android:paddingEnd="0dp"
         android:maxLines="1"
         android:textSize="16sp"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/btn_borderbutton_login"
@@ -152,13 +152,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bạn mới biết đến Shopbee ? "
-            android:textSize="18dp"/>
+            android:textSize="14dp"/>
         <TextView
             android:id="@+id/txtdangkyngay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FF0000"
-            android:textSize="18dp"
+            android:textSize="14dp"
             android:text="Đăng ký ngay"/>
     </LinearLayout>
 

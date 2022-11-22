@@ -1,14 +1,10 @@
 package nta.nguyenanh.code_application;
 
-import static nta.nguyenanh.code_application.FlashSaleActivity.Flashsalelist;
-import static nta.nguyenanh.code_application.MainActivity.listProduct;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +16,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import nta.nguyenanh.code_application.model.Product;
 
@@ -27,7 +24,9 @@ public class SplashScreen extends AppCompatActivity {
     // thời gian chờ
     int SLASH_TIME_OUT = 3000;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public static DocumentSnapshot lastVisible;
+    public static DocumentSnapshot lastVisibleProduct, lastVisibleFlashSale;
+    public static List<Product> listProduct = new ArrayList<>();
+    public static List<Product> Flashsalelist = new ArrayList<>();
     Float sale;
 
     @Override
@@ -65,7 +64,7 @@ public class SplashScreen extends AppCompatActivity {
                             Log.d("CHECK_SIZE", "onComplete 1: " + listProduct.size());
 
                             // phân trang
-                            lastVisible = task.getResult().getDocuments().get(task.getResult().size() - 1);
+                            lastVisibleProduct = task.getResult().getDocuments().get(task.getResult().size() - 1);
                             Intent intent = new Intent(SplashScreen.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -119,6 +118,8 @@ public class SplashScreen extends AppCompatActivity {
                                         }
                                     }
                                 }
+                                lastVisibleFlashSale = task.getResult().getDocuments().get(task.getResult().size() - 1);
+                                Log.d("TAG 2000", "onComplete: "+Flashsalelist.size());
                             }
                         }
                     });
