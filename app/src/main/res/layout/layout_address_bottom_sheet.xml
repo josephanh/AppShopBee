@@ -8,8 +8,12 @@
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabGravity="start"
-        android:foregroundGravity="left"/>
+        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+        android:foregroundGravity="left"
+        app:tabSelectedTextColor="@color/purple_700"
+        app:tabTextColor="@color/teal_200"
+        app:tabMode="fixed"
+        app:tabGravity="fill"/>
     <androidx.viewpager2.widget.ViewPager2
         android:background="@color/white"
         android:id="@+id/viewpager2"

@@ -36,7 +36,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import nta.nguyenanh.code_application.adapter.AddressAdapter;
 import nta.nguyenanh.code_application.adapter.ViewPagerAdapter;
 import nta.nguyenanh.code_application.model.Address;
 
@@ -51,7 +50,8 @@ public class AddressActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     public static ArrayList<Address> listDivision = new ArrayList<>(), listDistricts = new ArrayList<>();
-    public static ArrayList<Address> listDistrict = new ArrayList<>();
+    public static ArrayList<Address> listDistrict = new ArrayList<>(), listWards = new ArrayList<>();
+    private int indexDistrict;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -69,8 +69,8 @@ public class AddressActivity extends AppCompatActivity {
             }
         });
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(fragmentManager, getLifecycle());
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        viewPagerAdapter = new ViewPagerAdapter(fragmentManager, getLifecycle());
         new fetchData().start();
 //        addAddress();
 
@@ -108,9 +108,9 @@ public class AddressActivity extends AppCompatActivity {
         viewPagerAdapter = new ViewPagerAdapter(fragmentManager, getLifecycle());
         viewPager2.setAdapter(viewPagerAdapter);
 
-
+        tableLayout.setSelectedTabIndicator(R.drawable.round_back_theme_diachi);
         tableLayout.addTab(tableLayout.newTab().setText("Tỉnh / Thành phố"));
-        tableLayout.addTab(tableLayout.newTab().setText("Quận / Huyện"));
+//        tableLayout.addTab(tableLayout.newTab().setText("Quận / Huyện"));
 //        tableLayout.addTab(tableLayout.newTab().setText("Phường / Xã"));
 
         tableLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -204,29 +204,45 @@ public class AddressActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickItemAddress(int i, ArrayList<Address> list, AddressAdapter adapter) {
+    public void onClickItemAddress(int i, ArrayList<Address> list) {
+
         if (list.get(i).getProvince_code() == -1) {
-//            if (tableLayout.getTabCount() > 1) {
-//                tableLayout.removeTab(tableLayout.getTabAt(1));
-//            }
-//            tableLayout.addTab(tableLayout.newTab().setText("Quận / Huyện"));
+            if (tableLayout.getTabCount() == 2) {
+                tableLayout.removeTab(tableLayout.getTabAt(1));
+            }
+            if (tableLayout.getTabCount() == 3) {
+                tableLayout.removeTab(tableLayout.getTabAt(1));
+                tableLayout.removeTab(tableLayout.getTabAt(1));
+            }
+            tableLayout.addTab(tableLayout.newTab().setText("Quận/Huyện"));
+            tableLayout.getTabAt(0).setText(listDivision.get(i).getName());
             listDistrict.clear();
-            adapter.notifyDataSetChanged();
             for (int j = 0; j < listDistricts.size(); j++) {
                 if (listDistricts.get(j).getProvince_code() == listDivision.get(i).getCode()) {
                     listDistrict.add(listDistricts.get(j));
                 }
             }
+            viewPagerAdapter.notifyDataSetChanged();
             Log.d("DATA", "onClickItemAddress: "+listDistrict.size());
+            tableLayout.setScrollPosition(1, 0f,true);
+            tableLayout.selectTab(tableLayout.getTabAt(1));
             viewPager2.setCurrentItem(1);
+        } else {
+            if (tableLayout.getTabCount() > 2) {
+                tableLayout.removeTab(tableLayout.getTabAt(2));
+            }
+            listWards.clear();
+            for (int j = 0; j < listDistricts.size(); j++) {
+                if (listDistricts.get(j).getProvince_code() == listDivision.get(i).getCode()) {
+                    listWards.add(listDistricts.get(j));
+                }
+            }
+            tableLayout.addTab(tableLayout.newTab().setText("Phường/xã"));
+            tableLayout.getTabAt(1).setText(listWards.get(i).getName());
+            tableLayout.setScrollPosition(2, 0f,true);
+            viewPager2.setCurrentItem(2);
         }
 
-//        if(viewPager2.getCurrentItem() == 0) {
-//            adapter.setList(listDivision);
-//        }
-//        if(viewPager2.getCurrentItem() == 1) {
-//            adapter.setList(listDistrict);
-//        }
     }
 
 }

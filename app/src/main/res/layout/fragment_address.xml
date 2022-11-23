@@ -7,8 +7,8 @@
     android:background="#FBF7F7"
     android:orientation="vertical"
     tools:context=".fragment.AddressFragment">
-    <ListView
-        android:id="@+id/listviewAddress"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

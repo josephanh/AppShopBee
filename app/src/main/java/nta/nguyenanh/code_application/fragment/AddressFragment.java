@@ -1,20 +1,18 @@
 package nta.nguyenanh.code_application.fragment;
 
-import static nta.nguyenanh.code_application.AddressActivity.listDistrict;
-import static nta.nguyenanh.code_application.AddressActivity.listDivision;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -27,8 +25,9 @@ public class AddressFragment extends Fragment {
 
 
     ArrayList<Address> list = new ArrayList<>();
-    ListView listviewAddress;
+    RecyclerView recyclerAddress;
     AddressAdapter adapter;
+    LinearLayoutManager layoutManager;
 
     public AddressFragment() {
         // Required empty public constructor
@@ -60,25 +59,28 @@ public class AddressFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ListView listviewAddress = view.findViewById(R.id.listviewAddress);
+        recyclerAddress = view.findViewById(R.id.recyclerViewAddress);
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerAddress.setLayoutManager(layoutManager);
         adapter = new AddressAdapter(getContext(), list, new AddressAdapter.onClickItemAddress() {
             @Override
             public void onClick(int position) {
-                ((AddressActivity)getActivity()).onClickItemAddress(position, list, adapter);
+                ((AddressActivity)getActivity()).onClickItemAddress(position, list);
                 Log.d("DEMO>>>>", "onClick: ");
             }
         });
-        listviewAddress.setAdapter(adapter);
+        recyclerAddress.setAdapter(adapter);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(recyclerAddress.getContext(), layoutManager.getOrientation());
+        recyclerAddress.addItemDecoration(itemDecoration);
 
     }
 
     @Override
     public void onResume() {
-        super.onResume();
         if(adapter != null) {
-//            listviewAddress.removeAllViews();
             adapter.notifyDataSetChanged();
         }
+        super.onResume();
     }
 
     @Override
@@ -86,15 +88,4 @@ public class AddressFragment extends Fragment {
         super.onPause();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("onDestroy", "onDestroy: ");
-    }
 }
