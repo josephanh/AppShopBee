@@ -1,5 +1,8 @@
 package nta.nguyenanh.code_application.adapter;
 
+import static nta.nguyenanh.code_application.AddressActivity.listDistricts;
+import static nta.nguyenanh.code_application.AddressActivity.listDivision;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -28,13 +31,13 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return new AddressFragment();
+                return new AddressFragment().newInstance(listDivision);
             case 1:
-                return new AddressFragment();
+                return new AddressFragment().newInstance(listDistricts);
             case 2:
                 return new AddressFragment();
             default:
-                return new AddressFragment();
+                return new AddressFragment().newInstance(listDivision);
         }
 
     }

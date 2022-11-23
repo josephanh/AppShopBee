@@ -30,7 +30,7 @@ import nta.nguyenanh.code_application.adapter.Adapter_History;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.dao.DAO_History;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
-import nta.nguyenanh.code_application.model.History_model;
+import nta.nguyenanh.code_application.model.History;
 import nta.nguyenanh.code_application.model.Product;
 
 public class SearchActivity extends AppCompatActivity {
@@ -42,7 +42,7 @@ public class SearchActivity extends AppCompatActivity {
     Adapter_History adapterHistory;
     ProductAdapter productAdapter;
 
-    List<History_model> ds = new ArrayList<>();
+    List<History> ds = new ArrayList<>();
     List<Product> listResult = new ArrayList<>();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();

@@ -24,7 +24,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DecimalFormat;
@@ -40,7 +39,7 @@ import nta.nguyenanh.code_application.dialog.DialogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.model.Product;
 import nta.nguyenanh.code_application.model.ProductCart;
-import nta.nguyenanh.code_application.model.UserModel;
+import nta.nguyenanh.code_application.model.User;
 
 public class DetailProductActivity extends AppCompatActivity implements OnClickDiaLogConfirm {
 
@@ -143,7 +142,7 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
             String password = preferences.getString("password", null);
             String address = preferences.getString("address", null);
             String numberphone = preferences.getString("numberphone", null);
-            userModel = new UserModel(address, null, fullname, password, numberphone, username, userid);
+            userModel = new User(address, null, fullname, password, numberphone, username, userid);
         }
     }
 

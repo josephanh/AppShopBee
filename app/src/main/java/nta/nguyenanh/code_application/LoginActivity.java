@@ -8,7 +8,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -23,22 +22,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.Profile;
-import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,17 +41,12 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.internal.api.FirebaseNoSignedInUserException;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import nta.nguyenanh.code_application.model.UserModel;
+import nta.nguyenanh.code_application.model.User;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText txt_name,txt_password;
@@ -226,8 +214,8 @@ public class LoginActivity extends AppCompatActivity {
 //                                                Log.d("TAG", "onComplete: " + username2);
 //                                                Log.d("TAG", "onComplete2: " + username);
                                                 if (tempmail.equals(username2)) {
-//                                                    writeLogin((UserModel) document.getData());
-                                                    userModel = new UserModel(
+//                                                    writeLogin((User) document.getData());
+                                                    userModel = new User(
                                                             document.get("address")+"",
                                                             document.get("datebirth")+"",
                                                             document.get("fullname")+"",
@@ -283,7 +271,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // lưu trạng thái login vào shored preferences
-    private void writeLogin(UserModel user){
+    private void writeLogin(User user){
         SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("isLoggedin", true);
@@ -291,8 +279,8 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("username", user.getUsername());
         editor.putString("fullname", user.getFullname());
         editor.putString("password", user.getPassword());
-        editor.putString("address", user.getAddress());
-        editor.putString("numberphone", user.getPhonenumber());
+//        editor.putString("address", user.getAddress());
+//        editor.putString("numberphone", user.getPhonenumber());
         editor.commit();
     }
     // đọc trạng thái login
@@ -306,7 +294,7 @@ public class LoginActivity extends AppCompatActivity {
             String password = preferences.getString("password", null);
             String address = preferences.getString("address", null);
             String numberphone = preferences.getString("numberphone", null);
-            userModel = new UserModel(address, null, fullname, password, numberphone, username, userid);
+            userModel = new User(address, null, fullname, password, numberphone, username, userid);
             onBackPressed();
         }
     }
@@ -328,7 +316,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d("TAG", "onComplete: "+username);
                                 Log.d("TAG", "onComplete: "+password);
                                 if (txt_name.getText().toString().equals(username) && getMd5(txt_password.getText().toString()).equals(password)) {
-                                    userModel = new UserModel(
+                                    userModel = new User(
                                             document.get("address")+"",
                                             document.get("datebirth")+"",
                                             document.get("fullname")+"",

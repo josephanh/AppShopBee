@@ -15,28 +15,22 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 import nta.nguyenanh.code_application.fragment.FlashSaleFragment;
-import nta.nguyenanh.code_application.fragment.GetCoinEverydayFragment;
 import nta.nguyenanh.code_application.fragment.HomeFragment;
 import nta.nguyenanh.code_application.fragment.NotificationFragment;
-import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
 import nta.nguyenanh.code_application.model.Product;
-import nta.nguyenanh.code_application.model.UserModel;
+import nta.nguyenanh.code_application.model.User;
 
 public class MainActivity extends AppCompatActivity implements OnClickItemProduct {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public static UserModel userModel;
+    public static User userModel;
 
     FragmentManager manager;
     private BottomNavigationView bottomnavigation;

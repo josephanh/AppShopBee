@@ -1,16 +1,16 @@
 package nta.nguyenanh.code_application.model;
 
-public class History_model {
+public class History {
 
      int id_history;
      String name_history;
 
-    public History_model(int id_history, String name_history) {
+    public History(int id_history, String name_history) {
         this.id_history = id_history;
         this.name_history = name_history;
     }
 
-    public History_model() {
+    public History() {
     }
 
     public int getId_history() {

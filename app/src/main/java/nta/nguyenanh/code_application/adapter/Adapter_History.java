@@ -15,12 +15,12 @@ import java.util.List;
 
 import nta.nguyenanh.code_application.dao.DAO_History;
 import nta.nguyenanh.code_application.R;
-import nta.nguyenanh.code_application.model.History_model;
+import nta.nguyenanh.code_application.model.History;
 
 public class Adapter_History extends RecyclerView.Adapter<Adapter_History.ViewHolder> {
     public static Context context;
-    public static List<History_model> ds;
-    public Adapter_History(Context context,List<History_model> ds){
+    public static List<History> ds;
+    public Adapter_History(Context context,List<History> ds){
         this.context= context;
         this.ds = ds;
     }

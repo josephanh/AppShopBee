@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nta.nguyenanh.code_application.helper.database;
-import nta.nguyenanh.code_application.model.History_model;
+import nta.nguyenanh.code_application.model.History;
 
 public class DAO_History {
     private SQLiteDatabase db;
@@ -18,22 +18,22 @@ public class DAO_History {
         database1 = new database(context);
         db = database1.getWritableDatabase();
     }
-    public List<History_model> getAll() {
+    public List<History> getAll() {
         String sql = "SELECT * FROM History";
         return getData(sql);
     }
-    public List<History_model> getAllid() {
+    public List<History> getAllid() {
         String sql = "SELECT id_history FROM History";
         return getData(sql);
     }
 
-    public List<History_model> getData(String sql, String ... selectionArgs){
-        List<History_model> list = new ArrayList<>();
+    public List<History> getData(String sql, String ... selectionArgs){
+        List<History> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,selectionArgs);
         while (c.moveToNext()){
             int id  = c.getInt(0);
             String name = c.getString(1);
-            History_model obj = new History_model(id, name);
+            History obj = new History(id, name);
             list.add(obj);
         }
         return list;

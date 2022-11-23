@@ -18,7 +18,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import nta.nguyenanh.code_application.model.UserModel;
+import nta.nguyenanh.code_application.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText txt_newname,txt_newpassword,txt_confirmpassword, txtsodienthoai;
@@ -61,13 +60,13 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<UserModel> list = new ArrayList<>();
+                            ArrayList<User> list = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String,Object> map = document.getData();
                                 String username = map.get("username").toString();
                                 String password = map.get("password").toString();
 
-                                UserModel userModel =new UserModel(-1, null,null,null,null,password,null,username);
+                                User userModel =new User(-1, null,null,null,null,password,null,username);
                                 userModel.setUserID(document.getId());
                                 list.add(userModel);
                             }
