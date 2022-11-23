@@ -9,5 +9,7 @@
         android:padding="20dp"
         android:text="Hà Nội"
         android:textColor="@color/black"
-        android:textSize="16dp"/>
+        android:textSize="16dp"
+        android:clickable="true"
+        android:background="?selectableItemBackground"/>
 </LinearLayout>

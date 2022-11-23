@@ -36,6 +36,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import nta.nguyenanh.code_application.adapter.AddressAdapter;
 import nta.nguyenanh.code_application.adapter.ViewPagerAdapter;
 import nta.nguyenanh.code_application.model.Address;
 
@@ -45,10 +46,12 @@ public class AddressActivity extends AppCompatActivity {
     BottomSheetDialog bottomSheetDialog;
     private TabLayout tableLayout;
     private ViewPager2 viewPager2;
+    ViewPagerAdapter viewPagerAdapter;
 
     Toolbar toolbar;
 
     public static ArrayList<Address> listDivision = new ArrayList<>(), listDistricts = new ArrayList<>();
+    public static ArrayList<Address> listDistrict = new ArrayList<>();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -102,12 +105,12 @@ public class AddressActivity extends AppCompatActivity {
         viewPager2 = view.findViewById(R.id.viewpager2);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(fragmentManager, getLifecycle());
+        viewPagerAdapter = new ViewPagerAdapter(fragmentManager, getLifecycle());
         viewPager2.setAdapter(viewPagerAdapter);
 
 
         tableLayout.addTab(tableLayout.newTab().setText("Tỉnh / Thành phố"));
-//        tableLayout.addTab(tableLayout.newTab().setText("Quận / Huyện"));
+        tableLayout.addTab(tableLayout.newTab().setText("Quận / Huyện"));
 //        tableLayout.addTab(tableLayout.newTab().setText("Phường / Xã"));
 
         tableLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -133,7 +136,7 @@ public class AddressActivity extends AppCompatActivity {
             }
         });
 
-        if(viewPager2.getCurrentItem() == 0) {
+        if (viewPager2.getCurrentItem() == 0) {
             tableLayout.setTabRippleColor(ColorStateList.valueOf(Color.parseColor("#3D3D3D")));
 //            tableLayout.getTabAt(1).setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_UNLABELED);
 //            tableLayout.getTabAt(2).setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_UNLABELED);
@@ -173,7 +176,7 @@ public class AddressActivity extends AppCompatActivity {
                             JSONArray quanhuyen = jsonObject.getJSONArray("districts");
                             String name = jsonObject.getString("name");
                             int code = jsonObject.getInt("code");
-                            Address addressDiv = new Address(name, code);
+                            Address addressDiv = new Address(name, code, -1);
                             listDivision.add(addressDiv);
 
                             for (int j = 0; j < quanhuyen.length(); j++) {
@@ -186,8 +189,8 @@ public class AddressActivity extends AppCompatActivity {
                             }
 //                            String json = String.valueOf(jsonObject.getJSONObject("name"));
                         }
-                        Log.d("DATA DEMO: ", "run: "+listDivision.get(40).getName());
-                        Log.d("DATA DEMO: ", "run: "+listDistricts.get(100).getName());
+                        Log.d("DATA DEMO: ", "run: " + listDivision.get(40).getName());
+                        Log.d("DATA DEMO: ", "run: " + listDistricts.get(100).getName());
                     }
 
                 }
@@ -201,12 +204,29 @@ public class AddressActivity extends AppCompatActivity {
         }
     }
 
-    public Integer onClickItemAddress(int i) {
-        int position = i;
-        if(tableLayout.getTabCount() > 1) {
-            tableLayout.removeTab(tableLayout.getTabAt(1));
+    public void onClickItemAddress(int i, ArrayList<Address> list, AddressAdapter adapter) {
+        if (list.get(i).getProvince_code() == -1) {
+//            if (tableLayout.getTabCount() > 1) {
+//                tableLayout.removeTab(tableLayout.getTabAt(1));
+//            }
+//            tableLayout.addTab(tableLayout.newTab().setText("Quận / Huyện"));
+            listDistrict.clear();
+            adapter.notifyDataSetChanged();
+            for (int j = 0; j < listDistricts.size(); j++) {
+                if (listDistricts.get(j).getProvince_code() == listDivision.get(i).getCode()) {
+                    listDistrict.add(listDistricts.get(j));
+                }
+            }
+            Log.d("DATA", "onClickItemAddress: "+listDistrict.size());
+            viewPager2.setCurrentItem(1);
         }
-        tableLayout.addTab(tableLayout.newTab().setText("Quận / Huyện"));
-        return position;
+
+//        if(viewPager2.getCurrentItem() == 0) {
+//            adapter.setList(listDivision);
+//        }
+//        if(viewPager2.getCurrentItem() == 1) {
+//            adapter.setList(listDistrict);
+//        }
     }
+
 }

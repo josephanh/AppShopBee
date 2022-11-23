@@ -1,5 +1,6 @@
 package nta.nguyenanh.code_application.adapter;
 
+import static nta.nguyenanh.code_application.AddressActivity.listDistrict;
 import static nta.nguyenanh.code_application.AddressActivity.listDistricts;
 import static nta.nguyenanh.code_application.AddressActivity.listDivision;
 
@@ -33,7 +34,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return new AddressFragment().newInstance(listDivision);
             case 1:
-                return new AddressFragment().newInstance(listDistricts);
+                return new AddressFragment().newInstance(listDistrict);
             case 2:
                 return new AddressFragment();
             default:

@@ -13,14 +13,17 @@ import java.util.ArrayList;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.model.Address;
 
-public class AddressAdapter extends BaseAdapter {
+public class AddressAdapter extends BaseAdapter{
 
     Context context;
     ArrayList<Address> list;
+    onClickItemAddress onClick;
 
-    public AddressAdapter(Context context, ArrayList<Address> list) {
+
+    public AddressAdapter(Context context, ArrayList<Address> list, onClickItemAddress onClick) {
         this.context = context;
         this.list = list;
+        this.onClick =  onClick;
     }
 
     @Override
@@ -29,6 +32,15 @@ public class AddressAdapter extends BaseAdapter {
             return list.size();
         }
         return 0;
+    }
+
+    public ArrayList<Address> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<Address> list) {
+        this.list = list;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -48,6 +60,16 @@ public class AddressAdapter extends BaseAdapter {
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         TextView content = view.findViewById(R.id.content);
         content.setText(list.get(position).getName());
+
+        content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClick.onClick(position);
+            }
+        });
         return view;
+    }
+    public interface onClickItemAddress{
+        void onClick(int pos);
     }
 }

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabGravity="start"
-        android:foregroundGravity="left" />
+        android:foregroundGravity="left"/>
     <androidx.viewpager2.widget.ViewPager2
         android:background="@color/white"
         android:id="@+id/viewpager2"
