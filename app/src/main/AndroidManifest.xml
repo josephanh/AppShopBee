@@ -28,8 +28,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity         
-            android:name=".FlashSaleActivity"
+        <activity
+            android:name=".FlashSaleActivity"   
             android:exported="true">
 
             <meta-data
