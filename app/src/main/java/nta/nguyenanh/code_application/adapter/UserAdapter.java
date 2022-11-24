@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.util.List;
+
+import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.model.User2;
 
 public class UserAdapter extends RecyclerView.Adapter<UserHolder> {
     private Context context;

@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+
+import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.model.PageViewModel;
 
 
 /**

@@ -1,6 +1,6 @@
 package nta.nguyenanh.code_application;
 
-import static nta.nguyenanh.code_application.FirebaseQuery.USERNAME;
+import static nta.nguyenanh.code_application.helper.FirebaseQuery.USERNAME;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,13 +26,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
+import nta.nguyenanh.code_application.adapter.ChatAdapter;
+import nta.nguyenanh.code_application.helper.FirebaseQuery;
+import nta.nguyenanh.code_application.model.Chat;
 
 
 public class ChatActivity extends AppCompatActivity {

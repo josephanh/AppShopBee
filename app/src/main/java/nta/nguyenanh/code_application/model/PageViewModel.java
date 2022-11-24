@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.model;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

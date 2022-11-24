@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.model.Chat;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
 

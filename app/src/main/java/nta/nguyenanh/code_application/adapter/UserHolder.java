@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import nta.nguyenanh.code_application.R;
 
 
 class UserHolder extends RecyclerView.ViewHolder {

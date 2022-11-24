@@ -7,7 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -21,7 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-import static nta.nguyenanh.code_application.FirebaseQuery.USERS;
+import static nta.nguyenanh.code_application.helper.FirebaseQuery.USERS;
+
+import nta.nguyenanh.code_application.model.User2;
 
 public class SignUpActivity extends AppCompatActivity {
 

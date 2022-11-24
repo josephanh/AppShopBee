@@ -1,8 +1,7 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import nta.nguyenanh.code_application.ChatActivity;
+import nta.nguyenanh.code_application.interfaces.ItemClickSupport;
+import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.adapter.GroupAdapter;
+import nta.nguyenanh.code_application.helper.FirebaseQuery;
+import nta.nguyenanh.code_application.model.Group;
 
 public class InboxFragment extends Fragment {
 

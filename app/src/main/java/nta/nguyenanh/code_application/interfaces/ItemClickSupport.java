@@ -1,9 +1,10 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.interfaces;
 
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import nta.nguyenanh.code_application.R;
 
 
 public class ItemClickSupport  {

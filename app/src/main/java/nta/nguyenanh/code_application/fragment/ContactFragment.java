@@ -1,8 +1,7 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
@@ -26,7 +24,14 @@ import java.util.List;
 import java.util.Map;
 
 
-import static nta.nguyenanh.code_application.FirebaseQuery.USERNAME;
+import static nta.nguyenanh.code_application.helper.FirebaseQuery.USERNAME;
+
+import nta.nguyenanh.code_application.ChatActivity;
+import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.adapter.UserAdapter;
+import nta.nguyenanh.code_application.helper.FirebaseQuery;
+import nta.nguyenanh.code_application.interfaces.ItemClickSupport;
+import nta.nguyenanh.code_application.model.User2;
 
 public class ContactFragment extends Fragment {
 

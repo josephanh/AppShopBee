@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application;
+package nta.nguyenanh.code_application.model;
 
 public class Chat {
     public String sendBy;
