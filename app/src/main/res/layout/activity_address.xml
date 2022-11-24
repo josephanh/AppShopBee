@@ -28,7 +28,7 @@
                 android:layout_marginEnd="20dp"
                 style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_1"
+                    android:id="@+id/edt_namereceiver"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/edt_borderedittext_diachi"
@@ -47,7 +47,7 @@
                 android:layout_marginEnd="20dp"
                 >
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_2"
+                    android:id="@+id/edt_numberphone"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/edt_borderedittext_diachi"
@@ -81,10 +81,9 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_4"
+                    android:id="@+id/edt_streets"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-
                     android:background="@drawable/edt_borderedittext_diachi"
                     android:hint="Đường tòa nhà nếu có"
                     android:inputType="text"
@@ -101,7 +100,7 @@
                 android:layout_marginEnd="20dp"
                 >
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_5"
+                    android:id="@+id/edt_house"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/edt_borderedittext_diachi"
@@ -150,7 +149,7 @@
 
         </LinearLayout>
         <Button
-            android:id="@+id/btn_1"
+            android:id="@+id/btn_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

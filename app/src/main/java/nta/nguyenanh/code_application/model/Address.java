@@ -4,6 +4,49 @@ public class Address {
     private String name;
     private Integer code, province_code;
 
+    private String address, nameReceiver, phonenumber;
+    private int available;
+
+
+    public Address(String address, String nameReceiver, String phonenumber, int available) {
+        this.address = address;
+        this.nameReceiver = nameReceiver;
+        this.phonenumber = phonenumber;
+        this.available = available;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getNameReceiver() {
+        return nameReceiver;
+    }
+
+    public void setNameReceiver(String nameReceiver) {
+        this.nameReceiver = nameReceiver;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public Integer getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(int available) {
+        this.available = available;
+    }
+
     public Address(String name, Integer code, Integer province_code) {
         this.name = name;
         this.code = code;

@@ -1,8 +1,11 @@
 package nta.nguyenanh.code_application.model;
 
+import java.util.ArrayList;
+
 public class User {
     private int id ;
-    private String address,datebirth,fullname,password,phonenumber,username,userID;
+    private String datebirth,fullname,password,phonenumber,username,userID;
+    ArrayList<Address> address;
 
     public String getUserID() {
         return userID;
@@ -12,7 +15,7 @@ public class User {
         this.userID = userID;
     }
 
-    public User(int id, String address, String datebirth, String fullname, String password, String phonenumber, String username, String userID) {
+    public User(int id, ArrayList<Address> address, String datebirth, String fullname, String password, String phonenumber, String username, String userID) {
         this.id = id;
         this.address = address;
         this.datebirth = datebirth;
@@ -23,7 +26,7 @@ public class User {
         this.userID = userID;
     }
 
-    public User(String address, String datebirth, String fullname, String password, String phonenumber, String username, String userID) {
+    public User(ArrayList<Address> address, String datebirth, String fullname, String password, String phonenumber, String username, String userID) {
         this.address = address;
         this.datebirth = datebirth;
         this.fullname = fullname;
@@ -41,11 +44,11 @@ public class User {
         this.id = id;
     }
 
-    public String getAddress() {
+    public ArrayList<Address> getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(ArrayList<Address> address) {
         this.address = address;
     }
 
