@@ -59,4 +59,8 @@ dependencies {
 
     // hiệu ứng cho nhận xu
 
+    //message
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
 }
