@@ -25,6 +25,7 @@ import java.util.Date;
 import nta.nguyenanh.code_application.adapter.CartAdapter;
 import nta.nguyenanh.code_application.interfaces.OnclickItemCart;
 import nta.nguyenanh.code_application.model.ProductCart;
+import nta.nguyenanh.code_application.notification.Notification;
 
 public class PayActivity extends AppCompatActivity {
 
@@ -40,6 +41,7 @@ public class PayActivity extends AppCompatActivity {
     private TextView tv_totalMoneyFinal;
     private TextView tv_totalMoney1final;
     private Button btn_buy_d;
+    private DecimalFormat formatter;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,6 +54,7 @@ public class PayActivity extends AppCompatActivity {
         long unix = System.currentTimeMillis();
         Date date = new Date(unix+432000000L);
         SimpleDateFormat sdf = new SimpleDateFormat("E, dd/MM");
+        formatter = new DecimalFormat("###,###,###");
         String formattedDate = sdf.format(date);
 
         long unixRe = unix+691200000L;
@@ -77,7 +80,7 @@ public class PayActivity extends AppCompatActivity {
             price = list.get(i).getPrice();
             totalMoney = Double.parseDouble(String.valueOf(price));
             Log.d(">>>>TAG:",""+price);
-            DecimalFormat formatter = new DecimalFormat("###,###,###");
+
             tv_totalMoney1final.setText(formatter.format(totalMoney)+"đ");
             tv_totalMoney2.setText(formatter.format(totalMoney)+"đ");
             tv_totalMoney1.setText(formatter.format(totalMoney+30000)+"đ");
@@ -119,7 +122,11 @@ public class PayActivity extends AppCompatActivity {
         btn_buy_d.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                String title = "Chúc mừng đặt hàng thành công!";
+                String content = MainActivity.userModel.getFullname()+" đã đặt hàng thành công với tổng giá trị: "+formatter.format(totalMoney)+"đ";
+                Notification notification = new Notification(PayActivity.this);
+                notification.customNotification(title, content);
+
             }
         });
     }
@@ -143,7 +150,6 @@ public class PayActivity extends AppCompatActivity {
         } else {
             totalMoney = totalMoney + (total - oldTotal)*price;
         }
-        DecimalFormat formatter = new DecimalFormat("###,###,###");
 //        totalMoneyProduct.setText(formatter.format(totalMoney)+"đ");
         Log.d(">>>>TAG:",""+formatter.format(totalMoney)+"đ");
         tv_totalMoney1final.setText(formatter.format(totalMoney)+"đ");
