@@ -4,7 +4,7 @@ public class User2{
 
     public String username;
     public String password;
-    public String lastName;
+    public String fullName;
     public String firstName;
     public String avatar;
     public boolean isOnline;
