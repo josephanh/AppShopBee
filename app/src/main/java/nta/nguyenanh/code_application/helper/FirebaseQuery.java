@@ -19,33 +19,21 @@ import nta.nguyenanh.code_application.model.Chat;
 
 
 public class FirebaseQuery<T> {
-
     public static String TAG = "FB";
-
-
     public static final String MESSAGES = "Messages";
     public static final String GROUPS = "Groups";
     public static final String USERS = "Users";
-
     public static String USERNAME = "";
-
     public static void checkExitsUsername(String username, ValueEventListener valueEventListener) {
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         database.getReference(USERS).child(username);
-
         DatabaseReference users = database.getReference(USERS).child(username);
-
         users.addListenerForSingleValueEvent(valueEventListener);
     }
-
-
     public static void writeTo(String ref) {
-
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("messages");
-
         myRef.setValue("Hello, World!");
     }
 
@@ -111,6 +99,10 @@ public class FirebaseQuery<T> {
         Chat chat = new Chat(username, text, currentTimeMillis);
 
         myRefMessage.push().setValue(chat, completionListener);
+
+    }
+    //lấy tin nhắn
+    public static void getMessage(){
 
     }
 
