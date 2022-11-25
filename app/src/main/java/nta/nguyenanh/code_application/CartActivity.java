@@ -93,8 +93,8 @@ public class CartActivity extends AppCompatActivity {
                         Intent intent = new Intent(CartActivity.this, AddressActivity.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(CartActivity.this, "Đủ thông tin"+userModel.getAddress(), Toast.LENGTH_SHORT).show();
-
+                        Intent intent = new Intent(CartActivity.this, PayActivity.class);
+                        startActivity(intent);
                     }
                 }
             }

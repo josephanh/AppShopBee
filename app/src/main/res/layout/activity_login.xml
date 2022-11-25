@@ -30,21 +30,27 @@
 
         android:background="@drawable/btn_borderbutton_login"
         />
-    <EditText
-        android:id="@+id/txt_password"
-        android:layout_marginTop="20dp"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Mật khẩu"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp"
-        android:maxLines="1"
-        android:textSize="16sp"
-        android:inputType="textPassword"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/btn_borderbutton_login"
-        />
+        app:hintEnabled="false"
+        app:passwordToggleEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Mật khẩu"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:inputType="textPassword"
+            android:background="@drawable/btn_borderbutton_login"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

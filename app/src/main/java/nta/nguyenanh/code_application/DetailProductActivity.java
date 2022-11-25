@@ -24,8 +24,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.common.reflect.TypeToken;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,9 +144,18 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
             String username = preferences.getString("username", null);
             String fullname = preferences.getString("fullname", null);
             String password = preferences.getString("password", null);
-
             String numberphone = preferences.getString("numberphone", null);
-            userModel = new User(null, null, fullname, password, numberphone, username, userid);
+
+            // xem trên yt https://www.youtube.com/watch?v=xjOyvwRinK8&ab_channel=TechProjects
+            Gson gson = new Gson();
+            String json = preferences.getString("address", null);
+            Type type = new TypeToken<ArrayList<Address>>(){
+            }.getType();
+            ArrayList<Address> addressList = gson.fromJson(json, type);
+            if(addressList == null) {
+                addressList  = new ArrayList<>();
+            }
+            userModel = new User(addressList, null, fullname, password, numberphone, username, userid);
         }
     }
 

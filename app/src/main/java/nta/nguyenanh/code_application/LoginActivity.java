@@ -42,11 +42,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -284,14 +286,16 @@ public class LoginActivity extends AppCompatActivity {
     // lưu trạng thái login vào shored preferences
     private void writeLogin(User user) {
         SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = gson.toJson(user.getAddress());
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("isLoggedin", true);
         editor.putString("userid", user.getUserID());
         editor.putString("username", user.getUsername());
         editor.putString("fullname", user.getFullname());
         editor.putString("password", user.getPassword());
-//        editor.putString("address", user.getAddress());
-//        editor.putString("numberphone", user.getPhonenumber());
+        editor.putString("address", json);
+        editor.putString("numberphone", user.getPhonenumber());
         editor.commit();
     }
 
@@ -332,11 +336,12 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d("TAG", "onComplete: " + password);
                                 if (txt_name.getText().toString().equals(username) && getMd5(txt_password.getText().toString()).equals(password)) {
                                     new getAddress().getDataAddress(document);
+                                    checkUser = true;
                                 }
                             }
-
-                            Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
-
+                            if(!checkUser) {
+                                Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });
@@ -369,7 +374,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     class getAddress {
-        public void getDataAddress(QueryDocumentSnapshot document) {
+        public void getDataAddress(QueryDocumentSnapshot doc) {
             db.collection("user")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -378,7 +383,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 for (DocumentSnapshot document : task.getResult()) {
                                     // lấy ra tài khoản với id của người dùng
-                                    if (document.getId().equals(document.getId())) {
+                                    if (document.getId().equals(doc.getId())) {
                                         Map<String, Object> address = document.getData();
                                         // trả về tất cả dữ liệu của địa chỉ qua map là address
                                         for (String key : address.keySet()) {
@@ -388,6 +393,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 // tiếp tục convert thằng cha address qua một arraylist
                                                 // map nhận được có key là id sản phẩm + timeline
                                                 Log.d("KEYDATA", "Sản phẩm: " + key);
+                                                Log.d("KEYDATA", "Sản phẩm: " + address);
                                                 // bắt đầu convert thằng cha qua ArrayList --
                                                 Log.d("LIST ADDRESS", "onComplete: " + address.get("address"));
                                                 Map<String, Object> itemAddress = (Map<String, Object>) address.get("address");
@@ -430,12 +436,12 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.d("LIST DATA", "onComplete: " + addressList.get(0).getNameReceiver());
                                         userModel = new User(
                                                 addressList,
-                                                document.get("datebirth") + "",
-                                                document.get("fullname") + "",
-                                                document.get("password") + "",
-                                                document.get("phonenumber") + "",
-                                                document.get("username") + "",
-                                                document.getId());
+                                                doc.get("datebirth") + "",
+                                                doc.get("fullname") + "",
+                                                doc.get("password") + "",
+                                                doc.get("phonenumber") + "",
+                                                doc.get("username") + "",
+                                                doc.getId());
 
                                         Log.d("LIST----LIST", "onComplete: " + addressList.size());
                                         writeLogin(userModel);
