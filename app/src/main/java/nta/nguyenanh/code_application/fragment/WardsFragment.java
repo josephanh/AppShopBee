@@ -1,6 +1,14 @@
 package nta.nguyenanh.code_application.fragment;
 
+import static nta.nguyenanh.code_application.AddressActivity.indexDistrict;
+import static nta.nguyenanh.code_application.AddressActivity.indexWard;
+
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,11 +17,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import java.util.ArrayList;
 
 import nta.nguyenanh.code_application.AddressActivity;
@@ -21,21 +24,14 @@ import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.AddressAdapter;
 import nta.nguyenanh.code_application.model.Address;
 
-public class AddressFragment extends Fragment {
-
-
+public class WardsFragment extends Fragment {
     ArrayList<Address> list = new ArrayList<>();
     RecyclerView recyclerAddress;
     AddressAdapter adapter;
     LinearLayoutManager layoutManager;
 
-    public AddressFragment() {
-        // Required empty public constructor
-    }
-
-
-    public static AddressFragment newInstance(ArrayList<Address> list) {
-        AddressFragment fragment = new AddressFragment();
+    public static WardsFragment newInstance(ArrayList<Address> list) {
+        WardsFragment fragment = new WardsFragment();
         Bundle args = new Bundle();
         args.putSerializable("list", list);
         fragment.setArguments(args);
@@ -78,14 +74,10 @@ public class AddressFragment extends Fragment {
     @Override
     public void onResume() {
         if(adapter != null) {
-            adapter.notifyDataSetChanged();
+            if(indexWard == -1) {
+                adapter.notifyDataSetChanged();
+            }
         }
         super.onResume();
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
 }

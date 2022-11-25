@@ -1,8 +1,11 @@
 package nta.nguyenanh.code_application.helper;
 
 
+import android.os.Build;
 import android.util.Log;
 
+
+import androidx.annotation.RequiresApi;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -12,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,7 +85,6 @@ public class FirebaseQuery<T> {
         query.addValueEventListener(valueEventListener);
     }
 
-
     public static void sendMessage(String id, String text, String username, long currentTimeMillis, DatabaseReference.CompletionListener
             completionListener) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -91,12 +94,11 @@ public class FirebaseQuery<T> {
         Map<String, Object> hopperUpdates = new HashMap<>();
         hopperUpdates.put("id", id);
         hopperUpdates.put("lastUpdate", text);
-        hopperUpdates.put("time", currentTimeMillis);
-
+        hopperUpdates.put("time", System.currentTimeMillis());
         myRefGroup.updateChildren(hopperUpdates);
 
         DatabaseReference myRefMessage = database.getReference(MESSAGES).child(id);
-        Chat chat = new Chat(username, text, currentTimeMillis);
+        Chat chat = new Chat(username, text, System.currentTimeMillis());
 
         myRefMessage.push().setValue(chat, completionListener);
 

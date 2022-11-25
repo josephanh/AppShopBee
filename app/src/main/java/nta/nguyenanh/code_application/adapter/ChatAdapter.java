@@ -40,8 +40,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
         holder.tvUser.setText(chat.sendBy);
         holder.tvText.setText(chat.text);
         Date date = new Date(chat.time);
-        SimpleDateFormat sdf = new SimpleDateFormat("E, dd/MM/yyyy hh:mm aa");
-        sdf.setTimeZone(java.util.TimeZone.getTimeZone("Vietnam/Hanoi"));
+        SimpleDateFormat sdf = new SimpleDateFormat("E, dd/MM/yyyy HH:mm");
         String formattedDate = sdf.format(date);
         holder.tvTime.setText(formattedDate + "");
 

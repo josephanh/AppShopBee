@@ -38,14 +38,21 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+import nta.nguyenanh.code_application.adapter.CartAdapter;
+import nta.nguyenanh.code_application.model.Address;
+import nta.nguyenanh.code_application.model.ProductCart;
 import nta.nguyenanh.code_application.model.User;
 
 public class LoginActivity extends AppCompatActivity {
@@ -64,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     boolean checklogin=false;
     //facebook
     CallbackManager callbackManager ;
+    ArrayList<Address> address;
 
 
     @Override
@@ -200,8 +208,7 @@ public class LoginActivity extends AppCompatActivity {
                         item.put("phonenumber",null);
                         item.put("address",null);
                         item.put("fullname",name);
-
-
+                        new getAddress().getDataAddress();
                         db.collection("user")
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -216,7 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 if (tempmail.equals(username2)) {
 //                                                    writeLogin((User) document.getData());
                                                     userModel = new User(
-                                                            document.get("address")+"",
+                                                            address,
                                                             document.get("datebirth")+"",
                                                             document.get("fullname")+"",
                                                             document.get("password")+"",
@@ -292,7 +299,7 @@ public class LoginActivity extends AppCompatActivity {
             String username = preferences.getString("username", null);
             String fullname = preferences.getString("fullname", null);
             String password = preferences.getString("password", null);
-            String address = preferences.getString("address", null);
+            ArrayList<Address> address = (ArrayList<Address>) preferences.getAll().get("address");
             String numberphone = preferences.getString("numberphone", null);
             userModel = new User(address, null, fullname, password, numberphone, username, userid);
             onBackPressed();
@@ -303,6 +310,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Không được để trống tài khoản ,mật khẩu", Toast.LENGTH_SHORT).show();
             return;
         }
+        new getAddress().getDataAddress();
         db.collection("user")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -317,7 +325,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d("TAG", "onComplete: "+password);
                                 if (txt_name.getText().toString().equals(username) && getMd5(txt_password.getText().toString()).equals(password)) {
                                     userModel = new User(
-                                            document.get("address")+"",
+                                            address,
                                             document.get("datebirth")+"",
                                             document.get("fullname")+"",
                                             document.get("password")+"",
@@ -360,6 +368,81 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("TAG>>>", "Thêm dữ liệu thất bại");
                     }
                 });
+    }
+
+    class getAddress{
+        public void getDataAddress() {
+            db.collection("cart")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    // lấy ra giỏ hàng có id trùng với id của người dùng
+                                    if(document.getId().equals(userModel.getUserID())) {
+                                        Map<String, Object> cart = document.getData();
+                                        // trả về tất cả dữ liệu của giỏ hàng qua map là cart
+                                        for (String key : cart.keySet()) {
+                                            // check kiểm tra. Nếu cái key trong map là id_user thì bỏ qua
+                                            // vì trong map có chứa id của người dùng và các item của giỏ hàng
+                                            if(!key.equals("id_user")) {
+                                                // nếu không phải là id thì
+                                                // tiếp tục convert item của giỏ hàng qua 1 map tiếp (vì firebase trả về 1 map)
+                                                // map nhận được có key là id sản phẩm + timeline
+                                                Log.d("KEYDATA", "Sản phẩm: " + key);
+                                                // bắt đầu convert Map qua ArrayList --
+                                                Map<String, Object> itemCart = (Map<String, Object>) cart.get(key);
+                                                Set<Map.Entry<String, Object>> entr = itemCart.entrySet();
+                                                ArrayList<Map.Entry<String, Object>> listOf = new ArrayList<Map.Entry<String, Object>>(entr);
+                                                // end - convert map qua ArrayList
+
+                                                String id = null, name = null, color = null, image = null;
+                                                Float price = 0F;
+                                                Integer total = 1;
+                                                for (int j = 0; j < listOf.size(); j++) {
+                                                    // chạy vòng lặp để gắn các dữ liệu từ map qua ArrayList
+                                                    Log.d("KEYDATA", listOf.get(j).getKey()+" : " + listOf.get(j).getValue());
+                                                    String result = String.valueOf(listOf.get(j).getValue());
+                                                    if(listOf.get(j).getKey().equals("id")) {
+                                                        id = result;
+                                                    }
+                                                    if(listOf.get(j).getKey().equals("nameproduct")) {
+                                                        name = result;
+                                                    }
+                                                    if(listOf.get(j).getKey().equals("price")) {
+                                                        price = Float.parseFloat(result) ;
+                                                    }
+                                                    if(listOf.get(j).getKey().equals("total")) {
+                                                        total = Integer.parseInt(result);
+                                                    }
+                                                    if(listOf.get(j).getKey().equals("color")) {
+                                                        color = result;
+                                                    }
+
+                                                    if(listOf.get(j).getKey().equals("image")) {
+                                                        image = result;
+                                                    }
+                                                }
+                                                Log.d("KEYDATA", "-----------\n");
+
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+
+                        }
+                    });
+        }
     }
 
 }

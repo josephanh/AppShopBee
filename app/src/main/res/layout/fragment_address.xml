@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FBF7F7"
     android:orientation="vertical"
-    tools:context=".fragment.AddressFragment">
+    tools:context=".fragment.DivisionFragment">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAddress"
         android:layout_width="match_parent"

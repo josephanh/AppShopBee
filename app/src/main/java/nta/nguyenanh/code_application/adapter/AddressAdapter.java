@@ -2,6 +2,7 @@ package nta.nguyenanh.code_application.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     Context context;
     ArrayList<Address> list;
     onClickItemAddress onClick;
+    private int row_index = -1;
 
     public AddressAdapter(Context context, ArrayList<Address> list, onClickItemAddress onClick) {
         this.context = context;
@@ -41,9 +43,19 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         holder.nameDiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                notifyDataSetChanged();
+                row_index=position;
+                notifyDataSetChanged();
                 onClick.onClick(position);
             }
         });
+        if(row_index == position) {
+            holder.nameDiv.setBackgroundColor(Color.parseColor("#0F6EB9"));
+            holder.nameDiv.setTextColor(Color.parseColor("#FFFFFF"));
+        } else {
+            holder.nameDiv.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            holder.nameDiv.setTextColor(Color.parseColor("#000000"));
+        }
     }
 
     @Override

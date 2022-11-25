@@ -1,7 +1,6 @@
 package nta.nguyenanh.code_application.adapter;
 
 import static nta.nguyenanh.code_application.AddressActivity.listDistrict;
-import static nta.nguyenanh.code_application.AddressActivity.listDistricts;
 import static nta.nguyenanh.code_application.AddressActivity.listDivision;
 import static nta.nguyenanh.code_application.AddressActivity.listWards;
 
@@ -12,7 +11,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import nta.nguyenanh.code_application.fragment.AddressFragment;
+import nta.nguyenanh.code_application.fragment.DistrictsFragment;
+import nta.nguyenanh.code_application.fragment.DivisionFragment;
+import nta.nguyenanh.code_application.fragment.WardsFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
@@ -33,13 +34,13 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return new AddressFragment().newInstance(listDivision);
+                return new DivisionFragment().newInstance(listDivision);
             case 1:
-                return new AddressFragment().newInstance(listDistrict);
+                return new DistrictsFragment().newInstance(listDistrict);
             case 2:
-                return new AddressFragment().newInstance(listWards);
+                return new WardsFragment().newInstance(listWards);
             default:
-                return new AddressFragment().newInstance(listDivision);
+                return new DivisionFragment().newInstance(listDivision);
         }
 
     }

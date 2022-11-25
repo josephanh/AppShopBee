@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
@@ -14,6 +15,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,11 +53,15 @@ public class AddressActivity extends AppCompatActivity {
     ViewPagerAdapter viewPagerAdapter;
     TextView tinhhuyenxa;
 
+    EditText edt_namereceiver, edt_numberphone, edt_streets, edt_house;
+    Button btn_confirm;
+
     Toolbar toolbar;
 
     public static ArrayList<Address> listDivision = new ArrayList<>(), listDistricts = new ArrayList<>();
     public static ArrayList<Address> listDistrict = new ArrayList<>(), listWards = new ArrayList<>();
     private String division, district, ward;
+    public static int indexDivision = -1, indexDistrict = -1, indexWard = -1;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -63,6 +70,11 @@ public class AddressActivity extends AppCompatActivity {
         setContentView(R.layout.activity_address);
         toolbar = findViewById(R.id.toolbar);
         tinhhuyenxa = findViewById(R.id.tinhhuyenxa);
+        edt_namereceiver = findViewById(R.id.edt_namereceiver);
+        edt_numberphone = findViewById(R.id.edt_numberphone);
+        edt_streets = findViewById(R.id.edt_streets);
+        edt_house = findViewById(R.id.edt_house);
+        btn_confirm = findViewById(R.id.btn_confirm);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Địa chỉ nhận hàng");
@@ -73,33 +85,45 @@ public class AddressActivity extends AppCompatActivity {
             }
         });
 
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addAddress(new Update());
+            }
+        });
+
 
         new fetchData().start();
-//        addAddress();
+
 
     }
 
-    public void addAddress() {
+    public void addAddress(Update update) {
 
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("name", "name");
-        hashMap.put("city", "địa chỉ nhận hàng");
+        String phonenumber = edt_numberphone.getText().toString().trim();
+        String namereceiver = edt_namereceiver.getText().toString().trim();
+        String place = tinhhuyenxa.getText().toString().trim();
+        int availble;
 
-        db.collection("user").document(userModel.getUserID())
-                .update("address", hashMap)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+        if(phonenumber.isEmpty() || namereceiver.isEmpty() || place.isEmpty()) {
+            Toast.makeText(this, "Bạn hãy điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // Thay thế chuỗi cho gọn
+        division = division.replace("Thành phố", "Tp.");
+        district = district.replace("Quận", "Q.");
+        district = district.replace("Huyện", "H.");
+        ward = ward.replace("Phường", "P.");
+        place = ward+"/"+district+"/"+division;
+        Address address = new Address(place, namereceiver, phonenumber, 0);
+        HashMap<String, Object> places = new HashMap<>();
+        places.put("address"+System.currentTimeMillis(), address);
 
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
+        update.updateAddress(places);
     }
+
+
+
 
     public void bottomsheet(View v) {
         bottomSheetDialog = new BottomSheetDialog(this);
@@ -112,7 +136,14 @@ public class AddressActivity extends AppCompatActivity {
         viewPager2.setAdapter(viewPagerAdapter);
 
         tableLayout.setSelectedTabIndicator(R.drawable.round_back_theme_diachi);
-        tableLayout.addTab(tableLayout.newTab().setText("Tỉnh / Thành phố"));
+        if(indexDivision != -1 && indexDistrict != -1 && indexWard != -1){
+            tableLayout.addTab(tableLayout.newTab().setText(listDivision.get(indexDivision).getName()));
+            tableLayout.addTab(tableLayout.newTab().setText(listDistrict.get(indexDistrict).getName()));
+            tableLayout.addTab(tableLayout.newTab().setText(listWards.get(indexWard).getName()));
+        } else {
+            tableLayout.addTab(tableLayout.newTab().setText("Tỉnh / Thành phố"));
+        }
+
 //        tableLayout.addTab(tableLayout.newTab().setText("Quận / Huyện"));
 //        tableLayout.addTab(tableLayout.newTab().setText("Phường / Xã"));
 
@@ -152,6 +183,95 @@ public class AddressActivity extends AppCompatActivity {
         bottomSheetDialog.show();
     }
 
+    public void onClickItemAddress(int i, ArrayList<Address> list) {
+
+        if (list.get(i).getProvince_code() == -1) {
+            division = listDivision.get(i).getName();
+            indexDivision = i;
+            indexDistrict = -1;
+            indexWard = -1;
+            if (tableLayout.getTabCount() == 2) {
+                tableLayout.removeTab(tableLayout.getTabAt(1));
+            }
+            if (tableLayout.getTabCount() == 3) {
+                tableLayout.removeTab(tableLayout.getTabAt(1));
+                tableLayout.removeTab(tableLayout.getTabAt(1));
+            }
+            tableLayout.addTab(tableLayout.newTab().setText("Quận/Huyện"));
+            tableLayout.getTabAt(0).setText(listDivision.get(i).getName());
+            listDistrict.clear();
+            for (int j = 0; j < listDistricts.size(); j++) {
+                if (listDistricts.get(j).getProvince_code() == listDivision.get(i).getCode()) {
+                    listDistrict.add(listDistricts.get(j));
+                }
+            }
+            viewPagerAdapter.notifyDataSetChanged();
+            Log.d("DATA", "onClickItemAddress: " + listDistrict.size());
+            tableLayout.setScrollPosition(1, 0f, true);
+            tableLayout.selectTab(tableLayout.getTabAt(1));
+            viewPager2.setCurrentItem(1);
+        } else if (list.get(i).getProvince_code() == -2) {
+            indexWard = i;
+            tableLayout.getTabAt(2).setText(listWards.get(i).getName());
+            Toast.makeText(this, "Chọn địa chỉ thành công", Toast.LENGTH_SHORT).show();
+            ward = listWards.get(i).getName();
+            bottomSheetDialog.hide();
+            division = division.replace("Thành phố", "Tp.");
+            division = division.replace("Tỉnh", "");
+            district = district.replace("Quận", "Q.");
+            district = district.replace("Huyện", "H.");
+            ward = ward.replace("Phường", "P.");
+            tinhhuyenxa.setText(division+"/"+district+"/"+ward);
+        } else {
+            indexDistrict = i;
+            district = listDistrict.get(i).getName();
+            listWards.clear();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String data = "";
+                    try {
+                        URL url = new URL("https://provinces.open-api.vn/api/d/" + listDistrict.get(i).getCode() + "?depth=2");
+                        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                        InputStream inputStream = httpURLConnection.getInputStream();
+
+                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                        String line;
+
+                        while ((line = bufferedReader.readLine()) != null) {
+                            data = data + line;
+                            Log.d("DATA DEMO: NAME", "run: " + data);
+                            if (!data.isEmpty()) {
+                                JSONObject jsonObject = new JSONObject(data);
+                                JSONArray jsonArray = jsonObject.getJSONArray("wards");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject json = jsonArray.getJSONObject(i);
+                                    String name = json.getString("name");
+                                    int code = json.getInt("code");
+
+                                    listWards.add(new Address(name, code, -2));
+                                }
+                            }
+                        }
+
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+            }).start();
+            if (tableLayout.getTabCount() > 2) {
+                tableLayout.removeTab(tableLayout.getTabAt(2));
+            }
+            tableLayout.addTab(tableLayout.newTab().setText("Phường/xã"));
+            tableLayout.getTabAt(1).setText(listDistrict.get(i).getName());
+            tableLayout.setScrollPosition(2, 0f, true);
+            viewPager2.setCurrentItem(2);
+        }
+
+    }
+
+    // lấy dữ liệu ban đầu
     class fetchData extends Thread {
         String data = "";
 
@@ -207,87 +327,25 @@ public class AddressActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickItemAddress(int i, ArrayList<Address> list) {
+    // update phonenumber
+    class Update{
 
-        if (list.get(i).getProvince_code() == -1) {
-            division = listDivision.get(i).getName();
-            if (tableLayout.getTabCount() == 2) {
-                tableLayout.removeTab(tableLayout.getTabAt(1));
-            }
-            if (tableLayout.getTabCount() == 3) {
-                tableLayout.removeTab(tableLayout.getTabAt(1));
-                tableLayout.removeTab(tableLayout.getTabAt(1));
-            }
-            tableLayout.addTab(tableLayout.newTab().setText("Quận/Huyện"));
-            tableLayout.getTabAt(0).setText(listDivision.get(i).getName());
-            listDistrict.clear();
-            for (int j = 0; j < listDistricts.size(); j++) {
-                if (listDistricts.get(j).getProvince_code() == listDivision.get(i).getCode()) {
-                    listDistrict.add(listDistricts.get(j));
-                }
-            }
-            viewPagerAdapter.notifyDataSetChanged();
-            Log.d("DATA", "onClickItemAddress: " + listDistrict.size());
-            tableLayout.setScrollPosition(1, 0f, true);
-            tableLayout.selectTab(tableLayout.getTabAt(1));
-            viewPager2.setCurrentItem(1);
-        } else if (list.get(i).getProvince_code() == -2) {
-            tableLayout.getTabAt(2).setText(listWards.get(i).getName());
-            Toast.makeText(this, "Chọn địa chỉ thành công", Toast.LENGTH_SHORT).show();
-            ward = listWards.get(i).getName();
-            bottomSheetDialog.hide();
-            division = division.replace("Thành phố", "Tp.");
-            division = division.replace("Tỉnh", "");
-            district = district.replace("Quận", "Q.");
-            district = district.replace("Huyện", "H.");
-            ward = ward.replace("Phường", "P.");
-            tinhhuyenxa.setText(division+"/"+district+"/"+ward);
-        } else {
-            district = listDistrict.get(i).getName();
-            listWards.clear();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    String data = "";
-                    try {
-                        URL url = new URL("https://provinces.open-api.vn/api/d/" + listDistrict.get(i).getCode() + "?depth=2");
-                        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        public void updateAddress(HashMap<String, Object> address) {
+            db.collection("user").document(userModel.getUserID())
+                    .update("address", address)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
 
-                        InputStream inputStream = httpURLConnection.getInputStream();
-
-                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                        String line;
-
-                        while ((line = bufferedReader.readLine()) != null) {
-                            data = data + line;
-                            Log.d("DATA DEMO: NAME", "run: " + data);
-                            if (!data.isEmpty()) {
-                                JSONObject jsonObject = new JSONObject(data);
-                                JSONArray jsonArray = jsonObject.getJSONArray("wards");
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject json = jsonArray.getJSONObject(i);
-                                    String name = json.getString("name");
-                                    int code = json.getInt("code");
-
-                                    listWards.add(new Address(name, code, -2));
-                                }
-                            }
                         }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
 
-                    } catch (Exception e) {
-                        e.getMessage();
-                    }
-                }
-            }).start();
-            if (tableLayout.getTabCount() > 2) {
-                tableLayout.removeTab(tableLayout.getTabAt(2));
-            }
-            tableLayout.addTab(tableLayout.newTab().setText("Phường/xã"));
-            tableLayout.getTabAt(1).setText(listDistrict.get(i).getName());
-            tableLayout.setScrollPosition(2, 0f, true);
-            viewPager2.setCurrentItem(2);
+                        }
+                    });
         }
-
     }
 
 }

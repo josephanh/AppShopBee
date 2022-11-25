@@ -37,6 +37,7 @@ import nta.nguyenanh.code_application.bottomsheet.BottomSheet;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
 import nta.nguyenanh.code_application.dialog.DialogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
+import nta.nguyenanh.code_application.model.Address;
 import nta.nguyenanh.code_application.model.Product;
 import nta.nguyenanh.code_application.model.ProductCart;
 import nta.nguyenanh.code_application.model.User;
@@ -140,9 +141,9 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
             String username = preferences.getString("username", null);
             String fullname = preferences.getString("fullname", null);
             String password = preferences.getString("password", null);
-            String address = preferences.getString("address", null);
+
             String numberphone = preferences.getString("numberphone", null);
-            userModel = new User(address, null, fullname, password, numberphone, username, userid);
+            userModel = new User(null, null, fullname, password, numberphone, username, userid);
         }
     }
 
