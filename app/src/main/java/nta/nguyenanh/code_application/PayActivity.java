@@ -39,6 +39,7 @@ public class PayActivity extends AppCompatActivity {
         tvAddress = findViewById(R.id.tvAddress);
         dateReceive = findViewById(R.id.dateReceive);
 
+        list = (ArrayList<ProductCart>) getIntent().getSerializableExtra("listPay");
 
         long unix = System.currentTimeMillis();
         Date date = new Date(unix+432000000L);
@@ -60,7 +61,6 @@ public class PayActivity extends AppCompatActivity {
         dateReceive.setText("Nhận hàng vào "+formattedDate+" đến "+formattedDateRe);
 
 
-        list = (ArrayList<ProductCart>) getIntent().getSerializableExtra("listPay");
         Log.d("LIST DATA", "onCreate: pay"+list.get(0).getNameproduct());
 
         CartAdapter cartAdapter = new CartAdapter(list, this, new OnclickItemCart() {
