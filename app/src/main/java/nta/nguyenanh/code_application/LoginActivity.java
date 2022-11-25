@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     boolean checklogin = false;
     //facebook
     CallbackManager callbackManager;
-    ArrayList<Address> addressList;
+    ArrayList<Address> addressList = new ArrayList<>();
 
 
     @Override
@@ -324,23 +324,24 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             QuerySnapshot snapshots = task.getResult();
                             for (QueryDocumentSnapshot document : snapshots) {
-                                new getAddress().getDataAddress(document.getId());
+
                                 username = String.valueOf(document.get("username"));
                                 password = String.valueOf(document.get("password"));
                                 Log.d("TAG", "onComplete: " + username);
                                 Log.d("TAG", "onComplete: " + password);
                                 if (txt_name.getText().toString().equals(username) && getMd5(txt_password.getText().toString()).equals(password)) {
-                                    userModel = new User(
-                                            addressList,
-                                            document.get("datebirth") + "",
-                                            document.get("fullname") + "",
-                                            document.get("password") + "",
-                                            document.get("phonenumber") + "",
-                                            document.get("username") + "",
-                                            document.getId());
+                                    new getAddress().getDataAddress(document.getId());
+//                                    userModel = new User(
+//                                            addressList,
+//                                            document.get("datebirth") + "",
+//                                            document.get("fullname") + "",
+//                                            document.get("password") + "",
+//                                            document.get("phonenumber") + "",
+//                                            document.get("username") + "",
+//                                            document.getId());
 
                                     Log.d("TAG", "onComplete: " + password);
-                                    writeLogin(userModel);
+//                                    writeLogin(userModel);
                                     onBackPressed();
                                 }
                             }
@@ -395,11 +396,12 @@ public class LoginActivity extends AppCompatActivity {
                                             // check kiểm tra. Nếu key là address thì tiếp tục công việc đọc -- nếu không thì bỏ qua
                                             // vì trong map có chứa id của người dùng và các item của giỏ hàng
                                             if (key.equals("address")) {
-                                                // tiếp tục convert item của address qua một arraylist
+                                                // tiếp tục convert thằng cha address qua một arraylist
                                                 // map nhận được có key là id sản phẩm + timeline
                                                 Log.d("KEYDATA", "Sản phẩm: " + key);
-                                                // bắt đầu convert Map qua ArrayList --
-                                                Map<String, Object> itemAddress = (Map<String, Object>) address.get(key);
+                                                // bắt đầu convert thằng cha qua ArrayList --
+                                                Log.d("LIST ADDRESS", "onComplete: " + address.get("address"));
+                                                Map<String, Object> itemAddress = (Map<String, Object>) address.get("address");
                                                 Set<Map.Entry<String, Object>> entr = itemAddress.entrySet();
                                                 ArrayList<Map.Entry<String, Object>> listOf = new ArrayList<Map.Entry<String, Object>>(entr);
                                                 // end - convert map qua ArrayList
@@ -408,30 +410,47 @@ public class LoginActivity extends AppCompatActivity {
                                                 Integer available = 0;
                                                 for (int j = 0; j < listOf.size(); j++) {
                                                     // chạy vòng lặp để gắn các dữ liệu từ map qua ArrayList
-                                                    Log.d("KEYDATA", listOf.get(j).getKey() + " : " + listOf.get(j).getValue());
-                                                    String result = String.valueOf(listOf.get(j).getValue());
-                                                    if (listOf.get(j).getKey().equals("address")) {
-                                                        place = result;
+                                                    // chạy thằng cha để lấy ra thằng con address item
+                                                    Log.d("KEYDATA", listOf.get(j).getValue() + " : " + listOf.get(j).getValue());
+
+                                                    Map<String, Object> item = (Map<String, Object>) listOf.get(j).getValue();
+                                                    Set<Map.Entry<String, Object>> entrAd = item.entrySet();
+                                                    ArrayList<Map.Entry<String, Object>> listOfAd = new ArrayList<Map.Entry<String, Object>>(entrAd);
+
+                                                    for (int l = 0; l < listOfAd.size(); l++) {
+                                                        String result = String.valueOf(listOfAd.get(l).getValue());
+                                                        if (listOfAd.get(l).getKey().equals("phonenumber")) {
+                                                            phonenumber = result;
+                                                        }
+                                                        if (listOfAd.get(l).getKey().equals("nameReceiver")) {
+                                                            nameReceiver = result;
+                                                        }
+                                                        if (listOfAd.get(l).getKey().equals("address")) {
+                                                            place = result;
+                                                        }
                                                     }
-                                                    if (listOf.get(j).getKey().equals("nameReceiver")) {
-                                                        nameReceiver = result;
-                                                    }
-                                                    if (listOf.get(j).getKey().equals("phonenumber")) {
-                                                        phonenumber = result;
-                                                    }
+                                                    addressList.add(new Address(place, nameReceiver, phonenumber, available));
                                                 }
-                                                Log.d("KEYDATA", "-----------\n");
-                                                addressList.add(new Address(place, nameReceiver, phonenumber, available));
+
                                             }
                                         }
+                                        Log.d("KEYDATA", "-----------\n");
+                                        Log.d("LIST DATA", "onComplete: " + addressList.size());
+                                        Log.d("LIST DATA", "onComplete: " + addressList.get(0).getAddress());
+                                        Log.d("LIST DATA", "onComplete: " + addressList.get(0).getPhonenumber());
+                                        Log.d("LIST DATA", "onComplete: " + addressList.get(0).getNameReceiver());
+                                        break;
                                     }
-
                                 }
+
                             }
 
                         }
+
                     })
-                    .addOnFailureListener(new OnFailureListener() {
+                            .
+
+                    addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
 
