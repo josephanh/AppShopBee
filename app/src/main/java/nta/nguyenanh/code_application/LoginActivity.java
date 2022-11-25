@@ -56,22 +56,22 @@ import nta.nguyenanh.code_application.model.ProductCart;
 import nta.nguyenanh.code_application.model.User;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText txt_name,txt_password;
+    private EditText txt_name, txt_password;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private AppCompatButton btn_login;
-    private String username,password;
+    private String username, password;
     private CheckBox chktkmk;
     private TextView txtdangkyngay;
-    private Button btngoogle,btnfacebook;
+    private Button btngoogle, btnfacebook;
     //google
-    GoogleSignInClient gsc ;
-    private String tempmail=null;
+    GoogleSignInClient gsc;
+    private String tempmail = null;
     private String idfacebook = null;
     String username2;
-    boolean checklogin=false;
+    boolean checklogin = false;
     //facebook
-    CallbackManager callbackManager ;
-    ArrayList<Address> address;
+    CallbackManager callbackManager;
+    ArrayList<Address> addressList;
 
 
     @Override
@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        gsc = GoogleSignIn.getClient(LoginActivity.this,gso);
+        gsc = GoogleSignIn.getClient(LoginActivity.this, gso);
         //kiểm tra có login google hay chưa
 //        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(LoginActivity.this);
 //        if (account!=null){
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         txtdangkyngay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
         btnfacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("openid","public_profile","email"));
+                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("openid", "public_profile", "email"));
             }
         });
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -129,10 +129,10 @@ public class LoginActivity extends AppCompatActivity {
                 Profile.getCurrentProfile().getId();
                 Log.d("TAG", "facebook:onSuccess:" + Profile.getCurrentProfile().getId());
                 Map<String, Object> item = new HashMap<>();
-                item.put("username",  Profile.getCurrentProfile().getId());
-                item.put("address",null);
-                item.put("phonenumber",null);
-                item.put("fullname",Profile.getCurrentProfile().getName());
+                item.put("username", Profile.getCurrentProfile().getId());
+                item.put("address", null);
+                item.put("phonenumber", null);
+                item.put("fullname", Profile.getCurrentProfile().getName());
                 db.collection("user")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                                         username2 = document.get("username").toString();
                                         Log.d("TAG", "onComplete: " + username2);
                                         Log.d("TAG", "onComplete2: " + username);
-                                        if ( Profile.getCurrentProfile().getId().equals(username2)) {
+                                        if (Profile.getCurrentProfile().getId().equals(username2)) {
                                             Toast.makeText(LoginActivity.this, "Login thành công", Toast.LENGTH_SHORT).show();
 //                                            Intent homeintent = new Intent(LoginActivity.this,MainActivity.class);
 //                                            startActivity(homeintent);
@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 public void onSuccess(DocumentReference documentReference) {
                                                     Toast.makeText(LoginActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
 
-                                                    
+
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
@@ -175,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
 //                startActivity(homeintent);
 //                finish();
             }
+
             @Override
             public void onCancel() {
                 Log.d("TAG", "facebook:onCancel");
@@ -188,6 +189,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
     ActivityResultLauncher<Intent> googleLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -198,17 +200,17 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         GoogleSignInAccount account = task.getResult(ApiException.class);
                         String email = account.getEmail();
-                        Log.d(">>>>>>TAG","onActivityResult"+email);
+                        Log.d(">>>>>>TAG", "onActivityResult" + email);
                         String name = account.getDisplayName();
-                        Log.d(">>>>>>TAG","Name :"+name);
-                        tempmail =email;
+                        Log.d(">>>>>>TAG", "Name :" + name);
+                        tempmail = email;
                         Log.d("TAG", tempmail);
                         Map<String, Object> item = new HashMap<>();
                         item.put("username", tempmail);
-                        item.put("phonenumber",null);
-                        item.put("address",null);
-                        item.put("fullname",name);
-                        new getAddress().getDataAddress();
+                        item.put("phonenumber", null);
+                        item.put("address", null);
+                        item.put("fullname", name);
+                        new getAddress().getDataAddress(email);
                         db.collection("user")
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -223,17 +225,17 @@ public class LoginActivity extends AppCompatActivity {
                                                 if (tempmail.equals(username2)) {
 //                                                    writeLogin((User) document.getData());
                                                     userModel = new User(
-                                                            address,
-                                                            document.get("datebirth")+"",
-                                                            document.get("fullname")+"",
-                                                            document.get("password")+"",
-                                                            document.get("phonenumber")+"",
-                                                            document.get("username")+"",
+                                                            addressList,
+                                                            document.get("datebirth") + "",
+                                                            document.get("fullname") + "",
+                                                            document.get("password") + "",
+                                                            document.get("phonenumber") + "",
+                                                            document.get("username") + "",
                                                             document.getId());
 
                                                     writeLogin(userModel);
                                                     checklogin = true;
-                                                    Log.d("User", "onComplete: "+userModel.getFullname());
+                                                    Log.d("User", "onComplete: " + userModel.getFullname());
                                                     onBackPressed();
 
                                                 }
@@ -259,8 +261,8 @@ public class LoginActivity extends AppCompatActivity {
                                     }
 
                                 });
-                    }catch (Exception e){
-                        Log.d(">>>>>TAG","onActivityResult" +e.getMessage());
+                    } catch (Exception e) {
+                        Log.d(">>>>>TAG", "onActivityResult" + e.getMessage());
                     }
                 }
             }
@@ -271,6 +273,7 @@ public class LoginActivity extends AppCompatActivity {
         readlogin();
         super.onResume();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -278,7 +281,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // lưu trạng thái login vào shored preferences
-    private void writeLogin(User user){
+    private void writeLogin(User user) {
         SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("isLoggedin", true);
@@ -290,11 +293,12 @@ public class LoginActivity extends AppCompatActivity {
 //        editor.putString("numberphone", user.getPhonenumber());
         editor.commit();
     }
+
     // đọc trạng thái login
-    public void readlogin(){
-        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS",MODE_PRIVATE);
-        Boolean isLoggedin = preferences.getBoolean("isLoggedin",false);
-        if (isLoggedin){
+    public void readlogin() {
+        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
+        Boolean isLoggedin = preferences.getBoolean("isLoggedin", false);
+        if (isLoggedin) {
             String userid = preferences.getString("userid", null);
             String username = preferences.getString("username", null);
             String fullname = preferences.getString("fullname", null);
@@ -305,44 +309,48 @@ public class LoginActivity extends AppCompatActivity {
             onBackPressed();
         }
     }
+
     public void oncheckLogin(View v) {
-        if (txt_name.getText().toString().isEmpty()||txt_password.getText().toString().isEmpty()){
+        if (txt_name.getText().toString().isEmpty() || txt_password.getText().toString().isEmpty()) {
             Toast.makeText(LoginActivity.this, "Không được để trống tài khoản ,mật khẩu", Toast.LENGTH_SHORT).show();
             return;
         }
-        new getAddress().getDataAddress();
+
         db.collection("user")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             QuerySnapshot snapshots = task.getResult();
                             for (QueryDocumentSnapshot document : snapshots) {
-                                 username = String.valueOf(document.get("username"));
-                                 password = String.valueOf(document.get("password"));
-                                Log.d("TAG", "onComplete: "+username);
-                                Log.d("TAG", "onComplete: "+password);
+                                new getAddress().getDataAddress(document.getId());
+                                username = String.valueOf(document.get("username"));
+                                password = String.valueOf(document.get("password"));
+                                Log.d("TAG", "onComplete: " + username);
+                                Log.d("TAG", "onComplete: " + password);
                                 if (txt_name.getText().toString().equals(username) && getMd5(txt_password.getText().toString()).equals(password)) {
                                     userModel = new User(
-                                            address,
-                                            document.get("datebirth")+"",
-                                            document.get("fullname")+"",
-                                            document.get("password")+"",
-                                            document.get("phonenumber")+"",
-                                            document.get("username")+"",
+                                            addressList,
+                                            document.get("datebirth") + "",
+                                            document.get("fullname") + "",
+                                            document.get("password") + "",
+                                            document.get("phonenumber") + "",
+                                            document.get("username") + "",
                                             document.getId());
+
+                                    Log.d("TAG", "onComplete: " + password);
                                     writeLogin(userModel);
                                     onBackPressed();
                                 }
                             }
 
-                                Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
 
                         }
                     }
                 });
-     }
+    }
 
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -370,62 +378,50 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    class getAddress{
-        public void getDataAddress() {
-            db.collection("cart")
+    class getAddress {
+        public void getDataAddress(String id) {
+            db.collection("user")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (DocumentSnapshot document : task.getResult()) {
-                                    // lấy ra giỏ hàng có id trùng với id của người dùng
-                                    if(document.getId().equals(userModel.getUserID())) {
-                                        Map<String, Object> cart = document.getData();
-                                        // trả về tất cả dữ liệu của giỏ hàng qua map là cart
-                                        for (String key : cart.keySet()) {
-                                            // check kiểm tra. Nếu cái key trong map là id_user thì bỏ qua
+                                    // lấy ra tài khoản với id của người dùng
+                                    if (document.getId().equals(id)) {
+                                        Map<String, Object> address = document.getData();
+                                        // trả về tất cả dữ liệu của địa chỉ qua map là address
+                                        for (String key : address.keySet()) {
+                                            // check kiểm tra. Nếu key là address thì tiếp tục công việc đọc -- nếu không thì bỏ qua
                                             // vì trong map có chứa id của người dùng và các item của giỏ hàng
-                                            if(!key.equals("id_user")) {
-                                                // nếu không phải là id thì
-                                                // tiếp tục convert item của giỏ hàng qua 1 map tiếp (vì firebase trả về 1 map)
+                                            if (key.equals("address")) {
+                                                // tiếp tục convert item của address qua một arraylist
                                                 // map nhận được có key là id sản phẩm + timeline
                                                 Log.d("KEYDATA", "Sản phẩm: " + key);
                                                 // bắt đầu convert Map qua ArrayList --
-                                                Map<String, Object> itemCart = (Map<String, Object>) cart.get(key);
-                                                Set<Map.Entry<String, Object>> entr = itemCart.entrySet();
+                                                Map<String, Object> itemAddress = (Map<String, Object>) address.get(key);
+                                                Set<Map.Entry<String, Object>> entr = itemAddress.entrySet();
                                                 ArrayList<Map.Entry<String, Object>> listOf = new ArrayList<Map.Entry<String, Object>>(entr);
                                                 // end - convert map qua ArrayList
 
-                                                String id = null, name = null, color = null, image = null;
-                                                Float price = 0F;
-                                                Integer total = 1;
+                                                String place = null, nameReceiver = null, phonenumber = null;
+                                                Integer available = 0;
                                                 for (int j = 0; j < listOf.size(); j++) {
                                                     // chạy vòng lặp để gắn các dữ liệu từ map qua ArrayList
-                                                    Log.d("KEYDATA", listOf.get(j).getKey()+" : " + listOf.get(j).getValue());
+                                                    Log.d("KEYDATA", listOf.get(j).getKey() + " : " + listOf.get(j).getValue());
                                                     String result = String.valueOf(listOf.get(j).getValue());
-                                                    if(listOf.get(j).getKey().equals("id")) {
-                                                        id = result;
+                                                    if (listOf.get(j).getKey().equals("address")) {
+                                                        place = result;
                                                     }
-                                                    if(listOf.get(j).getKey().equals("nameproduct")) {
-                                                        name = result;
+                                                    if (listOf.get(j).getKey().equals("nameReceiver")) {
+                                                        nameReceiver = result;
                                                     }
-                                                    if(listOf.get(j).getKey().equals("price")) {
-                                                        price = Float.parseFloat(result) ;
-                                                    }
-                                                    if(listOf.get(j).getKey().equals("total")) {
-                                                        total = Integer.parseInt(result);
-                                                    }
-                                                    if(listOf.get(j).getKey().equals("color")) {
-                                                        color = result;
-                                                    }
-
-                                                    if(listOf.get(j).getKey().equals("image")) {
-                                                        image = result;
+                                                    if (listOf.get(j).getKey().equals("phonenumber")) {
+                                                        phonenumber = result;
                                                     }
                                                 }
                                                 Log.d("KEYDATA", "-----------\n");
-
+                                                addressList.add(new Address(place, nameReceiver, phonenumber, available));
                                             }
                                         }
                                     }
