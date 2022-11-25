@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,6 +32,8 @@ public class PayActivity extends AppCompatActivity {
     private RecyclerView recyclerViewItemPay;
     private TextView tvUsername, tvNumberPhone, tvAddress, dateReceive;
     private CartAdapter cartAdapter;
+    private Double totalMoney;
+    private float price;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,10 +41,7 @@ public class PayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
 
-        tvUsername = findViewById(R.id.tvUsername);
-        tvNumberPhone = findViewById(R.id.tvNumberPhone);
-        tvAddress = findViewById(R.id.tvAddress);
-        dateReceive = findViewById(R.id.dateReceive);
+        unitUI();
 
         long unix = System.currentTimeMillis();
         Date date = new Date(unix+432000000L);
@@ -64,22 +64,32 @@ public class PayActivity extends AppCompatActivity {
 
         list.clear();
         list = (ArrayList<ProductCart>) getIntent().getSerializableExtra("listPay");
+
+        price = 0;
+
+        for (int i = 0; i < list.size(); i++) {
+            price = list.get(i).getPrice();
+            totalMoney = Double.parseDouble(String.valueOf(price));
+            Log.d(">>>>TAG:","");
+        }
+        changeTotal(1 , 2, price);
+        Log.d(">>>>TAG:",""+totalMoney);
         Log.d("LIST DATA", "onCreate: pay"+list.get(0).getNameproduct());
 
         cartAdapter = new CartAdapter(list, this, new OnclickItemCart() {
             @Override
             public void onClickMinus(int totalNew, int totalOld, float price) {
-                Toast.makeText(PayActivity.this, "Hello", Toast.LENGTH_SHORT).show();
+                changeTotal(totalNew, totalOld, price);
             }
 
             @Override
             public void onClickPlus(int totalNew, int totalOld, float price) {
-                Toast.makeText(PayActivity.this, "Hello", Toast.LENGTH_SHORT).show();
+                changeTotal(totalNew, totalOld, price);
             }
 
             @Override
             public void onClickCheck(boolean isCheck, int total, float price) {
-                Toast.makeText(PayActivity.this, "Hello", Toast.LENGTH_SHORT).show();
+                Log.d(">>>>TAG:", "Hello3");
             }
 
             @Override
@@ -88,9 +98,28 @@ public class PayActivity extends AppCompatActivity {
             }
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerViewItemPay.setLayoutManager(layoutManager);;
+        recyclerViewItemPay.setLayoutManager(layoutManager);
         recyclerViewItemPay.setAdapter(cartAdapter);
+    }
 
+    private void unitUI(){
+        TextView tv_totalMoney2 = findViewById(R.id.tv_totalMoney2);
+        tvUsername = findViewById(R.id.tvUsername);
+        tvNumberPhone = findViewById(R.id.tvNumberPhone);
+        tvAddress = findViewById(R.id.tvAddress);
+        dateReceive = findViewById(R.id.dateReceive);
+    }
+
+    private void changeTotal(int total, int oldTotal, float price){
+
+        if(total < oldTotal) {
+            totalMoney = totalMoney - (oldTotal - total)*price;
+        } else {
+            totalMoney = totalMoney + (total - oldTotal)*price;
+        }
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+//        totalMoneyProduct.setText(formatter.format(totalMoney)+"đ");
+        Log.d(">>>>TAG:",""+formatter.format(totalMoney)+"đ");
     }
 
     @Override

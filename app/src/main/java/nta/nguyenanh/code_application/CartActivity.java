@@ -31,7 +31,9 @@ import java.util.Map;
 import java.util.Set;
 
 import nta.nguyenanh.code_application.adapter.CartAdapter;
+import nta.nguyenanh.code_application.bottomsheet.BottomSheetGoToPay;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
+import nta.nguyenanh.code_application.dialog.DialogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnclickItemCart;
 import nta.nguyenanh.code_application.model.ProductCart;
 
@@ -97,6 +99,7 @@ public class CartActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         Intent intent = new Intent(CartActivity.this, PayActivity.class);
+                        intent.putExtra("listPay", listCart);
                         startActivity(intent);
                     }
                 }
