@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
     private String idfacebook = null;
     String username2;
     boolean checklogin = false;
+    boolean checkUser = false;
     //facebook
     CallbackManager callbackManager;
     ArrayList<Address> addressList = new ArrayList<>();
@@ -210,7 +211,7 @@ public class LoginActivity extends AppCompatActivity {
                         item.put("phonenumber", null);
                         item.put("address", null);
                         item.put("fullname", name);
-                        new getAddress().getDataAddress(email);
+
                         db.collection("user")
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -330,19 +331,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d("TAG", "onComplete: " + username);
                                 Log.d("TAG", "onComplete: " + password);
                                 if (txt_name.getText().toString().equals(username) && getMd5(txt_password.getText().toString()).equals(password)) {
-                                    new getAddress().getDataAddress(document.getId());
-//                                    userModel = new User(
-//                                            addressList,
-//                                            document.get("datebirth") + "",
-//                                            document.get("fullname") + "",
-//                                            document.get("password") + "",
-//                                            document.get("phonenumber") + "",
-//                                            document.get("username") + "",
-//                                            document.getId());
-
-                                    Log.d("TAG", "onComplete: " + password);
-//                                    writeLogin(userModel);
-                                    onBackPressed();
+                                    new getAddress().getDataAddress(document);
                                 }
                             }
 
@@ -380,7 +369,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     class getAddress {
-        public void getDataAddress(String id) {
+        public void getDataAddress(QueryDocumentSnapshot document) {
             db.collection("user")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -389,7 +378,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 for (DocumentSnapshot document : task.getResult()) {
                                     // lấy ra tài khoản với id của người dùng
-                                    if (document.getId().equals(id)) {
+                                    if (document.getId().equals(document.getId())) {
                                         Map<String, Object> address = document.getData();
                                         // trả về tất cả dữ liệu của địa chỉ qua map là address
                                         for (String key : address.keySet()) {
@@ -439,6 +428,18 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.d("LIST DATA", "onComplete: " + addressList.get(0).getAddress());
                                         Log.d("LIST DATA", "onComplete: " + addressList.get(0).getPhonenumber());
                                         Log.d("LIST DATA", "onComplete: " + addressList.get(0).getNameReceiver());
+                                        userModel = new User(
+                                                addressList,
+                                                document.get("datebirth") + "",
+                                                document.get("fullname") + "",
+                                                document.get("password") + "",
+                                                document.get("phonenumber") + "",
+                                                document.get("username") + "",
+                                                document.getId());
+
+                                        Log.d("LIST----LIST", "onComplete: " + addressList.size());
+                                        writeLogin(userModel);
+                                        onBackPressed();
                                         break;
                                     }
                                 }
