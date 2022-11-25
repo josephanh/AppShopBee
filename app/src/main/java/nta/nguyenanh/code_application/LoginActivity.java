@@ -2,6 +2,7 @@ package nta.nguyenanh.code_application;
 
 import static nta.nguyenanh.code_application.MD5.MD5.getMd5;
 import static nta.nguyenanh.code_application.MainActivity.userModel;
+import static nta.nguyenanh.code_application.helper.FirebaseQuery.USERS;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -37,6 +38,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -51,9 +57,11 @@ import java.util.Map;
 import java.util.Set;
 
 import nta.nguyenanh.code_application.adapter.CartAdapter;
+import nta.nguyenanh.code_application.helper.FirebaseQuery;
 import nta.nguyenanh.code_application.model.Address;
 import nta.nguyenanh.code_application.model.ProductCart;
 import nta.nguyenanh.code_application.model.User;
+import nta.nguyenanh.code_application.model.User2;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText txt_name, txt_password;
@@ -339,6 +347,37 @@ public class LoginActivity extends AppCompatActivity {
 //                                            document.get("phonenumber") + "",
 //                                            document.get("username") + "",
 //                                            document.getId());
+                                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+                                    // truy vấn vào nhánh username mà người dùng nhập
+                                    DatabaseReference users = firebaseDatabase.getReference(USERS).child(username);
+
+                                    users.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                                                // lấy dữ liệu từ dataSnapshot gán vào model User,
+                                                // lưu ý : biến ở User cần trùng khớp với tên các giá trị trên firebase
+                                                User2 user2 = dataSnapshot.getValue(User2.class);
+
+                                                if (user2.username.equals(document.getId())) {
+                                                    FirebaseQuery.USERNAME = user2.username;
+//                        startActivity(new Intent(LoginActivity2.this, HomeActivity.class));
+
+                                                } else {
+
+                                                    Toast.makeText(LoginActivity.this, getString(R.string.notify_wrong_password), Toast.LENGTH_SHORT).show();
+
+                                                }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
 
                                     Log.d("TAG", "onComplete: " + password);
 //                                    writeLogin(userModel);
