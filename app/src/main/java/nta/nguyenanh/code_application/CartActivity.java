@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -193,7 +195,7 @@ public class CartActivity extends AppCompatActivity {
                                                 }
                                             }
                                             Log.d("KEYDATA", "-----------\n");
-                                            listCart.add(new ProductCart(id, name, image, price,color, total));
+                                            listCart.add(new ProductCart(id, name, image, price,color, total, key));
                                             totalMoney += price*total;
                                         }
                                     }
@@ -217,6 +219,12 @@ public class CartActivity extends AppCompatActivity {
                                 public void onClickCheck(boolean isCheck, int total, float price) {
                                     changeChecked(isCheck, total, price);
                                 }
+
+                                @Override
+                                public void hideCheck(CheckBox checkBox, ImageView imageView) {
+
+                                }
+
                             });
                             recyclerViewCart.setLayoutManager(manager);
                             recyclerViewCart.setAdapter(adapterCart);

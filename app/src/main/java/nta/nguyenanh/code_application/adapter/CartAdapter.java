@@ -49,12 +49,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+
+        onclickItemCart.hideCheck(holder.checkboxCart, holder.image_product);
+
         holder.checkboxCart.setChecked(true);
         holder.checkboxCart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 onclickItemCart.onClickCheck(isChecked, Integer.parseInt(holder.total_product.getText().toString()) ,list.get(position).getPrice());
-//                ((CartActivity)context).changeChecked(isChecked, Integer.parseInt(holder.total_product.getText().toString()) ,list.get(position).getPrice());
             }
         });
         Glide.with(context).load(list.get(position).getImage()).into(holder.image_product);
@@ -73,8 +75,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     onclickItemCart.onClickPlus(total, Integer.parseInt(holder.total_product.getText().toString()), list.get(position).getPrice());
                     holder.total_product.setText(total+"");
                 }
-
-
             }
         });
         holder.minus.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +86,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 } else  {
                     total = Integer.parseInt(holder.total_product.getText().toString()) - 1;
                     onclickItemCart.onClickMinus(total, Integer.parseInt(holder.total_product.getText().toString()) , list.get(position).getPrice());
-//                    ((CartActivity)context).changeTotal(total, Integer.parseInt(holder.total_product.getText().toString()) , list.get(position).getPrice());
                     holder.total_product.setText(total+"");
                 }
             }
@@ -120,5 +119,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         }
     }
 
+    public ArrayList<ProductCart> getList() {
+        notifyDataSetChanged();
+        return list;
+    }
 
+    public void setList(ArrayList<ProductCart> list) {
+        notifyDataSetChanged();
+        this.list = list;
+    }
 }

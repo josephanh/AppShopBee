@@ -8,7 +8,7 @@ public class ProductCart implements Serializable {
     private Float price;
     private String color;
     private Integer total;
-
+    private String idItemCart;
     public ProductCart() {
     }
 
@@ -18,6 +18,16 @@ public class ProductCart implements Serializable {
         this.price = price;
         this.color = color;
         this.total = total;
+    }
+
+    public ProductCart(String id, String nameproduct, String image, Float price, String color, Integer total, String idItemCart) {
+        this.id = id;
+        this.nameproduct = nameproduct;
+        this.image = image;
+        this.price = price;
+        this.color = color;
+        this.total = total;
+        this.idItemCart = idItemCart;
     }
 
     public ProductCart(String id, String nameproduct, String image, Float price, String color, Integer total) {
@@ -76,5 +86,13 @@ public class ProductCart implements Serializable {
 
     public void setTotal(Integer total) {
         this.total = total;
+    }
+
+    public String getIdItemCart() {
+        return idItemCart;
+    }
+
+    public void setIdItemCart(String idItemCart) {
+        this.idItemCart = idItemCart;
     }
 }

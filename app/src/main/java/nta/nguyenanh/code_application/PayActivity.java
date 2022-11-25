@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,7 @@ public class PayActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewItemPay;
     private TextView tvUsername, tvNumberPhone, tvAddress, dateReceive;
+    private CartAdapter cartAdapter;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,8 +42,6 @@ public class PayActivity extends AppCompatActivity {
         tvNumberPhone = findViewById(R.id.tvNumberPhone);
         tvAddress = findViewById(R.id.tvAddress);
         dateReceive = findViewById(R.id.dateReceive);
-
-        list = (ArrayList<ProductCart>) getIntent().getSerializableExtra("listPay");
 
         long unix = System.currentTimeMillis();
         Date date = new Date(unix+432000000L);
@@ -60,10 +62,11 @@ public class PayActivity extends AppCompatActivity {
         tvAddress.setText(MainActivity.userModel.getAddress().get(0).getAddress());
         dateReceive.setText("Nhận hàng vào "+formattedDate+" đến "+formattedDateRe);
 
-
+        list.clear();
+        list = (ArrayList<ProductCart>) getIntent().getSerializableExtra("listPay");
         Log.d("LIST DATA", "onCreate: pay"+list.get(0).getNameproduct());
 
-        CartAdapter cartAdapter = new CartAdapter(list, this, new OnclickItemCart() {
+        cartAdapter = new CartAdapter(list, this, new OnclickItemCart() {
             @Override
             public void onClickMinus(int totalNew, int totalOld, float price) {
                 Toast.makeText(PayActivity.this, "Hello", Toast.LENGTH_SHORT).show();
@@ -78,10 +81,23 @@ public class PayActivity extends AppCompatActivity {
             public void onClickCheck(boolean isCheck, int total, float price) {
                 Toast.makeText(PayActivity.this, "Hello", Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public void hideCheck(CheckBox checkBox, ImageView imageView) {
+                checkBox.setVisibility(View.GONE);
+            }
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewItemPay.setLayoutManager(layoutManager);;
         recyclerViewItemPay.setAdapter(cartAdapter);
 
+    }
+
+    @Override
+    protected void onResume() {
+//        list.clear();
+//        list = (ArrayList<ProductCart>) getIntent().getSerializableExtra("listPay");
+        cartAdapter.notifyDataSetChanged();
+        super.onResume();
     }
 }

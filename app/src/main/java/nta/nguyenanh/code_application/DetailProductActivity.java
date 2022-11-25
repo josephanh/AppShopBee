@@ -209,6 +209,7 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
 
     public void goToPay(ProductCart productCart) {
         if (productCart != null) {
+            listPay.clear();
             listPay.add(productCart);
             Log.d("listPay", "onClick: " + productCart.getNameproduct());
             // https://stackoverflow.com/questions/13601883/how-to-pass-arraylist-of-objects-from-one-to-another-activity-using-intent-in-an
