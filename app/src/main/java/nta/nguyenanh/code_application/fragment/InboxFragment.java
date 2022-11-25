@@ -27,7 +27,7 @@ import nta.nguyenanh.code_application.ChatActivity;
 import nta.nguyenanh.code_application.interfaces.ItemClickSupport;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.GroupAdapter;
-import nta.nguyenanh.code_application.helper.FirebaseQuery;
+import nta.nguyenanh.code_application.listener.FirebaseQuery;
 import nta.nguyenanh.code_application.model.Group;
 
 public class InboxFragment extends Fragment {

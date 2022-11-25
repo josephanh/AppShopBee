@@ -1,8 +1,9 @@
 package nta.nguyenanh.code_application.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ProductCart {
+public class ProductCart implements Serializable {
     private String id, nameproduct, image;
     private Float price;
     private String color;

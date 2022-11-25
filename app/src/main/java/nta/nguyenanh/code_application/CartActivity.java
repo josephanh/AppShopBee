@@ -30,6 +30,7 @@ import java.util.Set;
 
 import nta.nguyenanh.code_application.adapter.CartAdapter;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
+import nta.nguyenanh.code_application.interfaces.OnclickItemCart;
 import nta.nguyenanh.code_application.model.ProductCart;
 
 public class CartActivity extends AppCompatActivity {
@@ -201,7 +202,22 @@ public class CartActivity extends AppCompatActivity {
                             }
                             Log.d("KEYDATA", "-----------\n"+listCart.get(0).getColor());
                             progess.hideDialog();
-                            adapterCart = new CartAdapter(listCart, CartActivity.this);
+                            adapterCart = new CartAdapter(listCart, CartActivity.this, new OnclickItemCart() {
+                                @Override
+                                public void onClickMinus(int totalNew, int totalOld, float price) {
+                                    changeTotal(totalNew, totalOld, price);
+                                }
+
+                                @Override
+                                public void onClickPlus(int totalNew, int totalOld, float price) {
+                                    changeTotal(totalNew, totalOld, price);
+                                }
+
+                                @Override
+                                public void onClickCheck(boolean isCheck, int total, float price) {
+                                    changeChecked(isCheck, total, price);
+                                }
+                            });
                             recyclerViewCart.setLayoutManager(manager);
                             recyclerViewCart.setAdapter(adapterCart);
 

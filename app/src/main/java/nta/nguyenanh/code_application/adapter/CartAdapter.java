@@ -25,16 +25,19 @@ import java.util.ArrayList;
 import nta.nguyenanh.code_application.CartActivity;
 import nta.nguyenanh.code_application.R;
 
+import nta.nguyenanh.code_application.interfaces.OnclickItemCart;
 import nta.nguyenanh.code_application.model.ProductCart;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     ArrayList<ProductCart> list;
     Context context;
+    OnclickItemCart onclickItemCart;
 
-    public CartAdapter(ArrayList<ProductCart> list, Context context) {
+    public CartAdapter(ArrayList<ProductCart> list, Context context, OnclickItemCart onclickItemCart) {
         this.list = list;
         this.context = context;
+        this.onclickItemCart = onclickItemCart;
     }
 
     @NonNull
@@ -50,7 +53,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.checkboxCart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ((CartActivity)context).changeChecked(isChecked, Integer.parseInt(holder.total_product.getText().toString()) ,list.get(position).getPrice());
+                onclickItemCart.onClickCheck(isChecked, Integer.parseInt(holder.total_product.getText().toString()) ,list.get(position).getPrice());
+//                ((CartActivity)context).changeChecked(isChecked, Integer.parseInt(holder.total_product.getText().toString()) ,list.get(position).getPrice());
             }
         });
         Glide.with(context).load(list.get(position).getImage()).into(holder.image_product);
@@ -66,7 +70,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     Toast.makeText(context, "Không được mua quá 20 sản phẩm", Toast.LENGTH_SHORT).show();
                 } else {
                     int total = Integer.parseInt(holder.total_product.getText().toString()) + 1;
-                    ((CartActivity)context).changeTotal(total, Integer.parseInt(holder.total_product.getText().toString()) ,list.get(position).getPrice());
+                    onclickItemCart.onClickPlus(total, Integer.parseInt(holder.total_product.getText().toString()), list.get(position).getPrice());
                     holder.total_product.setText(total+"");
                 }
 
@@ -81,7 +85,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     Toast.makeText(context, "Số lượng phải ít nhất là 1", Toast.LENGTH_SHORT).show();
                 } else  {
                     total = Integer.parseInt(holder.total_product.getText().toString()) - 1;
-                    ((CartActivity)context).changeTotal(total, Integer.parseInt(holder.total_product.getText().toString()) , list.get(position).getPrice());
+                    onclickItemCart.onClickMinus(total, Integer.parseInt(holder.total_product.getText().toString()) , list.get(position).getPrice());
+//                    ((CartActivity)context).changeTotal(total, Integer.parseInt(holder.total_product.getText().toString()) , list.get(position).getPrice());
                     holder.total_product.setText(total+"");
                 }
             }
@@ -114,4 +119,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             colorProduct = itemView.findViewById(R.id.colorProduct);
         }
     }
+
+
 }

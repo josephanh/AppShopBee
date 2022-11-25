@@ -12,19 +12,30 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.common.reflect.TypeToken;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
+import nta.nguyenanh.code_application.dialog.DialogConfirm;
 import nta.nguyenanh.code_application.fragment.FlashSaleFragment;
 import nta.nguyenanh.code_application.fragment.HomeFragment;
 import nta.nguyenanh.code_application.fragment.NotificationFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
+import nta.nguyenanh.code_application.model.Address;
 import nta.nguyenanh.code_application.model.Product;
+import nta.nguyenanh.code_application.model.ProductCart;
 import nta.nguyenanh.code_application.model.User;
 
 public class MainActivity extends AppCompatActivity implements OnClickItemProduct {
@@ -90,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
     protected void onResume() {
         super.onResume();
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
+        readlogin();
 //        registerReceiver(broadcastReceiver, intentFilter);
     }
 
@@ -106,8 +118,16 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         fragmentTransaction.commit();
     }
 
-    public void goToSearch() {
+    public void goToSearch(View view) {
         Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(intent);
+    }
+    public void goToCart(View view) {
+        if(userModel == null) {
+            Toast.makeText(this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+
+        }
+        Intent intent = new Intent(MainActivity.this, CartActivity.class);
         startActivity(intent);
     }
 
@@ -152,4 +172,32 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         intent.putExtra("product", product);
         startActivity(intent);
     }
+
+    public void readlogin(){
+        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS",MODE_PRIVATE);
+        Boolean isLoggedin = preferences.getBoolean("isLoggedin",false);
+        if (isLoggedin){
+            String userid = preferences.getString("userid", null);
+            String username = preferences.getString("username", null);
+            String fullname = preferences.getString("fullname", null);
+            String password = preferences.getString("password", null);
+            String numberphone = preferences.getString("numberphone", null);
+
+            // xem trên yt https://www.youtube.com/watch?v=xjOyvwRinK8&ab_channel=TechProjects
+            Gson gson = new Gson();
+            String json = preferences.getString("address", null);
+            Type type = new TypeToken<ArrayList<Address>>(){
+            }.getType();
+            ArrayList<Address> addressList = gson.fromJson(json, type);
+            if(addressList == null) {
+                addressList  = new ArrayList<>();
+            }
+            userModel = new User(addressList, null, fullname, password, numberphone, username, userid);
+        }
+    }
+
+    public void goToPay(ArrayList<ProductCart> list) {
+
+    }
+
 }

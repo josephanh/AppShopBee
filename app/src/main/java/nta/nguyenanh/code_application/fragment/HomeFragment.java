@@ -31,6 +31,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import android.widget.AbsListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,6 +73,8 @@ public class HomeFragment extends Fragment {
     private TextView hour_flashsale, min_flashsale, sec_flashsale;
     private Handler handler = new Handler();
     private Runnable runnable;
+    LinearLayout search, search_0;
+    ImageView cart, cart_0;
 
 
     ViewPager viewPager;
@@ -133,12 +137,6 @@ public class HomeFragment extends Fragment {
         min_flashsale = view.findViewById(R.id.min_flashsale);
         sec_flashsale = view.findViewById(R.id.sec_flashsale);
 
-        toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity)getContext()).goToSearch();
-            }
-        });
 
         check = false;
         NestedScrollView nestedScrollView = view.findViewById(R.id.nestedscrollviewHome);
@@ -236,7 +234,6 @@ public class HomeFragment extends Fragment {
                                         document.getData().get("id_category").toString());
                                 listProduct.add(product);
                             }
-                            Toast.makeText(getContext(), "Loading", Toast.LENGTH_SHORT).show();
                             Log.e("CHECK_SIZE", "onComplete: "+listProduct.size() );
                             adapter.notifyDataSetChanged();
                             lastVisibleProduct = task.getResult().getDocuments().get(task.getResult().size() - 1);

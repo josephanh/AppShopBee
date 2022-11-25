@@ -8,6 +8,7 @@
     android:background="@color/white">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="@drawable/ic_back"
@@ -47,6 +48,7 @@
                             android:background="@drawable/ic_map_pin"
                             android:layout_marginTop="7dp"/>
                         <TextView
+                            android:id="@+id/tvUsername"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
@@ -61,6 +63,7 @@
 
 
                     <TextView
+                        android:id="@+id/tvNumberPhone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
@@ -76,6 +79,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tvAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
@@ -85,24 +89,24 @@
                         android:textSize="12dp"
                         android:text="11/1a Đường Ấp Đông 1, Xã thơi Tam Thôn, Huyện Hóc môn, Tp Hồ Chí Minh"
                         android:layout_weight="1"/>
-                    <Button
-
+                    <TextView
+                        android:id="@+id/availble"
                         android:layout_width="70dp"
                         android:layout_height="20dp"
                         android:layout_marginTop="15dp"
                         android:background="@drawable/btn_border_nharieng"
                         android:text="nhà riêng"
                         android:textSize="10dp"
+                        android:gravity="center"
                         android:layout_marginEnd="25dp"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold" />
 
                     <ImageButton
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="-18dp"
-                        android:layout_marginTop="18dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="5dp"
                         android:background="@drawable/ic_right">
 
                     </ImageButton>
@@ -141,10 +145,10 @@
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPay"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:padding="10dp"
-                tools:listitem="@layout/item_cart"/>
+                android:layout_height="wrap_content"
+                android:padding="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -216,6 +220,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/dateReceive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

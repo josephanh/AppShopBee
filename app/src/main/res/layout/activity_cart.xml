@@ -159,7 +159,7 @@
             android:id="@+id/btn_continue"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="Tiếp tục"
+            android:text="Thanh Toán"
             android:textAllCaps="false"
             android:textStyle="bold"
             android:textColor="@color/white"

@@ -1,6 +1,6 @@
 package nta.nguyenanh.code_application;
 
-import static nta.nguyenanh.code_application.helper.FirebaseQuery.USERNAME;
+import static nta.nguyenanh.code_application.listener.FirebaseQuery.USERNAME;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import nta.nguyenanh.code_application.adapter.ChatAdapter;
-import nta.nguyenanh.code_application.helper.FirebaseQuery;
+import nta.nguyenanh.code_application.listener.FirebaseQuery;
 import nta.nguyenanh.code_application.model.Chat;
 
 

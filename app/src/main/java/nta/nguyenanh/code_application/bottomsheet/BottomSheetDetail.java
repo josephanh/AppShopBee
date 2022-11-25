@@ -1,9 +1,7 @@
 package nta.nguyenanh.code_application.bottomsheet;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,26 +9,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.firestore.DocumentReference;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import nta.nguyenanh.code_application.DetailProductActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.model.Product;
 import nta.nguyenanh.code_application.model.ProductCart;
 
-public class BottomSheet {
+public class BottomSheetDetail {
     Context context;
     Product product;
     BottomSheetDialog bottomSheetDialog;
@@ -38,7 +28,7 @@ public class BottomSheet {
     String colorSelect = null;
     int totalSelect = 1;
 
-    public BottomSheet(Context context, Product product) {
+    public BottomSheetDetail(Context context, Product product) {
         this.context = context;
         this.product = product;
     }
@@ -218,7 +208,6 @@ public class BottomSheet {
             product1.setColor(colorSelect);
             product1.setTotal(totalSelect);
             product1.setImage(product.getImage().get(0));
-
 
             return product1;
         }

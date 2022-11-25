@@ -1,7 +1,7 @@
 package nta.nguyenanh.code_application;
 
 
-import static nta.nguyenanh.code_application.helper.FirebaseQuery.USERS;
+import static nta.nguyenanh.code_application.listener.FirebaseQuery.USERS;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import nta.nguyenanh.code_application.helper.FirebaseQuery;
+import nta.nguyenanh.code_application.listener.FirebaseQuery;
 import nta.nguyenanh.code_application.model.User2;
 
 

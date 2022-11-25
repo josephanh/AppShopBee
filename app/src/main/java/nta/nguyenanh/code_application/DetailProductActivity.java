@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -36,7 +38,8 @@ import java.util.Map;
 
 import me.relex.circleindicator.CircleIndicator;
 import nta.nguyenanh.code_application.adapter.DetailProductImageAdapter;
-import nta.nguyenanh.code_application.bottomsheet.BottomSheet;
+import nta.nguyenanh.code_application.bottomsheet.BottomSheetDetail;
+import nta.nguyenanh.code_application.bottomsheet.BottomSheetGoToPay;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
 import nta.nguyenanh.code_application.dialog.DialogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
@@ -49,6 +52,7 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
 
     Product product;
     ArrayList<String> listUrlImage = new ArrayList<>();
+    ArrayList<ProductCart> listPay = new ArrayList<>();
     DetailProductImageAdapter photoAdapter;
 
     TextView name_product, price_product, describe;
@@ -59,13 +63,15 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
 
 
     DialogConfirm dialogConfirm;
+    Button gotoPay;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product);
 
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             product = (Product) savedInstanceState.getSerializable("product");
         }
 
@@ -74,6 +80,7 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         CircleIndicator circleIndicator = findViewById(R.id.circleIndicatorImageDetail);
         ImageView show_sheet = findViewById(R.id.show_sheet);
         banner_detail = findViewById(R.id.banner_detail);
+        gotoPay = findViewById(R.id.gotoPay);
 
         Glide.with(this).load("https://gcp-img.slatic.net/lazada/9a6cb2e4-5f74-4733-8435-6e76b4f8ee36_VN-1188-470.gif").into(banner_detail);
 
@@ -87,7 +94,7 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
             }
         });
         getSupportActionBar().setTitle("Chi tiết sản phẩm");
-        Log.d("TAG", "onCreate: "+toolbar.getTitle());
+        Log.d("TAG", "onCreate: " + toolbar.getTitle());
         product = (Product) getIntent().getSerializableExtra("product");
 
         name_product = findViewById(R.id.name_product);
@@ -97,7 +104,7 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         name_product.setText(product.getNameproduct());
 
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        price_product.setText(formatter.format(product.getPrice())+"đ");
+        price_product.setText(formatter.format(product.getPrice()) + "đ");
 
         describe.setText(android.text.Html.fromHtml(product.getDescribe()), TextView.BufferType.SPANNABLE);
 
@@ -112,16 +119,31 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         show_sheet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(userModel == null) {
+                if (userModel == null) {
                     dialogConfirm = new DialogConfirm(DetailProductActivity.this);
                     dialogConfirm.showDialog(product);
                 } else {
-                    BottomSheet bottomSheet = new BottomSheet(DetailProductActivity.this, product);
-                    bottomSheet.showSheet();
+                    BottomSheetDetail bottomSheetDetail = new BottomSheetDetail(DetailProductActivity.this, product);
+                    bottomSheetDetail.showSheet();
                 }
             }
         });
+
+        gotoPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (userModel == null) {
+                    dialogConfirm = new DialogConfirm(DetailProductActivity.this);
+                    dialogConfirm.showDialog(product);
+                } else {
+                    BottomSheetGoToPay bottomSheetGoToPay = new BottomSheetGoToPay(DetailProductActivity.this, product);
+                    bottomSheetGoToPay.showSheet();
+                }
+
+            }
+        });
     }
+
     @SuppressLint("MissingInflatedId")
 
     @Override
@@ -136,10 +158,10 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         super.onResume();
     }
 
-    public void readlogin(){
-        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS",MODE_PRIVATE);
-        Boolean isLoggedin = preferences.getBoolean("isLoggedin",false);
-        if (isLoggedin){
+    public void readlogin() {
+        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
+        Boolean isLoggedin = preferences.getBoolean("isLoggedin", false);
+        if (isLoggedin) {
             String userid = preferences.getString("userid", null);
             String username = preferences.getString("username", null);
             String fullname = preferences.getString("fullname", null);
@@ -149,11 +171,11 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
             // xem trên yt https://www.youtube.com/watch?v=xjOyvwRinK8&ab_channel=TechProjects
             Gson gson = new Gson();
             String json = preferences.getString("address", null);
-            Type type = new TypeToken<ArrayList<Address>>(){
+            Type type = new TypeToken<ArrayList<Address>>() {
             }.getType();
             ArrayList<Address> addressList = gson.fromJson(json, type);
-            if(addressList == null) {
-                addressList  = new ArrayList<>();
+            if (addressList == null) {
+                addressList = new ArrayList<>();
             }
             userModel = new User(addressList, null, fullname, password, numberphone, username, userid);
         }
@@ -163,7 +185,7 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         progess = new DiaLogProgess(DetailProductActivity.this);
         progess.showDialog("Waiting");
         Map<String, Object> cart = new HashMap<>();
-        cart.put(products.getId()+"-"+System.currentTimeMillis(), products);
+        cart.put(products.getId() + "-" + System.currentTimeMillis(), products);
 
         db.collection("cart").document(userModel.getUserID())
                 .update(cart)
@@ -185,6 +207,17 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
 
     }
 
+    public void goToPay(ProductCart productCart) {
+        if (productCart != null) {
+            listPay.add(productCart);
+            Log.d("listPay", "onClick: " + productCart.getNameproduct());
+            // https://stackoverflow.com/questions/13601883/how-to-pass-arraylist-of-objects-from-one-to-another-activity-using-intent-in-an
+            Intent intent = new Intent(DetailProductActivity.this, PayActivity.class);
+            intent.putExtra("listPay", listPay);
+            startActivity(intent);
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -196,7 +229,7 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cart: {
-                if(userModel == null) {
+                if (userModel == null) {
                     dialogConfirm = new DialogConfirm(DetailProductActivity.this);
                     dialogConfirm.showDialog(product);
                 } else {

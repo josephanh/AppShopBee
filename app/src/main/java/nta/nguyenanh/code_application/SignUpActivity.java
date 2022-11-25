@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-import static nta.nguyenanh.code_application.helper.FirebaseQuery.USERS;
+import static nta.nguyenanh.code_application.listener.FirebaseQuery.USERS;
 
 import nta.nguyenanh.code_application.model.User2;
 

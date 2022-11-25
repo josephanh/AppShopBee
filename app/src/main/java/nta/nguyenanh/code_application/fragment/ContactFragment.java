@@ -25,12 +25,12 @@ import java.util.List;
 import java.util.Map;
 
 
-import static nta.nguyenanh.code_application.helper.FirebaseQuery.USERNAME;
+import static nta.nguyenanh.code_application.listener.FirebaseQuery.USERNAME;
 
 import nta.nguyenanh.code_application.ChatActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.UserAdapter;
-import nta.nguyenanh.code_application.helper.FirebaseQuery;
+import nta.nguyenanh.code_application.listener.FirebaseQuery;
 import nta.nguyenanh.code_application.interfaces.ItemClickSupport;
 import nta.nguyenanh.code_application.model.User2;
 
