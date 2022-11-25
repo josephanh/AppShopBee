@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +35,11 @@ public class PayActivity extends AppCompatActivity {
     private CartAdapter cartAdapter;
     private Double totalMoney;
     private float price;
+    private TextView tv_totalMoney2;
+    private TextView tv_totalMoney1;
+    private TextView tv_totalMoneyFinal;
+    private TextView tv_totalMoney1final;
+    private Button btn_buy_d;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -70,10 +76,14 @@ public class PayActivity extends AppCompatActivity {
         for (int i = 0; i < list.size(); i++) {
             price = list.get(i).getPrice();
             totalMoney = Double.parseDouble(String.valueOf(price));
-            Log.d(">>>>TAG:","");
+            Log.d(">>>>TAG:",""+price);
+            DecimalFormat formatter = new DecimalFormat("###,###,###");
+            tv_totalMoney1final.setText(formatter.format(totalMoney)+"đ");
+            tv_totalMoney2.setText(formatter.format(totalMoney)+"đ");
+            tv_totalMoney1.setText(formatter.format(totalMoney+30000)+"đ");
+            tv_totalMoneyFinal.setText(formatter.format(totalMoney+30000)+"đ");
         }
-        changeTotal(1 , 2, price);
-        Log.d(">>>>TAG:",""+totalMoney);
+
         Log.d("LIST DATA", "onCreate: pay"+list.get(0).getNameproduct());
 
         cartAdapter = new CartAdapter(list, this, new OnclickItemCart() {
@@ -100,14 +110,30 @@ public class PayActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewItemPay.setLayoutManager(layoutManager);
         recyclerViewItemPay.setAdapter(cartAdapter);
+
+        buyEvent();
+
+    }
+
+    private void buyEvent(){
+        btn_buy_d.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 
     private void unitUI(){
-        TextView tv_totalMoney2 = findViewById(R.id.tv_totalMoney2);
+        tv_totalMoney2 = findViewById(R.id.tv_totalMoney2);
+        tv_totalMoney1 = findViewById(R.id.tv_totalMoney1);
+        tv_totalMoneyFinal = findViewById(R.id.tv_totalMoneyFinal);
+        tv_totalMoney1final = findViewById(R.id.tv_totalMoney1final);
         tvUsername = findViewById(R.id.tvUsername);
         tvNumberPhone = findViewById(R.id.tvNumberPhone);
         tvAddress = findViewById(R.id.tvAddress);
         dateReceive = findViewById(R.id.dateReceive);
+        btn_buy_d = findViewById(R.id.btn_buy_d);
     }
 
     private void changeTotal(int total, int oldTotal, float price){
@@ -120,6 +146,10 @@ public class PayActivity extends AppCompatActivity {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
 //        totalMoneyProduct.setText(formatter.format(totalMoney)+"đ");
         Log.d(">>>>TAG:",""+formatter.format(totalMoney)+"đ");
+        tv_totalMoney1final.setText(formatter.format(totalMoney)+"đ");
+        tv_totalMoney2.setText(formatter.format(totalMoney)+"đ");
+        tv_totalMoney1.setText(formatter.format(totalMoney+30000)+"đ");
+        tv_totalMoneyFinal.setText(formatter.format(totalMoney+30000)+"đ");
     }
 
     @Override
