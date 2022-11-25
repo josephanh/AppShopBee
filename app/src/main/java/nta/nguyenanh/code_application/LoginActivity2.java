@@ -67,9 +67,9 @@ public class LoginActivity2 extends AppCompatActivity {
                     // lưu ý : biến ở User cần trùng khớp với tên các giá trị trên firebase
                     User2 user = dataSnapshot.getValue(User2.class);
 
-                    if (user.password.equals(password)) {
+                    if (user.username.equals(username)) {
                         FirebaseQuery.USERNAME = user.username;
-                        startActivity(new Intent(LoginActivity2.this, HomeActivity.class));
+//                        startActivity(new Intent(LoginActivity2.this, HomeActivity.class));
 
                     } else {
 
