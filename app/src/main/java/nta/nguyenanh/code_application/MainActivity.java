@@ -32,6 +32,7 @@ import nta.nguyenanh.code_application.dialog.DialogConfirm;
 import nta.nguyenanh.code_application.fragment.FlashSaleFragment;
 import nta.nguyenanh.code_application.fragment.HomeFragment;
 import nta.nguyenanh.code_application.fragment.NotificationFragment;
+import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
 import nta.nguyenanh.code_application.model.Address;
 import nta.nguyenanh.code_application.model.Product;
@@ -123,12 +124,19 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         startActivity(intent);
     }
     public void goToCart(View view) {
-        if(userModel == null) {
-            Toast.makeText(this, "Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
-
+        if (userModel == null) {
+            DialogConfirm dialogConfirm = new DialogConfirm(MainActivity.this, new OnClickDiaLogConfirm() {
+                @Override
+                public void ClickButtonAgree() {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+            dialogConfirm.showDialog();
+        } else {
+            Intent intent = new Intent(MainActivity.this, CartActivity.class);
+            startActivity(intent);
         }
-        Intent intent = new Intent(MainActivity.this, CartActivity.class);
-        startActivity(intent);
     }
 
     @Override

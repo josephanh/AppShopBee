@@ -48,7 +48,7 @@ import nta.nguyenanh.code_application.model.Product;
 import nta.nguyenanh.code_application.model.ProductCart;
 import nta.nguyenanh.code_application.model.User;
 
-public class DetailProductActivity extends AppCompatActivity implements OnClickDiaLogConfirm {
+public class DetailProductActivity extends AppCompatActivity{
 
     Product product;
     ArrayList<String> listUrlImage = new ArrayList<>();
@@ -120,8 +120,13 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
             @Override
             public void onClick(View v) {
                 if (userModel == null) {
-                    dialogConfirm = new DialogConfirm(DetailProductActivity.this);
-                    dialogConfirm.showDialog(product);
+                    dialogConfirm = new DialogConfirm(DetailProductActivity.this, new OnClickDiaLogConfirm() {
+                        @Override
+                        public void ClickButtonAgree() {
+                            goToLogin();
+                        }
+                    });
+                    dialogConfirm.showDialog();
                 } else {
                     BottomSheetDetail bottomSheetDetail = new BottomSheetDetail(DetailProductActivity.this, product);
                     bottomSheetDetail.showSheet();
@@ -133,8 +138,13 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
             @Override
             public void onClick(View v) {
                 if (userModel == null) {
-                    dialogConfirm = new DialogConfirm(DetailProductActivity.this);
-                    dialogConfirm.showDialog(product);
+                    dialogConfirm = new DialogConfirm(DetailProductActivity.this, new OnClickDiaLogConfirm() {
+                        @Override
+                        public void ClickButtonAgree() {
+                            goToLogin();
+                        }
+                    });
+                    dialogConfirm.showDialog();
                 } else {
                     BottomSheetGoToPay bottomSheetGoToPay = new BottomSheetGoToPay(DetailProductActivity.this, product);
                     bottomSheetGoToPay.showSheet();
@@ -147,15 +157,14 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
     @SuppressLint("MissingInflatedId")
 
     @Override
-    public void ClickButtonAgree() {
-        Intent intentLogin = new Intent(DetailProductActivity.this, LoginActivity.class);
-        startActivity(intentLogin);
-    }
-
-    @Override
     protected void onResume() {
         readlogin();
         super.onResume();
+    }
+
+    private void goToLogin() {
+        Intent intentLogin = new Intent(DetailProductActivity.this, LoginActivity.class);
+        startActivity(intentLogin);
     }
 
     public void readlogin() {
@@ -231,8 +240,13 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         switch (item.getItemId()) {
             case R.id.cart: {
                 if (userModel == null) {
-                    dialogConfirm = new DialogConfirm(DetailProductActivity.this);
-                    dialogConfirm.showDialog(product);
+                    dialogConfirm = new DialogConfirm(DetailProductActivity.this, new OnClickDiaLogConfirm() {
+                        @Override
+                        public void ClickButtonAgree() {
+                            goToLogin();
+                        }
+                    });
+                    dialogConfirm.showDialog();
                 } else {
                     Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
                     startActivity(intent);

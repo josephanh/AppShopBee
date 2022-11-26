@@ -22,12 +22,14 @@ public class DialogConfirm {
     Context context;
     AlertDialog.Builder builder;
     AlertDialog dialog;
+    OnClickDiaLogConfirm clickEvent;
 
-    public DialogConfirm(Context context) {
+    public DialogConfirm(Context context, OnClickDiaLogConfirm clickEvent) {
         this.context = context;
+        this.clickEvent = clickEvent;
     }
 
-    public void showDialog(Product product) {
+    public void showDialog() {
         View view = View.inflate(context, R.layout.custom_dialog_confirm, null);
         builder = new AlertDialog.Builder(context);
         builder.setView(view);
@@ -49,7 +51,6 @@ public class DialogConfirm {
         btndongy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnClickDiaLogConfirm clickEvent = ((DetailProductActivity)context);
                 clickEvent.ClickButtonAgree();
                 hideDialog();
             }
