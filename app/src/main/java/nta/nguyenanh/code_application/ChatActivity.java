@@ -1,5 +1,6 @@
 package nta.nguyenanh.code_application;
 
+import static nta.nguyenanh.code_application.MainActivity.userModel;
 import static nta.nguyenanh.code_application.listener.FirebaseQuery.USERNAME;
 
 import androidx.annotation.NonNull;
@@ -73,7 +74,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 edtInput.setText("");
                 btnSend.setEnabled(false);
-                FirebaseQuery.sendMessage(group, text, USERNAME, System.currentTimeMillis(), new DatabaseReference.CompletionListener() {
+                FirebaseQuery.sendMessage(group, text, userModel.getUserID(), System.currentTimeMillis(), new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                         edtInput.setText("");

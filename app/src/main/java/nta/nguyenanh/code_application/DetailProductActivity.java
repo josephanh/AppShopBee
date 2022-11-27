@@ -56,7 +56,7 @@ public class DetailProductActivity extends AppCompatActivity{
     DetailProductImageAdapter photoAdapter;
 
     TextView name_product, price_product, describe;
-    ImageView banner_detail;
+    ImageView banner_detail,img_openmes;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DiaLogProgess progess;
@@ -81,7 +81,27 @@ public class DetailProductActivity extends AppCompatActivity{
         ImageView show_sheet = findViewById(R.id.show_sheet);
         banner_detail = findViewById(R.id.banner_detail);
         gotoPay = findViewById(R.id.gotoPay);
+        img_openmes = findViewById(R.id.img_openmes);
 
+
+        img_openmes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (userModel==null){
+                    DialogConfirm dialogConfirm  = new DialogConfirm(DetailProductActivity.this, new OnClickDiaLogConfirm() {
+                        @Override
+                        public void ClickButtonAgree() {
+                            Intent intent = new Intent(DetailProductActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }else{
+                    Intent intent = new Intent(DetailProductActivity.this,HomeActivity.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
         Glide.with(this).load("https://gcp-img.slatic.net/lazada/9a6cb2e4-5f74-4733-8435-6e76b4f8ee36_VN-1188-470.gif").into(banner_detail);
 
         setSupportActionBar(toolbar);
