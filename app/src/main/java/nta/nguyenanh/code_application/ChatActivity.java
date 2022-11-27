@@ -143,7 +143,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Chat chat = dataSnapshot.getValue(Chat.class);
                 objectArrayList.add(chat);
-                recyclerView.smoothScrollToPosition(objectArrayList.size() - 1);
+                recyclerView.smoothScrollToPosition(objectArrayList.size());
 //                recyclerView.smoothScrollToPosition(objectArrayList.size());
 //                chatAdapter.notifyDataSetChanged();
                 Log.d("ABC", "______________Begin____________");
