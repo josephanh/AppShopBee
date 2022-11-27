@@ -1,5 +1,6 @@
 package nta.nguyenanh.code_application;
 
+import static nta.nguyenanh.code_application.MainActivity.userModel;
 import static nta.nguyenanh.code_application.listener.FirebaseQuery.USERNAME;
 
 import androidx.annotation.NonNull;
@@ -73,7 +74,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 edtInput.setText("");
                 btnSend.setEnabled(false);
-                FirebaseQuery.sendMessage(group, text, USERNAME, System.currentTimeMillis(), new DatabaseReference.CompletionListener() {
+                FirebaseQuery.sendMessage(group, text, userModel.getUserID(), System.currentTimeMillis(), new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                         edtInput.setText("");
@@ -103,18 +104,22 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         objectArrayList = new ArrayList<>();
-        final ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
+//        final ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(chatAdapter);
+//        recyclerView.setAdapter(chatAdapter);
         FirebaseQuery.getListMessages(group, new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Chat chat = dataSnapshot.getValue(Chat.class);
                 objectArrayList.add(chat);
-                chatAdapter.notifyItemChanged(objectArrayList.size());
-                recyclerView.smoothScrollToPosition(objectArrayList.size());
-                Log.e("ABC", "ACCC");
+                ChatAdapter chatAdapter = null;
+                chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
+                recyclerView.setAdapter(chatAdapter);
+//                recyclerView.smoothScrollToPosition(objectArrayList.size());
+//                chatAdapter.notifyDataSetChanged();
+
+                Log.e("ABC", "ACCC"+chat.getText());
             }
 
             @Override
@@ -173,5 +178,16 @@ public class ChatActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        objectArrayList = new ArrayList<>();
     }
 }

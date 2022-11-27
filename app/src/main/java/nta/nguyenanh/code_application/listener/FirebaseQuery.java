@@ -97,10 +97,16 @@ public class FirebaseQuery<T> {
         hopperUpdates.put("time", System.currentTimeMillis());
         myRefGroup.updateChildren(hopperUpdates);
 
+
         DatabaseReference myRefMessage = database.getReference(MESSAGES).child(id);
         Chat chat = new Chat(username, text, System.currentTimeMillis());
 
-        myRefMessage.push().setValue(chat, completionListener);
+//        myRefMessage.push().setValue(chat, completionListener);
+
+        HashMap<String,Object> chatHashMap = new HashMap<>();
+        chatHashMap.put(System.currentTimeMillis()+"",chat);
+        myRefMessage.updateChildren(chatHashMap);
+
 
     }
     //lấy tin nhắn

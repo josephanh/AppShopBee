@@ -48,7 +48,7 @@ import nta.nguyenanh.code_application.model.Product;
 import nta.nguyenanh.code_application.model.ProductCart;
 import nta.nguyenanh.code_application.model.User;
 
-public class DetailProductActivity extends AppCompatActivity implements OnClickDiaLogConfirm {
+public class DetailProductActivity extends AppCompatActivity{
 
     Product product;
     ArrayList<String> listUrlImage = new ArrayList<>();
@@ -56,7 +56,7 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
     DetailProductImageAdapter photoAdapter;
 
     TextView name_product, price_product, describe;
-    ImageView banner_detail;
+    ImageView banner_detail,img_openmes;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DiaLogProgess progess;
@@ -81,7 +81,27 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         ImageView show_sheet = findViewById(R.id.show_sheet);
         banner_detail = findViewById(R.id.banner_detail);
         gotoPay = findViewById(R.id.gotoPay);
+        img_openmes = findViewById(R.id.img_openmes);
 
+
+        img_openmes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (userModel==null){
+                    DialogConfirm dialogConfirm  = new DialogConfirm(DetailProductActivity.this, new OnClickDiaLogConfirm() {
+                        @Override
+                        public void ClickButtonAgree() {
+                            Intent intent = new Intent(DetailProductActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }else{
+                    Intent intent = new Intent(DetailProductActivity.this,HomeActivity.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
         Glide.with(this).load("https://gcp-img.slatic.net/lazada/9a6cb2e4-5f74-4733-8435-6e76b4f8ee36_VN-1188-470.gif").into(banner_detail);
 
         setSupportActionBar(toolbar);
@@ -120,8 +140,13 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
             @Override
             public void onClick(View v) {
                 if (userModel == null) {
-                    dialogConfirm = new DialogConfirm(DetailProductActivity.this);
-                    dialogConfirm.showDialog(product);
+                    dialogConfirm = new DialogConfirm(DetailProductActivity.this, new OnClickDiaLogConfirm() {
+                        @Override
+                        public void ClickButtonAgree() {
+                            goToLogin();
+                        }
+                    });
+                    dialogConfirm.showDialog();
                 } else {
                     BottomSheetDetail bottomSheetDetail = new BottomSheetDetail(DetailProductActivity.this, product);
                     bottomSheetDetail.showSheet();
@@ -133,8 +158,13 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
             @Override
             public void onClick(View v) {
                 if (userModel == null) {
-                    dialogConfirm = new DialogConfirm(DetailProductActivity.this);
-                    dialogConfirm.showDialog(product);
+                    dialogConfirm = new DialogConfirm(DetailProductActivity.this, new OnClickDiaLogConfirm() {
+                        @Override
+                        public void ClickButtonAgree() {
+                            goToLogin();
+                        }
+                    });
+                    dialogConfirm.showDialog();
                 } else {
                     BottomSheetGoToPay bottomSheetGoToPay = new BottomSheetGoToPay(DetailProductActivity.this, product);
                     bottomSheetGoToPay.showSheet();
@@ -147,15 +177,14 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
     @SuppressLint("MissingInflatedId")
 
     @Override
-    public void ClickButtonAgree() {
-        Intent intentLogin = new Intent(DetailProductActivity.this, LoginActivity.class);
-        startActivity(intentLogin);
-    }
-
-    @Override
     protected void onResume() {
         readlogin();
         super.onResume();
+    }
+
+    private void goToLogin() {
+        Intent intentLogin = new Intent(DetailProductActivity.this, LoginActivity.class);
+        startActivity(intentLogin);
     }
 
     public void readlogin() {
@@ -213,9 +242,16 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
             listPay.add(productCart);
             Log.d("listPay", "onClick: " + productCart.getNameproduct());
             // https://stackoverflow.com/questions/13601883/how-to-pass-arraylist-of-objects-from-one-to-another-activity-using-intent-in-an
-            Intent intent = new Intent(DetailProductActivity.this, PayActivity.class);
-            intent.putExtra("listPay", listPay);
-            startActivity(intent);
+            if(userModel.getAddress() != null) {
+                Intent intent = new Intent(DetailProductActivity.this, AddressActivity.class);
+                intent.putExtra("listPay", listPay);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(DetailProductActivity.this, PayActivity.class);
+                intent.putExtra("listPay", listPay);
+                startActivity(intent);
+            }
+
         }
     }
 
@@ -231,8 +267,13 @@ public class DetailProductActivity extends AppCompatActivity implements OnClickD
         switch (item.getItemId()) {
             case R.id.cart: {
                 if (userModel == null) {
-                    dialogConfirm = new DialogConfirm(DetailProductActivity.this);
-                    dialogConfirm.showDialog(product);
+                    dialogConfirm = new DialogConfirm(DetailProductActivity.this, new OnClickDiaLogConfirm() {
+                        @Override
+                        public void ClickButtonAgree() {
+                            goToLogin();
+                        }
+                    });
+                    dialogConfirm.showDialog();
                 } else {
                     Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
                     startActivity(intent);
