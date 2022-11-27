@@ -104,18 +104,22 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         objectArrayList = new ArrayList<>();
-        final ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
+//        final ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(chatAdapter);
+//        recyclerView.setAdapter(chatAdapter);
         FirebaseQuery.getListMessages(group, new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Chat chat = dataSnapshot.getValue(Chat.class);
                 objectArrayList.add(chat);
-                chatAdapter.notifyItemChanged(objectArrayList.size());
-                recyclerView.smoothScrollToPosition(objectArrayList.size());
-                Log.e("ABC", "ACCC");
+                ChatAdapter chatAdapter = null;
+                chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
+                recyclerView.setAdapter(chatAdapter);
+//                recyclerView.smoothScrollToPosition(objectArrayList.size());
+//                chatAdapter.notifyDataSetChanged();
+
+                Log.e("ABC", "ACCC"+chat.getText());
             }
 
             @Override
@@ -174,5 +178,16 @@ public class ChatActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        objectArrayList = new ArrayList<>();
     }
 }
