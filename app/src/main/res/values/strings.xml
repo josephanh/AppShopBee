@@ -47,4 +47,6 @@
     <string name="notify_empty_text">Pls enter text ...</string>
     <string name="notify_create_user_failure">Seem it\'s not working. Pls contact my email dotplays.com@gmail.com</string>
     <string name="notify_create_user_successful">Sign up successfully...</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
