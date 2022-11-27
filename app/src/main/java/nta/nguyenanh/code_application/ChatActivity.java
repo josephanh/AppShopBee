@@ -10,14 +10,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 
 import com.google.firebase.database.ChildEventListener;
@@ -42,9 +48,15 @@ public class ChatActivity extends AppCompatActivity {
     private String group;
     private RecyclerView recyclerView;
     private EditText edtInput;
-    private Button btnSend;
+    private ImageView btnSend;
     private List<Chat> objectArrayList;
     private Toolbar toolbar;
+    private RelativeLayout activityChat;
+
+    public static int height = 0;
+    public static int width = 0;
+
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,15 +64,33 @@ public class ChatActivity extends AppCompatActivity {
 
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        activityChat = findViewById(R.id.activityChat);
         recyclerView = findViewById(R.id.lvList);
         edtInput = findViewById(R.id.edtInput);
         btnSend = findViewById(R.id.btnSend);
         btnSend.setEnabled(false);
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        height = displayMetrics.heightPixels;
+        width = displayMetrics.widthPixels;
+
         group = getIntent().getStringExtra("data");
 
         setTitle(group);
+
+        edtInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkBroadKey();
+            }
+        });
+        edtInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                checkBroadKey();
+            }
+        });
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,9 +122,9 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() > 0){
+                if (charSequence.length() > 0) {
                     btnSend.setEnabled(true);
-                }else btnSend.setEnabled(false);
+                } else btnSend.setEnabled(false);
             }
 
             @Override
@@ -113,13 +143,18 @@ public class ChatActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Chat chat = dataSnapshot.getValue(Chat.class);
                 objectArrayList.add(chat);
-                ChatAdapter chatAdapter = null;
-                chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
-                recyclerView.setAdapter(chatAdapter);
+                recyclerView.smoothScrollToPosition(objectArrayList.size() - 1);
 //                recyclerView.smoothScrollToPosition(objectArrayList.size());
 //                chatAdapter.notifyDataSetChanged();
-
-                Log.e("ABC", "ACCC"+chat.getText());
+                Log.d("ABC", "______________Begin____________");
+                for (int i = 0; i < objectArrayList.size(); i++) {
+                    Log.d("ABC", "Nội dung tin nhắn: " + objectArrayList.get(i).getText());
+                }
+                Log.d("ABC", "List size: " + objectArrayList.size());
+                Log.d("ABC", "______________End____________");
+                ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
+                recyclerView.setAdapter(chatAdapter);
+//                Log.e("ABC", "Nội dung tin nhắn: "+chat.getText());
             }
 
             @Override
@@ -155,11 +190,11 @@ public class ChatActivity extends AppCompatActivity {
                 Map<String, Chat> objectHashMap = dataSnapshot.getValue(objectsGTypeInd);
 
                 if (objectHashMap != null) {
-                    final List<Chat> objectArrayList = new ArrayList<>(objectHashMap.values());
-                    ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
-                    recyclerView.setLayoutManager(linearLayoutManager);
-                    recyclerView.setAdapter(chatAdapter);
+//                    final List<Chat> objectArrayList = new ArrayList<>(objectHashMap.values());
+//                    ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
+//                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
+//                    recyclerView.setLayoutManager(linearLayoutManager);
+//                    recyclerView.setAdapter(chatAdapter);
                 }
             }
 
@@ -178,6 +213,26 @@ public class ChatActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // youtube https://www.youtube.com/watch?v=LpBEpyDz1dk&ab_channel=TinCoderAndroidJava
+    private void checkBroadKey() {
+        final View activityView = findViewById(R.id.activityChat);
+        activityView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                activityView.getWindowVisibleDisplayFrame(r);
+                int height = activityView.getRootView().getHeight() - r.height();
+                if(height > 0.25*activityView.getRootView().getHeight()) {
+                    // bàn phím xuất hiện nhé
+                    if(objectArrayList.size() > 0) {
+                        recyclerView.scrollToPosition(objectArrayList.size() - 1);
+                        activityView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                }
+            }
+        });
     }
 
     @Override
