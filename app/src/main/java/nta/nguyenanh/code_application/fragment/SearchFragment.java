@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -26,44 +25,39 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import nta.nguyenanh.code_application.adapter.Adapter_History;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.dao.DAO_History;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
-import nta.nguyenanh.code_application.model.History;
 import nta.nguyenanh.code_application.model.Product;
 
 public class SearchFragment extends Fragment {
 
-
-    Button btn_search;
-    EditText edt_searchView;
-    RecyclerView recyclerViewHistory, recyclerViewResult;
-    DAO_History dao_history;
-    Adapter_History adapterHistory;
-    ProductAdapter productAdapter;
-
-    List<History> ds = new ArrayList<>();
-    List<Product> listResult = new ArrayList<>();
+    private static final String ARG_SEARCH = "param1";
+    private String searchString;
+    private Button btn_search;
+    private EditText edt_searchView;
+    private RecyclerView recyclerViewResult;
+    private DAO_History dao_history;
+    private ProductAdapter productAdapter;
+    private List<Product> listResult = new ArrayList<>();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    TextView deleteAll;
 
-    DiaLogProgess progess;
+    private DiaLogProgess progess;
+    private TextView tv_noResult;
 
     public SearchFragment() {
         // Required empty public constructor
     }
 
-    public static SearchFragment newInstance(String param1, String param2) {
+    public static SearchFragment newInstance(String param1) {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
-
+        args.putString(ARG_SEARCH, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,14 +66,14 @@ public class SearchFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            searchString = getArguments().getString(ARG_SEARCH);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_search, container, false);
+        return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
     @Override
@@ -88,46 +82,12 @@ public class SearchFragment extends Fragment {
 
         btn_search = view.findViewById(R.id.btn_search);
         edt_searchView = view.findViewById(R.id.edt_searchView);
-        recyclerViewHistory = view.findViewById(R.id.rv_History_Search);
-        recyclerViewResult = view.findViewById(R.id.rv_Result_Search);
-        deleteAll = view.findViewById(R.id.deleteAll);
-
-        dao_history = new DAO_History(getContext());
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewHistory.setLayoutManager(linearLayoutManager);
+        recyclerViewResult = view.findViewById( R.id.rv_Result_Search);
+        tv_noResult = view.findViewById(R.id.tv_noResult);
 
         progess = new DiaLogProgess(getContext());
-
-        btn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    if(!edt_searchView.getText().toString().isEmpty()) {
-                        progess.showDialog("Searching");
-                        findData(edt_searchView.getText().toString());
-                        dao_history.insert(edt_searchView.getText().toString());
-                        Log.d("HISTORY", "onClick: ");
-                        fillData();
-                    }
-
-            }
-        });
-
-        deleteAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dao_history.deleteall();
-                fillData();
-            }
-        });
-
-        fillData();
-    }
-
-    public  void fillData() {
-        ds = dao_history.getAll();
-        Collections.reverse(ds);
-        adapterHistory = new Adapter_History(getContext(),ds);
-        recyclerViewHistory.setAdapter(adapterHistory);
+        progess.showDialog("Searching");
+        findData(searchString);
     }
 
     public void findData(String s) {
@@ -143,7 +103,6 @@ public class SearchFragment extends Fragment {
                                 Log.d("TAG 1000", "onComplete: "+document.getString("nameproduct"));
                                 ArrayList<String> color = (ArrayList<String>) document.getData().get("color");
                                 ArrayList<String> images = (ArrayList<String>) document.getData().get("image");
-
                                 Product product = new Product(document.getId(),
                                         document.getData().get("nameproduct").toString(),
                                         document.getData().get("describe").toString(),
@@ -158,19 +117,24 @@ public class SearchFragment extends Fragment {
                             }
                         }
                         progess.hideDialog();
-
-
-                        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-                        productAdapter = new ProductAdapter(listResult, getContext());
-                        recyclerViewResult.setLayoutManager(staggeredGridLayoutManager);
-                        recyclerViewResult.setAdapter(productAdapter);
+                        if (listResult.size()== 0 || listResult == null){
+                            recyclerViewResult.setVisibility(View.GONE);
+                            tv_noResult.setVisibility(View.VISIBLE);
+                        }else {
+                            recyclerViewResult.setVisibility(View.VISIBLE);
+                            tv_noResult.setVisibility(View.GONE);
+                            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                            productAdapter = new ProductAdapter(listResult, getContext());
+                            recyclerViewResult.setLayoutManager(staggeredGridLayoutManager);
+                            recyclerViewResult.setAdapter(productAdapter);
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progess.hideDialog();
-                        Toast.makeText(getContext(), "Không tìm thấy", Toast.LENGTH_LONG).show();
+                        Log.d(">>>>TAG:","");
                     }
                 });
     }
