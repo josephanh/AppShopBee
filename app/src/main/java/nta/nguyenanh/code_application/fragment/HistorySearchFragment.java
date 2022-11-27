@@ -93,4 +93,10 @@ public class HistorySearchFragment extends Fragment {
         adapterHistory = new Adapter_History(getActivity(), ds);
         recyclerViewHistory.setAdapter(adapterHistory);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fillData();
+    }
 }
