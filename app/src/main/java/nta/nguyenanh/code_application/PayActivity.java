@@ -1,7 +1,5 @@
 package nta.nguyenanh.code_application;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,18 +12,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import nta.nguyenanh.code_application.adapter.CartAdapter;
 import nta.nguyenanh.code_application.interfaces.OnclickItemCart;
 import nta.nguyenanh.code_application.model.ProductCart;
-import nta.nguyenanh.code_application.notification.Notification;
+import nta.nguyenanh.code_application.notification.SendNotification;
 
 public class PayActivity extends AppCompatActivity {
 
@@ -124,7 +120,7 @@ public class PayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String title = "Chúc mừng đặt hàng thành công!";
                 String content = MainActivity.userModel.getFullname()+" đã đặt hàng thành công với tổng giá trị: "+formatter.format(totalMoney)+"đ";
-                Notification notification = new Notification(PayActivity.this);
+                SendNotification notification = new SendNotification(PayActivity.this);
                 notification.customNotification(title, content);
 
             }
