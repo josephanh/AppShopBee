@@ -94,14 +94,20 @@ public class CartActivity extends AppCompatActivity {
                 if(userModel == null) {
                     Toast.makeText(CartActivity.this, "Cần đăng nhập trước khi thực hiện thao tác", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(userModel.getAddress() == null || userModel.getPhonenumber().equals("null")) {
-                        Intent intent = new Intent(CartActivity.this, AddressActivity.class);
-                        startActivity(intent);
+                    if(listCart != null) {
+                        if(userModel.getAddress() == null || userModel.getAddress().size() == 0 || userModel.getPhonenumber().equals("null")) {
+                            Intent intent = new Intent(CartActivity.this, AddressActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Log.d("TAG>>>>>", "onClick: "+userModel.getAddress());
+                            Intent intent = new Intent(CartActivity.this, PayActivity.class);
+                            intent.putExtra("listPay", listCart);
+                            startActivity(intent);
+                        }
                     } else {
-                        Intent intent = new Intent(CartActivity.this, PayActivity.class);
-                        intent.putExtra("listPay", listCart);
-                        startActivity(intent);
+                        return;
                     }
+
                 }
             }
         });
@@ -205,7 +211,6 @@ public class CartActivity extends AppCompatActivity {
                                 }
 
                             }
-                            Log.d("KEYDATA", "-----------\n"+listCart.get(0).getColor());
                             progess.hideDialog();
                             adapterCart = new CartAdapter(listCart, CartActivity.this, new OnclickItemCart() {
                                 @Override
@@ -233,8 +238,6 @@ public class CartActivity extends AppCompatActivity {
                             recyclerViewCart.setAdapter(adapterCart);
 
                         }
-                        Log.d("LISTDATA", "onCreate: "+listCart.get(0).getNameproduct());
-                        Log.d("LISTDATA", "list size: "+listCart.size());
                         DecimalFormat formatter = new DecimalFormat("###,###,###");
                         totalMoneyProduct.setText(formatter.format(totalMoney)+"đ");
                         shipMoney.setText("30.000đ");

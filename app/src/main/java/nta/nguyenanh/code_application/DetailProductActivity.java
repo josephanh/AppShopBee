@@ -222,9 +222,16 @@ public class DetailProductActivity extends AppCompatActivity{
             listPay.add(productCart);
             Log.d("listPay", "onClick: " + productCart.getNameproduct());
             // https://stackoverflow.com/questions/13601883/how-to-pass-arraylist-of-objects-from-one-to-another-activity-using-intent-in-an
-            Intent intent = new Intent(DetailProductActivity.this, PayActivity.class);
-            intent.putExtra("listPay", listPay);
-            startActivity(intent);
+            if(userModel.getAddress() != null) {
+                Intent intent = new Intent(DetailProductActivity.this, AddressActivity.class);
+                intent.putExtra("listPay", listPay);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(DetailProductActivity.this, PayActivity.class);
+                intent.putExtra("listPay", listPay);
+                startActivity(intent);
+            }
+
         }
     }
 

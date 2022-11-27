@@ -227,18 +227,18 @@ public class LoginActivity extends AppCompatActivity {
 //                                                Log.d("TAG", "onComplete2: " + username);
                                                 if (tempmail.equals(username2)) {
 //                                                    writeLogin((User) document.getData());
-                                                    userModel = new User(
-                                                            addressList,
-                                                            document.get("datebirth") + "",
-                                                            document.get("fullname") + "",
-                                                            document.get("password") + "",
-                                                            document.get("phonenumber") + "",
-                                                            document.get("username") + "",
-                                                            document.getId());
-
-                                                    writeLogin(userModel);
+                                                    new getAddress().getDataAddress(document);
+//                                                    userModel = new User(
+//                                                            addressList,
+//                                                            document.get("datebirth") + "",
+//                                                            document.get("fullname") + "",
+//                                                            document.get("password") + "",
+//                                                            document.get("phonenumber") + "",
+//                                                            document.get("username") + "",
+//                                                            document.getId());
+//
+//                                                    writeLogin(userModel);
                                                     checklogin = true;
-                                                    Log.d("User", "onComplete: " + userModel.getFullname());
                                                     onBackPressed();
 
                                                 }
@@ -337,6 +337,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (txt_name.getText().toString().equals(username) && getMd5(txt_password.getText().toString()).equals(password)) {
                                     new getAddress().getDataAddress(document);
                                     checkUser = true;
+                                    break;
                                 }
                             }
                             if(!checkUser) {
@@ -396,6 +397,21 @@ public class LoginActivity extends AppCompatActivity {
                                                 Log.d("KEYDATA", "Sản phẩm: " + address);
                                                 // bắt đầu convert thằng cha qua ArrayList --
                                                 Log.d("LIST ADDRESS", "onComplete: " + address.get("address"));
+                                                if(address.get("address") == null) {
+                                                    addressList = null;
+                                                    userModel = new User(
+                                                            addressList,
+                                                            doc.get("datebirth") + "",
+                                                            doc.get("fullname") + "",
+                                                            doc.get("password") + "",
+                                                            doc.get("phonenumber") + "",
+                                                            doc.get("username") + "",
+                                                            doc.getId());
+                                                    writeLogin(userModel);
+                                                    onBackPressed();
+                                                    return;
+                                                }
+
                                                 Map<String, Object> itemAddress = (Map<String, Object>) address.get("address");
                                                 Set<Map.Entry<String, Object>> entr = itemAddress.entrySet();
                                                 ArrayList<Map.Entry<String, Object>> listOf = new ArrayList<Map.Entry<String, Object>>(entr);
