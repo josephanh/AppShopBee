@@ -91,13 +91,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 imageChooser();
 
-                edtInput.setText("");
-                FirebaseQuery.sendMessage(group, String.valueOf(selectedImageUri), userModel.getUserID(), System.currentTimeMillis(), new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                        edtInput.setText("");
-                    }
-                });
+
             }
         });
 
@@ -290,6 +284,13 @@ public class ChatActivity extends AppCompatActivity {
                 // Get the url of the image from data
                 selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
+                    edtInput.setText("");
+                    FirebaseQuery.sendMessage(group, String.valueOf(selectedImageUri), userModel.getUserID(), System.currentTimeMillis(), new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                            edtInput.setText("");
+                        }
+                    });
                     // update the preview image in the layout
 //                    IVPreviewImage.setImageURI(selectedImageUri);
                 }
