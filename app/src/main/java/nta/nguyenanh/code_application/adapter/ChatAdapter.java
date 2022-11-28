@@ -106,7 +106,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
                 }
                 return true;
             }
-        });
+        }).into(holder.iconRight);
     }
 
     @Override
