@@ -34,6 +34,7 @@ import nta.nguyenanh.code_application.fragment.HomeFragment;
 import nta.nguyenanh.code_application.fragment.NotificationFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
+import nta.nguyenanh.code_application.listener.CheckLogin;
 import nta.nguyenanh.code_application.model.Address;
 import nta.nguyenanh.code_application.model.Product;
 import nta.nguyenanh.code_application.model.ProductCart;
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
     @Override
     protected void onResume() {
         super.onResume();
+        new CheckLogin(MainActivity.this).readLogin();
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
         readlogin();
 //        registerReceiver(broadcastReceiver, intentFilter);

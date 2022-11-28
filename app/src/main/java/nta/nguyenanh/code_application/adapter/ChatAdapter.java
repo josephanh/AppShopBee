@@ -71,14 +71,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                 holder.tvText.setText(chat.getText());
                 holder.imageText.setVisibility(View.GONE);
+                holder.item_text.setVisibility(View.VISIBLE);
                 if (chats.get(position).getSendBy().equals(userModel.getUserID())){
                     holder.item_chat.setGravity(Gravity.RIGHT|Gravity.CENTER);
                     holder.iconLeft.setVisibility(View.GONE);
+                    holder.iconRight.setVisibility(View.GONE);
                     Log.d("TAG mes", "bên phải ");
 
                 }else {
                     holder.item_chat.setGravity(Gravity.LEFT|Gravity.CENTER);
                     holder.iconRight.setVisibility(View.GONE);
+                    holder.iconLeft.setVisibility(View.VISIBLE);
                     Log.d("TAG mes", "bên trái ");
                 }
                 return false;
@@ -92,16 +95,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
                 if (chats.get(position).getSendBy().equals(userModel.getUserID())){
                     holder.item_chat.setGravity(Gravity.RIGHT|Gravity.CENTER);
                     holder.iconLeft.setVisibility(View.GONE);
+                    holder.iconRight.setVisibility(View.GONE);
                     Log.d("TAG mes", "bên phải ");
 
                 }else {
                     holder.item_chat.setGravity(Gravity.LEFT|Gravity.CENTER);
                     holder.iconRight.setVisibility(View.GONE);
+                    holder.iconLeft.setVisibility(View.VISIBLE);
                     Log.d("TAG mes", "bên trái ");
                 }
                 return true;
             }
-        }).into(holder.iconLeft);
+        });
     }
 
     @Override
