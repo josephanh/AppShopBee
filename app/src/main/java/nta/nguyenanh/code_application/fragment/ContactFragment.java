@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 
+import static nta.nguyenanh.code_application.MainActivity.userModel;
 import static nta.nguyenanh.code_application.listener.FirebaseQuery.USERNAME;
 
 import nta.nguyenanh.code_application.ChatActivity;
@@ -58,32 +60,54 @@ public class ContactFragment extends Fragment {
                         };
                 Map<String, User2> objectHashMap = dataSnapshot.getValue(objectsGTypeInd);
                 final List<User2> objectArrayList = new ArrayList<>(objectHashMap.values());
+                Log.d("TAG user", "onDataChange: "+objectArrayList);
 
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-                UserAdapter userAdapter = new UserAdapter(getActivity(), objectArrayList);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                    UserAdapter userAdapter = new UserAdapter(getActivity(), objectArrayList);
 
-                lvList.setAdapter(userAdapter);
-                lvList.setLayoutManager(linearLayoutManager);
-                lvList.setHasFixedSize(true);
+                    lvList.setAdapter(userAdapter);
+                    lvList.setLayoutManager(linearLayoutManager);
+                    lvList.setHasFixedSize(true);
+
+
 
                 ItemClickSupport.addTo(lvList).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        String groupID = USERNAME + "|" + objectArrayList.get(position).username;
-                        FirebaseQuery.checkExistGroup(groupID, new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                Intent intent = new Intent(getActivity(), ChatActivity.class);
-                                intent.putExtra("data", dataSnapshot.getKey());
-                                Log.d("KEY", "onDataChange: "+ dataSnapshot.getKey());
-                                startActivity(intent);
-                            }
+                        if (userModel.getUserID().equals("f7xs0HqMzaYhs8QdW3xO")) {
+                            String groupID = objectArrayList.get(position).username + "|" + userModel.getUserID();
+                            FirebaseQuery.checkExistGroup(groupID, new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                                    intent.putExtra("data", dataSnapshot.getKey());
+                                    Log.d("KEY", "onDataChange: " + dataSnapshot.getKey());
+                                    startActivity(intent);
+                                }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            }
-                        });
+                                }
+                            });
+                        } else {
+                            String groupID = userModel.getUserID() + "|" + "f7xs0HqMzaYhs8QdW3xO";
+//                        String groupID = userModel.getUserID() + "|" + objectArrayList.get(position).username;
+                            FirebaseQuery.checkExistGroup(groupID, new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                                    intent.putExtra("data", dataSnapshot.getKey());
+                                    Log.d("KEY", "onDataChange: " + dataSnapshot.getKey());
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
                     }
                 });
             }
