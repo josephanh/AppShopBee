@@ -173,7 +173,6 @@ public class ChatActivity extends AppCompatActivity {
                 Chat chat = dataSnapshot.getValue(Chat.class);
 
                 objectArrayList.add(chat);
-                recyclerView.smoothScrollToPosition(objectArrayList.size());
 //                recyclerView.smoothScrollToPosition(objectArrayList.size());
 //                chatAdapter.notifyDataSetChanged();
                 Log.d("ABC", "______________Begin____________");
@@ -187,6 +186,7 @@ public class ChatActivity extends AppCompatActivity {
                     checkimage = !checkimage;
                 }
                 chatAdapter.notifyDataSetChanged();
+                recyclerView.smoothScrollToPosition(objectArrayList.size());
 //                Log.e("ABC", "Nội dung tin nhắn: "+chat.getText());
             }
 
@@ -277,7 +277,6 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        objectArrayList = new ArrayList<>();
     }
     void imageChooser() {
 
@@ -305,6 +304,7 @@ public class ChatActivity extends AppCompatActivity {
                 objectArrayList.add(new Chat(userModel.getUserID(), String.valueOf(selectedImageUri),System.currentTimeMillis()));
                 ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this,objectArrayList);
                 recyclerView.setAdapter(chatAdapter);
+                recyclerView.scrollToPosition(objectArrayList.size() - 1);
                 if (null != selectedImageUri) {
                     Bitmap bitmap = null;
                     try {

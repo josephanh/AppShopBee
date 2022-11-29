@@ -12,21 +12,30 @@
         android:id="@+id/iconLeft"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/ic_user_selected"
-        android:padding="4dp"/>
-    <ImageView
-        android:id="@+id/imageText"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:visibility="gone"
-        android:src="@drawable/demo_product"/>
+        android:src="@drawable/bg_getcoin"
+        android:padding="4dp"
+        android:visibility="gone"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp">
+        <ImageView
+            android:id="@+id/imageText"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/demo_product"
+            android:visibility="gone"/>
+    </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        android:layout_margin="0dp">
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
+        android:visibility="gone">
 
 
     <LinearLayout
@@ -64,6 +73,7 @@
     </LinearLayout>
     </androidx.cardview.widget.CardView>
     <ImageView
+        android:visibility="gone"
         android:id="@+id/iconRight"
         android:layout_width="30dp"
         android:layout_height="30dp"
