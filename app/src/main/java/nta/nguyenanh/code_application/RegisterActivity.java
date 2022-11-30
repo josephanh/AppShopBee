@@ -191,7 +191,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     // hoc vien tu khoi tao model User
                     User user = new User();
-                    user.setUserID(id);
+                    user.setUsername(id);
                     user.setFullname(name);
 
 

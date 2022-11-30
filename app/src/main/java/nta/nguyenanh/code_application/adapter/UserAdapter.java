@@ -41,12 +41,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserHolder> {
     public void onBindViewHolder(@NonNull UserHolder holder, int position) {
         User user = users.get(position);
         if (userModel.getUserID().equals("f7xs0HqMzaYhs8QdW3xO")){
-
-
-            holder.tvUsername.setText(user.getUserID());
+            holder.tvUsername.setText(user.getUsername());
         }else {
             if (user.getUsername().contains("f7xs0HqMzaYhs8QdW3xO")){
-                holder.tvUsername.setText(user.getUserID());
+                holder.tvUsername.setText(user.getUsername());
                 Toast.makeText(context, "có chủ shop", Toast.LENGTH_SHORT).show();
             }else{
                 holder.tvUsername.setVisibility(View.GONE);

@@ -35,7 +35,7 @@ import nta.nguyenanh.code_application.adapter.UserAdapter;
 import nta.nguyenanh.code_application.listener.FirebaseQuery;
 import nta.nguyenanh.code_application.interfaces.ItemClickSupport;
 import nta.nguyenanh.code_application.model.User;
-import nta.nguyenanh.code_application.model.User2;
+
 
 public class ContactFragment extends Fragment {
 
@@ -60,6 +60,8 @@ public class ContactFragment extends Fragment {
                         new GenericTypeIndicator<HashMap<String, User>>() {
                         };
                 Map<String, User> objectHashMap = dataSnapshot.getValue(objectsGTypeInd);
+                Log.d("TAG user", "onDataChange: "+objectHashMap);
+
                 final List<User> objectArrayList = new ArrayList<>(objectHashMap.values());
                 Log.d("TAG user", "onDataChange: "+objectArrayList);
 
@@ -76,7 +78,7 @@ public class ContactFragment extends Fragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         if (userModel.getUserID().equals("f7xs0HqMzaYhs8QdW3xO")) {
-                            String groupID = objectArrayList.get(position).getUserID() + "|" + userModel.getUserID();
+                            String groupID = objectArrayList.get(position).getUsername() + "|" + userModel.getUserID();
                             FirebaseQuery.checkExistGroup(groupID, new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
