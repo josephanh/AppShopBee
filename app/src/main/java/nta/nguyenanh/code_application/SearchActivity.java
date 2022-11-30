@@ -26,7 +26,7 @@ import nta.nguyenanh.code_application.interfaces.OnClickItemSearchHistory;
 import nta.nguyenanh.code_application.model.History;
 import nta.nguyenanh.code_application.model.Product;
 
-public class SearchActivity extends AppCompatActivity implements OnClickItemSearchHistory {
+public class SearchActivity extends AppCompatActivity{
 
     Button btn_search;
     EditText edt_searchView;
@@ -48,118 +48,87 @@ public class SearchActivity extends AppCompatActivity implements OnClickItemSear
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_search, HistorySearchFragment.class, null).commit();
-        btn_search = findViewById(R.id.btn_search);
-        edt_searchView = findViewById(R.id.edt_searchView);
-//        recyclerViewHistory = findViewById(R.id.rv_History_Search);
-//        recyclerViewResult = findViewById(R.id.rv_Result_Search);
-//        deleteAll = findViewById(R.id.deleteAll);
+        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.alpha_enter, R.anim.alpha_exit).replace(R.id.fragment_container_search, HistorySearchFragment.class, null).commit();
+//        btn_search = findViewById(R.id.btn_search);
+//        edt_searchView = findViewById(R.id.edt_searchView);
 
-        dao_history = new DAO_History(SearchActivity.this);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SearchActivity.this, LinearLayoutManager.HORIZONTAL, false);
-//        recyclerViewHistory.setLayoutManager(linearLayoutManager);
+//        dao_history = new DAO_History(SearchActivity.this);
+//        ds = dao_history.getAll();
 
-        progess = new DiaLogProgess(SearchActivity.this);
-
-        btn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!edt_searchView.getText().toString().isEmpty()) {
-                    progess.showDialog("Searching");
-                    String s = edt_searchView.getText().toString();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
-                    dao_history.insert(edt_searchView.getText().toString());
-                    progess.hideDialog();
-                }
-            }
-        });
-        edt_searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    if(!edt_searchView.getText().toString().isEmpty()) {
-                        progess.showDialog("Searching");
-                        String s = edt_searchView.getText().toString();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
-                        dao_history.insert(edt_searchView.getText().toString());
-                        progess.hideDialog();
-                    }
-                    handled = true;
-                }
-                return handled;
-            }
-        });
-//        deleteAll.setOnClickListener(new View.OnClickListener() {
+//        btn_search.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                dao_history.deleteall();
-//                fillData();
-//            }
-//        });
-//
-//        fillData();
-    }
-
-    @Override
-    public void OnClickItemSearchHistory(String s) {
-        edt_searchView.setText(s);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
-
-    }
-
-    @Override
-    public void OnClickText() {
-        onBackPressed();
-    }
-//
-//    public  void fillData() {
-//        ds = dao_history.getAll();
-//        Collections.reverse(ds);
-//        adapterHistory = new Adapter_History(SearchActivity.this,ds);
-//        recyclerViewHistory.setAdapter(adapterHistory);
-//    }
-
-//    public void findData(String s) {
-//        listResult.clear();
-//        db.collection("product")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        for (DocumentSnapshot document:task.getResult()){
-//                            String nameproduct = document.getString("nameproduct");
-//                            if (nameproduct.toLowerCase().contains(s.toLowerCase())){
-//                                Log.d("TAG 1000", "onComplete: "+document.getString("nameproduct"));
-//                                ArrayList<String> color = (ArrayList<String>) document.getData().get("color");
-//                                ArrayList<String> images = (ArrayList<String>) document.getData().get("image");
-//
-//                                Product product = new Product(document.getId(),
-//                                        document.getData().get("nameproduct").toString(),
-//                                        document.getData().get("describe").toString(),
-//                                        Float.parseFloat(document.getData().get("price").toString()),
-//                                        Integer.parseInt(document.getData().get("available").toString()),
-//                                        color, images,
-//                                        Integer.parseInt(document.getData().get("sale").toString()),
-//                                        Integer.parseInt(document.getData().get("sold").toString()),
-//                                        Integer.parseInt(document.getData().get("total").toString()),
-//                                        document.getData().get("id_category").toString());
-//                                listResult.add(product);
+//                if(!edt_searchView.getText().toString().isEmpty()) {
+//                    if (!edt_searchView.getText().toString().isEmpty()) {
+//                        String s = edt_searchView.getText().toString();
+//                        ds = dao_history.getAll();
+//                        boolean check = false;
+//                        for (int i = 0; i < ds.size(); i++) {
+//                            if (edt_searchView.getText().toString().equals(ds.get(i).getName_history())) {
+//                                Log.d(">>>>TAG:", edt_searchView.getText().toString() + "==" + ds.get(i).getName_history());
+//                                check = true;
+//                                break;
 //                            }
 //                        }
-//                        progess.hideDialog();
-//                        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-//                        productAdapter = new ProductAdapter(listResult, SearchActivity.this);
-//                        recyclerViewResult.setLayoutManager(staggeredGridLayoutManager);
-//                        recyclerViewResult.setAdapter(productAdapter);
+//                        if (!check) {
+//                            dao_history.insert(edt_searchView.getText().toString());
+//                            ds = dao_history.getAll();
+//                            check = false;
+//                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.from_rigth, R.anim.default_anim).replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+//                        } else {
+//                            check = false;
+//                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.from_rigth, R.anim.default_anim).replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+//
+//                        }
 //                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        progess.hideDialog();
-//                        Toast.makeText(SearchActivity.this, "Không tìm thấy", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
+//        edt_searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                boolean handled = false;
+//                if (actionId == EditorInfo.IME_ACTION_SEND) {
+//                    if(!edt_searchView.getText().toString().isEmpty()) {
+//                        String s = edt_searchView.getText().toString();
+//                        boolean check = false;
+//                        ds = dao_history.getAll();
+//                        for (int i = 0; i < ds.size(); i++) {
+//                            if (edt_searchView.getText().toString().equals(ds.get(i).getName_history())){
+//                                Log.d(">>>>TAG:",edt_searchView.getText().toString()+"><"+ds.get(i).getName_history());
+//                                check = true;
+//                                break;
+//                            }
+//                        }
+//                        if(!check) {
+//                            dao_history.insert(edt_searchView.getText().toString());
+//                            ds = dao_history.getAll();
+//                            check = false;
+//                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.from_rigth, R.anim.default_anim).replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+//                        }
+//                        else {
+//                            check = false;
+//                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.from_rigth, R.anim.default_anim).replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+//
+//                        }
 //                    }
-//                });
+//                    handled = true;
+//                }
+//                return handled;
+//            }
+//        });
+    }
+
+//    @Override
+//    public void OnClickItemSearchHistory(String s) {
+//        edt_searchView.setText(s);
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+//
 //    }
+//
+//    @Override
+//    public void OnClickText() {
+//        onBackPressed();
+//    }
+
 }

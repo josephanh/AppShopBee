@@ -46,7 +46,7 @@ public class SearchFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-    private DiaLogProgess progess;
+//    private DiaLogProgess progess;
     private TextView tv_noResult;
 
     public SearchFragment() {
@@ -84,8 +84,8 @@ public class SearchFragment extends Fragment {
         recyclerViewResult = view.findViewById( R.id.rv_Result_Search);
         tv_noResult = view.findViewById(R.id.tv_noResult);
 
-        progess = new DiaLogProgess(getContext());
-        progess.showDialog("Searching");
+//        progess = new DiaLogProgess(getContext());
+//        progess.showDialog("Searching");
         findData(searchString);
     }
 
@@ -115,8 +115,11 @@ public class SearchFragment extends Fragment {
                                 listResult.add(product);
                             }
                         }
-                        progess.hideDialog();
+//                        progess.hideDialog();
                         if (listResult.size()== 0 || listResult == null){
+
+
+
                             recyclerViewResult.setVisibility(View.GONE);
                             tv_noResult.setVisibility(View.VISIBLE);
                         }else {
@@ -132,7 +135,7 @@ public class SearchFragment extends Fragment {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        progess.hideDialog();
+//                        progess.hideDialog();
                         Log.d(">>>>TAG:","");
                     }
                 });

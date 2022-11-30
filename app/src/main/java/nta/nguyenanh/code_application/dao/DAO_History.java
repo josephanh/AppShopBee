@@ -42,6 +42,7 @@ public class DAO_History {
         ContentValues values = new ContentValues();
         values.put("name_history",name_history);
         return db.insert("History",null,values);
+
     }
 
     public  int delete(String id_history){
