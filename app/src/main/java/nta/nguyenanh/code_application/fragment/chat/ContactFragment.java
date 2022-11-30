@@ -34,6 +34,7 @@ import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.UserAdapter;
 import nta.nguyenanh.code_application.listener.FirebaseQuery;
 import nta.nguyenanh.code_application.interfaces.ItemClickSupport;
+import nta.nguyenanh.code_application.model.User;
 import nta.nguyenanh.code_application.model.User2;
 
 public class ContactFragment extends Fragment {
@@ -55,11 +56,11 @@ public class ContactFragment extends Fragment {
         FirebaseQuery.getListUser(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<HashMap<String, User2>> objectsGTypeInd =
-                        new GenericTypeIndicator<HashMap<String, User2>>() {
+                GenericTypeIndicator<HashMap<String, User>> objectsGTypeInd =
+                        new GenericTypeIndicator<HashMap<String, User>>() {
                         };
-                Map<String, User2> objectHashMap = dataSnapshot.getValue(objectsGTypeInd);
-                final List<User2> objectArrayList = new ArrayList<>(objectHashMap.values());
+                Map<String, User> objectHashMap = dataSnapshot.getValue(objectsGTypeInd);
+                final List<User> objectArrayList = new ArrayList<>(objectHashMap.values());
                 Log.d("TAG user", "onDataChange: "+objectArrayList);
 
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -75,7 +76,7 @@ public class ContactFragment extends Fragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         if (userModel.getUserID().equals("f7xs0HqMzaYhs8QdW3xO")) {
-                            String groupID = objectArrayList.get(position).username + "|" + userModel.getUserID();
+                            String groupID = objectArrayList.get(position).getUserID() + "|" + userModel.getUserID();
                             FirebaseQuery.checkExistGroup(groupID, new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -15,6 +15,14 @@ public class User {
         this.userID = userID;
     }
 
+    public User() {
+    }
+
+    public User(String fullname, String username) {
+        this.fullname = fullname;
+        this.username = username;
+    }
+
     public User(int id, ArrayList<Address> address, String datebirth, String fullname, String password, String phonenumber, String username, String userID) {
         this.id = id;
         this.address = address;
