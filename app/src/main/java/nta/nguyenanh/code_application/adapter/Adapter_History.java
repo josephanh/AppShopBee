@@ -16,17 +16,19 @@ import java.util.List;
 import nta.nguyenanh.code_application.SearchActivity;
 import nta.nguyenanh.code_application.dao.DAO_History;
 import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.fragment.HistorySearchFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickItemSearchHistory;
 import nta.nguyenanh.code_application.model.History;
 
 public class Adapter_History extends RecyclerView.Adapter<Adapter_History.ViewHolder> {
     public static Context context;
     public static List<History> ds;
+    OnClickItemSearchHistory onClickItemSearchHistory;
 
-
-    public Adapter_History(Context context,List<History> ds){
+    public Adapter_History(Context context,List<History> ds,OnClickItemSearchHistory onClickItemSearchHistory){
         this.context= context;
         this.ds = ds;
+        this.onClickItemSearchHistory = onClickItemSearchHistory;
     }
 
     @NonNull
@@ -52,8 +54,8 @@ public class Adapter_History extends RecyclerView.Adapter<Adapter_History.ViewHo
         holder.txt_name_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OnClickItemSearchHistory onClickItemSearchHistory = ((SearchActivity)context);
-                onClickItemSearchHistory.OnClickItemSearchHistory(holder.txt_name_history.getText().toString());
+                    onClickItemSearchHistory.OnClickItemSearchHistory(holder.txt_name_history.getText().toString());
+//                onClickItemSearchHistory.OnClickItemSearchHistory(holder.txt_name_history.getText().toString());
             }
         });
     }
