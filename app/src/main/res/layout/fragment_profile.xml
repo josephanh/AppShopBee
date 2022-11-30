@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BCBCBC"
+    android:background="@color/color_Main"
     android:orientation="vertical">
 
     <LinearLayout
@@ -196,7 +196,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/line9" />
+            android:background="@drawable/line6" />
 
 
         <LinearLayout
@@ -232,7 +232,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:background="@drawable/line9" />
+            android:background="@drawable/line6" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
