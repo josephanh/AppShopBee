@@ -288,8 +288,6 @@ public class CartActivity extends AppCompatActivity {
                             }
                         }
                         progess.hideDialog();
-
-
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

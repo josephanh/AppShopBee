@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,6 +30,7 @@ import nta.nguyenanh.code_application.adapter.Adapter_History;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.dao.DAO_History;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
+import nta.nguyenanh.code_application.interfaces.OnClickItemSearchHistory;
 import nta.nguyenanh.code_application.model.History;
 import nta.nguyenanh.code_application.model.Product;
 
@@ -50,7 +54,6 @@ public class HistorySearchFragment extends Fragment {
     DiaLogProgess progess;
 
     public HistorySearchFragment() {
-        // Required empty public constructor
     }
 
 
@@ -76,8 +79,74 @@ public class HistorySearchFragment extends Fragment {
         deleteAll = view.findViewById(R.id.deleteAll);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewHistory.setLayoutManager(linearLayoutManager);
+        btn_search = view.findViewById(R.id.btn_search);
+        edt_searchView = view.findViewById(R.id.edt_searchView);
+        dao_history = new DAO_History(getActivity());
+        ds = dao_history.getAll();
 
-        progess = new DiaLogProgess(getActivity());
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!edt_searchView.getText().toString().isEmpty()) {
+                    if (!edt_searchView.getText().toString().isEmpty()) {
+                        String s = edt_searchView.getText().toString();
+                        ds = dao_history.getAll();
+                        boolean check = false;
+                        for (int i = 0; i < ds.size(); i++) {
+                            if (edt_searchView.getText().toString().equals(ds.get(i).getName_history())) {
+                                Log.d(">>>>TAG:", edt_searchView.getText().toString() + "==" + ds.get(i).getName_history());
+                                check = true;
+                                break;
+                            }
+                        }
+                        if (!check) {
+                            dao_history.insert(edt_searchView.getText().toString());
+                            ds = dao_history.getAll();
+                            fillData();
+                            check = false;
+                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.default_anim, R.anim.default_anim,R.anim.from_rigth, R.anim.default_anim).add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+                        } else {
+                            check = false;
+                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.default_anim, R.anim.default_anim,R.anim.from_rigth, R.anim.default_anim).add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+
+                        }
+                    }
+                }
+            }
+        });
+        edt_searchView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    if(!edt_searchView.getText().toString().isEmpty()) {
+                        String s = edt_searchView.getText().toString();
+                        boolean check = false;
+                        ds = dao_history.getAll();
+                        for (int i = 0; i < ds.size(); i++) {
+                            if (edt_searchView.getText().toString().equals(ds.get(i).getName_history())){
+                                Log.d(">>>>TAG:",edt_searchView.getText().toString()+"><"+ds.get(i).getName_history());
+                                check = true;
+                                break;
+                            }
+                        }
+                        if(!check) {
+                            dao_history.insert(edt_searchView.getText().toString());
+                            ds = dao_history.getAll();
+                            check = false;
+                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.default_anim, R.anim.default_anim,R.anim.from_rigth, R.anim.default_anim).add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+                        }
+                        else {
+                            check = false;
+                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.default_anim, R.anim.default_anim,R.anim.from_rigth, R.anim.default_anim).add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+
+                        }
+                    }
+                    handled = true;
+                }
+                return handled;
+            }
+        });
         deleteAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +159,14 @@ public class HistorySearchFragment extends Fragment {
     public void fillData() {
         ds = dao_history.getAll();
         Collections.reverse(ds);
-        adapterHistory = new Adapter_History(getActivity(), ds);
+        adapterHistory = new Adapter_History(getActivity(), ds, new OnClickItemSearchHistory() {
+            @Override
+            public void OnClickItemSearchHistory(String s) {
+                edt_searchView.setText(s);
+                getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.default_anim, R.anim.default_anim,R.anim.from_rigth, R.anim.default_anim).replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+            }
+        });
         recyclerViewHistory.setAdapter(adapterHistory);
     }
+
 }
