@@ -23,7 +23,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".ProfileActivity" />
         <activity android:name=".SignUpActivity" />
         <activity
             android:name=".HomeActivity"
