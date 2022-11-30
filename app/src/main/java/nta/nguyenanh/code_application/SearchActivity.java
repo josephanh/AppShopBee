@@ -1,7 +1,6 @@
 package nta.nguyenanh.code_application;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -21,8 +20,8 @@ import java.util.List;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.dao.DAO_History;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
-import nta.nguyenanh.code_application.fragment.HistorySearchFragment;
-import nta.nguyenanh.code_application.fragment.SearchFragment;
+import nta.nguyenanh.code_application.fragment.search.HistorySearchFragment;
+import nta.nguyenanh.code_application.fragment.search.SearchFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickItemSearchHistory;
 import nta.nguyenanh.code_application.model.History;
 import nta.nguyenanh.code_application.model.Product;

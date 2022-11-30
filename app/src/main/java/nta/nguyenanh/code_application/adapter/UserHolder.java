@@ -14,7 +14,7 @@ class UserHolder extends RecyclerView.ViewHolder {
 
     public ImageView imgAvatar;
     public TextView tvUsername;
-    public TextView tvName;
+
 
     public UserHolder(@NonNull View convertView) {
         super(convertView);
@@ -22,7 +22,7 @@ class UserHolder extends RecyclerView.ViewHolder {
 
         imgAvatar = convertView.findViewById(R.id.imgAvatar);
         tvUsername = convertView.findViewById(R.id.tvUsername);
-        tvName = convertView.findViewById(R.id.tvName);
+//        tvName = convertView.findViewById(R.id.tvName);
 
     }
 

@@ -68,6 +68,7 @@ public class FirebaseQuery<T> {
     public static void getListGroups(String username, ValueEventListener valueEventListener) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(GROUPS);
+
         myRef.orderByKey().startAt(username).endAt(username.concat("\uf8ff")).addValueEventListener(valueEventListener);
 
     }

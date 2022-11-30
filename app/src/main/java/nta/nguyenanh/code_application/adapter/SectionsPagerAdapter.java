@@ -8,10 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import nta.nguyenanh.code_application.fragment.ContactFragment;
+import nta.nguyenanh.code_application.fragment.chat.ContactFragment;
 import nta.nguyenanh.code_application.R;
-import nta.nguyenanh.code_application.fragment.SettingFragment;
-import nta.nguyenanh.code_application.fragment.InboxFragment;
+import nta.nguyenanh.code_application.fragment.chat.SettingFragment;
 
 
 /**
@@ -21,7 +20,7 @@ import nta.nguyenanh.code_application.fragment.InboxFragment;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_2, R.string.tab_text_3};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -36,12 +35,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new InboxFragment();
-                break;
-            case 1:
                 fragment = new ContactFragment();
                 break;
-            case 2:
+            case 1:
                 fragment = new SettingFragment();
                 break;
         }
@@ -58,6 +54,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 3;
+        return 2;
     }
 }

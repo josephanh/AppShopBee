@@ -11,9 +11,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import nta.nguyenanh.code_application.fragment.DistrictsFragment;
-import nta.nguyenanh.code_application.fragment.DivisionFragment;
-import nta.nguyenanh.code_application.fragment.WardsFragment;
+import nta.nguyenanh.code_application.fragment.address.DistrictsFragment;
+import nta.nguyenanh.code_application.fragment.address.DivisionFragment;
+import nta.nguyenanh.code_application.fragment.address.WardsFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
 

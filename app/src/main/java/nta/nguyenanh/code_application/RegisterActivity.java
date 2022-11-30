@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import nta.nguyenanh.code_application.model.User;
-import nta.nguyenanh.code_application.model.User2;
+
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText txt_newname,txt_newpassword,txt_confirmpassword, txtsodienthoai;
@@ -190,10 +190,9 @@ public class RegisterActivity extends AppCompatActivity {
                 if (dataSnapshot.getValue() == null) {
 
                     // hoc vien tu khoi tao model User
-                    User2 user = new User2();
-                    user.isOnline = true;
-                    user.username = id;
-                    user.fullName = name;
+                    User user = new User();
+                    user.setUserID(id);
+                    user.setFullname(name);
 
 
                     // them user vao nhanh Users
@@ -208,7 +207,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 Intent intent = new Intent();
                                 intent.putExtra("data", username);
                                 setResult(999, intent);
-                                Log.d("TAG user2", "onComplete: "+username);
+
                                 Toast.makeText(RegisterActivity.this,
                                         getString(R.string.notify_create_user_successful), Toast.LENGTH_SHORT).show();
                                 finish();

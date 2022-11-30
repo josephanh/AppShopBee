@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -122,6 +124,10 @@ public class PayActivity extends AppCompatActivity {
                 String content = MainActivity.userModel.getFullname()+" đã đặt hàng thành công với tổng giá trị: "+formatter.format(totalMoney)+"đ";
                 SendNotification notification = new SendNotification(PayActivity.this);
                 notification.customNotification(title, content);
+                Toast.makeText(PayActivity.this, "Đặt hàng thành công !!!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PayActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
 
             }
         });

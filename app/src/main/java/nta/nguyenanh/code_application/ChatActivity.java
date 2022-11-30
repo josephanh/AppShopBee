@@ -11,8 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
@@ -26,14 +30,24 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,13 +62,19 @@ public class ChatActivity extends AppCompatActivity {
     private String group;
     private RecyclerView recyclerView;
     private EditText edtInput;
-    private ImageView btnSend;
+    private ImageView btnSend,btnimage;
     private List<Chat> objectArrayList;
     private Toolbar toolbar;
     private RelativeLayout activityChat;
 
     public static int height = 0;
     public static int width = 0;
+
+    //chon hinh tu gallery
+    Button BSelectImage;
+    Uri selectedImageUri;
+    int SELECT_PICTURE = 200;
+    boolean checkimage= false;
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -68,6 +88,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.lvList);
         edtInput = findViewById(R.id.edtInput);
         btnSend = findViewById(R.id.btnSend);
+        btnimage = findViewById(R.id.btnimage);
         btnSend.setEnabled(false);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -78,6 +99,14 @@ public class ChatActivity extends AppCompatActivity {
         group = getIntent().getStringExtra("data");
 
         setTitle(group);
+        btnimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageChooser();
+
+
+            }
+        });
 
         edtInput.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,16 +163,16 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         objectArrayList = new ArrayList<>();
-//        final ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
+        ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
-//        recyclerView.setAdapter(chatAdapter);
+        recyclerView.setAdapter(chatAdapter);
         FirebaseQuery.getListMessages(group, new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Chat chat = dataSnapshot.getValue(Chat.class);
+
                 objectArrayList.add(chat);
-                recyclerView.smoothScrollToPosition(objectArrayList.size());
 //                recyclerView.smoothScrollToPosition(objectArrayList.size());
 //                chatAdapter.notifyDataSetChanged();
                 Log.d("ABC", "______________Begin____________");
@@ -152,8 +181,12 @@ public class ChatActivity extends AppCompatActivity {
                 }
                 Log.d("ABC", "List size: " + objectArrayList.size());
                 Log.d("ABC", "______________End____________");
-                ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
-                recyclerView.setAdapter(chatAdapter);
+                if (checkimage){
+                    objectArrayList.remove(objectArrayList.size()-1);
+                    checkimage = !checkimage;
+                }
+                chatAdapter.notifyDataSetChanged();
+                recyclerView.smoothScrollToPosition(objectArrayList.size());
 //                Log.e("ABC", "Nội dung tin nhắn: "+chat.getText());
             }
 
@@ -202,6 +235,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
         });
 
 
@@ -243,6 +277,84 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        objectArrayList = new ArrayList<>();
+    }
+    void imageChooser() {
+
+        // create an instance of the
+        // intent of the type image
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        // pass the constant to compare it
+        // with the returned requestCode
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+    public  void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                selectedImageUri = data.getData();
+                checkimage = true;
+                objectArrayList.add(new Chat(userModel.getUserID(), String.valueOf(selectedImageUri),System.currentTimeMillis()));
+                ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this,objectArrayList);
+                recyclerView.setAdapter(chatAdapter);
+                recyclerView.scrollToPosition(objectArrayList.size() - 1);
+                if (null != selectedImageUri) {
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),selectedImageUri);
+                        uploadtofirebase(bitmap);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    // update the preview image in the layout
+//                    IVPreviewImage.setImageURI(selectedImageUri);
+                }
+            }
+        }
+
+    }
+    private void uploadtofirebase(Bitmap bitmap){
+        Calendar c = Calendar.getInstance();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReference();
+        StorageReference imageReference = storageReference.child(c.getTimeInMillis()+".jpg");
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+        byte[] bytes = outputStream.toByteArray();
+        UploadTask uploadTask = imageReference.putBytes(bytes);
+        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (task.isSuccessful()){
+                    return imageReference.getDownloadUrl();
+
+                }
+                return null;
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()){
+                    Uri dowloadUri = task.getResult();
+                    edtInput.setText("");
+                    FirebaseQuery.sendMessage(group, String.valueOf(dowloadUri), userModel.getUserID(), System.currentTimeMillis(), new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                            edtInput.setText("");
+                        }
+                    });
+
+                }
+            }
+        });
     }
 }
