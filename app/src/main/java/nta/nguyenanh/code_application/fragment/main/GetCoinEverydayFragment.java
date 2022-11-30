@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application.fragment;
+package nta.nguyenanh.code_application.fragment.main;
 
 import android.content.ContentValues;
 import android.database.Cursor;

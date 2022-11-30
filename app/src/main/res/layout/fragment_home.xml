@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_Main"
-    tools:context=".fragment.HomeFragment"
+    tools:context=".fragment.main.HomeFragment"
     android:orientation="vertical">
     <FrameLayout
         android:layout_width="match_parent"

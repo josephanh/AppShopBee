@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import me.relex.circleindicator.CircleIndicator;
 import nta.nguyenanh.code_application.adapter.ViewOnBoardPaperAdapter;
-import nta.nguyenanh.code_application.fragment.GetStarted_Fragment;
+import nta.nguyenanh.code_application.fragment.main.GetStarted_Fragment;
 
 public class OnBoardingActivity extends AppCompatActivity {
 

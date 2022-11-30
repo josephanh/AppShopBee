@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application.fragment;
+package nta.nguyenanh.code_application.fragment.main;
 
 import static nta.nguyenanh.code_application.SplashScreen.Flashsalelist;
 import static nta.nguyenanh.code_application.SplashScreen.lastVisibleFlashSale;

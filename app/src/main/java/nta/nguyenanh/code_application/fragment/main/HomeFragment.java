@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application.fragment;
+package nta.nguyenanh.code_application.fragment.main;
 
 import static nta.nguyenanh.code_application.SplashScreen.Flashsalelist;
 import static nta.nguyenanh.code_application.SplashScreen.lastVisibleProduct;
@@ -34,7 +34,6 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -51,7 +50,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
-import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.BannerAdapter;
 import nta.nguyenanh.code_application.adapter.FlashSaleHomeAdapter;

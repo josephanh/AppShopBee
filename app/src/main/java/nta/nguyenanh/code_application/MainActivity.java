@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.common.reflect.TypeToken;
@@ -29,9 +28,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import nta.nguyenanh.code_application.dialog.DialogConfirm;
-import nta.nguyenanh.code_application.fragment.FlashSaleFragment;
-import nta.nguyenanh.code_application.fragment.HomeFragment;
-import nta.nguyenanh.code_application.fragment.NotificationFragment;
+import nta.nguyenanh.code_application.fragment.main.FlashSaleFragment;
+import nta.nguyenanh.code_application.fragment.main.HomeFragment;
+import nta.nguyenanh.code_application.fragment.main.NotificationFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
 import nta.nguyenanh.code_application.listener.CheckLogin;

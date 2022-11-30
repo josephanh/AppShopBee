@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application.fragment;
+package nta.nguyenanh.code_application.fragment.search;
 
 import android.os.Bundle;
 

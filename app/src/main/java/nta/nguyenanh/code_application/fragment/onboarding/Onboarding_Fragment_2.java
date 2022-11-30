@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application.fragment;
+package nta.nguyenanh.code_application.fragment.onboarding;
 
 import android.os.Bundle;
 
@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 
 import nta.nguyenanh.code_application.R;
 
-
-public class Onboarding_Fragment_1 extends Fragment {
-
+public class Onboarding_Fragment_2 extends Fragment {
 
 
     @Override
@@ -24,6 +22,6 @@ public class Onboarding_Fragment_1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_onboardingf_1, container, false);
+        return inflater.inflate(R.layout.fragment_onboardingf_2, container, false);
     }
 }

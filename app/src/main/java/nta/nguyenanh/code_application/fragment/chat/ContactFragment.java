@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application.fragment;
+package nta.nguyenanh.code_application.fragment.chat;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application.fragment;
+package nta.nguyenanh.code_application.fragment.main;
 
 import android.content.Intent;
 import android.os.Bundle;

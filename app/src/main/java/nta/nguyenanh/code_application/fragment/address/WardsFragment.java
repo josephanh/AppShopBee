@@ -1,9 +1,12 @@
-package nta.nguyenanh.code_application.fragment;
+package nta.nguyenanh.code_application.fragment.address;
 
-import static nta.nguyenanh.code_application.AddressActivity.indexDistrict;
-import static nta.nguyenanh.code_application.AddressActivity.indexDivision;
+import static nta.nguyenanh.code_application.AddressActivity.indexWard;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,11 +15,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import java.util.ArrayList;
 
 import nta.nguyenanh.code_application.AddressActivity;
@@ -24,20 +22,14 @@ import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.AddressAdapter;
 import nta.nguyenanh.code_application.model.Address;
 
-public class DivisionFragment extends Fragment {
-
+public class WardsFragment extends Fragment {
     ArrayList<Address> list = new ArrayList<>();
     RecyclerView recyclerAddress;
     AddressAdapter adapter;
     LinearLayoutManager layoutManager;
 
-    public DivisionFragment() {
-        // Required empty public constructor
-    }
-
-
-    public static DivisionFragment newInstance(ArrayList<Address> list) {
-        DivisionFragment fragment = new DivisionFragment();
+    public static WardsFragment newInstance(ArrayList<Address> list) {
+        WardsFragment fragment = new WardsFragment();
         Bundle args = new Bundle();
         args.putSerializable("list", list);
         fragment.setArguments(args);
@@ -80,16 +72,10 @@ public class DivisionFragment extends Fragment {
     @Override
     public void onResume() {
         if(adapter != null) {
-            if(indexDivision == -1) {
+            if(indexWard == -1) {
                 adapter.notifyDataSetChanged();
             }
         }
         super.onResume();
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
 }

@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import nta.nguyenanh.code_application.fragment.Onboarding_Fragment_1;
-import nta.nguyenanh.code_application.fragment.Onboarding_Fragment_2;
-import nta.nguyenanh.code_application.fragment.Onboarding_Fragment_3;
+import nta.nguyenanh.code_application.fragment.onboarding.Onboarding_Fragment_1;
+import nta.nguyenanh.code_application.fragment.onboarding.Onboarding_Fragment_2;
+import nta.nguyenanh.code_application.fragment.onboarding.Onboarding_Fragment_3;
 
 public class ViewOnBoardPaperAdapter extends FragmentStatePagerAdapter {
 

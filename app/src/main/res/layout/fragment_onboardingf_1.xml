@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".fragment.Onboarding_Fragment_1"
+    tools:context=".fragment.onboarding.Onboarding_Fragment_1"
     android:background="@color/white">
 
     <ImageView

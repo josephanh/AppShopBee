@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F4F0F0"
     android:orientation="vertical"
-    tools:context=".fragment.NotificationFragment">
+    tools:context=".fragment.main.NotificationFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarNotification"
