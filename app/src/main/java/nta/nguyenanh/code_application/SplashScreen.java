@@ -92,6 +92,8 @@ public class SplashScreen extends AppCompatActivity {
                                     sale = Float.parseFloat(document.get("sale").toString());
                                     Long start = Long.parseLong(document.get("datestart").toString());
                                     Long end = Long.parseLong(document.get("dateend").toString());
+
+                                    Log.d("DATE", "onComplete: "+System.currentTimeMillis());
                                     if (sale > 0 && Integer.parseInt(document.get("total") + "") > 0) {
                                         if (System.currentTimeMillis() >= start * (1000L) && System.currentTimeMillis() < end * (1000L)) {
                                             Log.d("TAG 2000", "Đang sale: " + document.getId());
@@ -119,7 +121,7 @@ public class SplashScreen extends AppCompatActivity {
                                     }
                                 }
                                 lastVisibleFlashSale = task.getResult().getDocuments().get(task.getResult().size() - 1);
-                                Log.d("TAG 2000", "onComplete: "+Flashsalelist.size());
+                                Log.d("TAG 2000 L", "onComplete: "+Flashsalelist.size());
                             }
                         }
                     });
