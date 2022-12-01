@@ -31,7 +31,7 @@ import nta.nguyenanh.code_application.dialog.DialogConfirm;
 import nta.nguyenanh.code_application.fragment.main.FlashSaleFragment;
 import nta.nguyenanh.code_application.fragment.main.HomeFragment;
 import nta.nguyenanh.code_application.fragment.main.NotificationFragment;
-import nta.nguyenanh.code_application.fragment.main.ProfileFragment;
+import nta.nguyenanh.code_application.fragment.main.UserFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickItemProduct;
 import nta.nguyenanh.code_application.listener.CheckLogin;
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
                     fragment = new NotificationFragment();
                     break;
                 case R.id.bt_user:
-                    fragment = new ProfileFragment();
+                    fragment = new UserFragment();
                     break;
                 default:
                     fragment = new HomeFragment();
