@@ -407,9 +407,11 @@ public class NumberPhoneFragment extends Fragment {
         @Override
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
+            Log.d(">>>>TAG:", "");
             Log.d(">>>>TAG:", "ngon 2");
 
         }
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
     };
 
 
