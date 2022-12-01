@@ -134,7 +134,6 @@ public class DetailProductActivity extends AppCompatActivity{
         btn_more_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
