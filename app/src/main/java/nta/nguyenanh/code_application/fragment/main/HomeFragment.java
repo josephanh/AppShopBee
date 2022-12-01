@@ -67,7 +67,6 @@ public class HomeFragment extends Fragment {
 
     private String EVENT_DATE_TIME = "2022-11-13 16:30:00";
     private String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    long unixSeconds = 	1669761968;
     private TextView hour_flashsale, min_flashsale, sec_flashsale;
     private Handler handler = new Handler();
     private Runnable runnable;
@@ -248,7 +247,7 @@ public class HomeFragment extends Fragment {
         };
         recyclerView_product.addOnScrollListener(onScrollListener);
 
-        countDownStart();
+        countDownStart(Flashsalelist.get(0).getDateend());
 
     }
 
@@ -351,7 +350,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void countDownStart() {
+    private void countDownStart(long unixSeconds) {
         runnable = new Runnable() {
             @Override
             public void run() {
