@@ -73,11 +73,11 @@ public class SignUpActivity extends AppCompatActivity {
 
                     // hoc vien tu khoi tao model User
                     User2 user = new User2();
-                    user.firstName = firstName;
-
-                    user.password = password;
-                    user.isOnline = true;
-                    user.username = username.toLowerCase();
+//                    user.firstName = firstName;
+//
+//                    user.password = password;
+//                    user.isOnline = true;
+//                    user.username = username.toLowerCase();
 
 
                     // them user vao nhanh Users

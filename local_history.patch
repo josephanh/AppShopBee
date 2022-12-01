@@ -1,0 +1,17 @@
+Index: app/src/main/java/nta/nguyenanh/code_application/fragment/main/ProfileFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/nta/nguyenanh/code_application/fragment/main/ProfileFragment.java b/app/src/main/java/nta/nguyenanh/code_application/fragment/main/ProfileFragment.java
+--- a/app/src/main/java/nta/nguyenanh/code_application/fragment/main/ProfileFragment.java	
++++ b/app/src/main/java/nta/nguyenanh/code_application/fragment/main/ProfileFragment.java	(date 1669771292331)
+@@ -15,7 +15,7 @@
+     @Nullable
+     @Override
+     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+-        View view = getLayoutInflater().inflate(R.layout.fragment_profile, container, false);
++        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+         return view;
+     }
+ }

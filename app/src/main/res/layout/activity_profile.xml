@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <FrameLayout
+        android:id="@+id/fragment_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_btn_setting"
+            android:drawableLeft="@drawable/ic_profilewhite"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Profile"
+            android:textColor="#0B21BB"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/custom_btn_profile"
+            android:drawableLeft="@drawable/icon_settingblue"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Setting"
+            android:textColor="#87A0F1"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</FrameLayout>
