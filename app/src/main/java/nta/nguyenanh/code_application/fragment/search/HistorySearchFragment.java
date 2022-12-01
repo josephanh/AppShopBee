@@ -104,10 +104,10 @@ public class HistorySearchFragment extends Fragment {
                             ds = dao_history.getAll();
                             fillData();
                             check = false;
-                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.default_anim, R.anim.default_anim,R.anim.from_rigth, R.anim.default_anim).add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+                            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
                         } else {
                             check = false;
-                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.default_anim, R.anim.default_anim,R.anim.from_rigth, R.anim.default_anim).add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+                            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
 
                         }
                     }
@@ -134,11 +134,11 @@ public class HistorySearchFragment extends Fragment {
                             dao_history.insert(edt_searchView.getText().toString());
                             ds = dao_history.getAll();
                             check = false;
-                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.default_anim, R.anim.default_anim,R.anim.from_rigth, R.anim.default_anim).add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+                            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
                         }
                         else {
                             check = false;
-                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.default_anim, R.anim.default_anim,R.anim.from_rigth, R.anim.default_anim).add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+                            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
 
                         }
                     }
@@ -163,7 +163,7 @@ public class HistorySearchFragment extends Fragment {
             @Override
             public void OnClickItemSearchHistory(String s) {
                 edt_searchView.setText(s);
-                getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.default_anim, R.anim.default_anim,R.anim.from_rigth, R.anim.default_anim).replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
             }
         });
         recyclerViewHistory.setAdapter(adapterHistory);
