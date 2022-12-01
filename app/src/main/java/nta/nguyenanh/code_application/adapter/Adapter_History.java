@@ -13,10 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import nta.nguyenanh.code_application.SearchActivity;
-import nta.nguyenanh.code_application.dao.DAO_History;
 import nta.nguyenanh.code_application.R;
-import nta.nguyenanh.code_application.fragment.HistorySearchFragment;
+import nta.nguyenanh.code_application.dao.DAO_History;
 import nta.nguyenanh.code_application.interfaces.OnClickItemSearchHistory;
 import nta.nguyenanh.code_application.model.History;
 

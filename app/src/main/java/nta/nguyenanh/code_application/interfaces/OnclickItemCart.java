@@ -10,4 +10,6 @@ public interface OnclickItemCart {
     void onClickCheck(boolean isCheck, int total, float price);
 
     void hideCheck(CheckBox checkBox, ImageView imageView);
+
+    void onClickDelete(String id, int position);
 }

@@ -21,12 +21,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -57,17 +60,11 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         progess = new DiaLogProgess(CartActivity.this);
-//        ArrayList<Product> products = new ArrayList<>();
-//        ArrayList<String> color = new ArrayList<>();
-//        color.add("#000000");
-//        products.add(new Product("092L0PpqaprCFh7bP3Ru", 1200000F, color, 1));
-//
-//        Map<String, Object> cart = new HashMap<>();
-//        cart.put("id_user", "2DhfKW5XRl2NPYtmwq0I");
-//        cart.put("092L0PpqaprCFh7bP3Ru-" + System.currentTimeMillis(), products);
+
 
         recyclerViewCart = findViewById(R.id.recyclerViewCart);
         recyclerViewMore = findViewById(R.id.recyclerViewMore);
+
         toolbar = findViewById(R.id.toolbar);
 
         totalMoneyProduct = findViewById(R.id.totalMoneyProduct);
@@ -117,8 +114,10 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
-    public void changeTotal(int total, int oldTotal, float price){
 
+
+
+    public void changeTotal(int total, int oldTotal, float price){
         if(total < oldTotal) {
             totalMoney = totalMoney - (oldTotal - total)*price;
         } else {
@@ -202,30 +201,36 @@ public class CartActivity extends AppCompatActivity {
                                                 if(listOf.get(j).getKey().equals("image")) {
                                                     image = result;
                                                 }
+
                                             }
                                             Log.d("KEYDATA", "-----------\n");
                                             listCart.add(new ProductCart(id, name, image, price,color, total, key));
                                             totalMoney += price*total;
                                         }
+
                                     }
                                 }
 
                             }
                             progess.hideDialog();
+                            setDataMoney();
                             adapterCart = new CartAdapter(listCart, CartActivity.this, new OnclickItemCart() {
                                 @Override
                                 public void onClickMinus(int totalNew, int totalOld, float price) {
                                     changeTotal(totalNew, totalOld, price);
+                                    setDataMoney();
                                 }
 
                                 @Override
                                 public void onClickPlus(int totalNew, int totalOld, float price) {
                                     changeTotal(totalNew, totalOld, price);
+                                    setDataMoney();
                                 }
 
                                 @Override
                                 public void onClickCheck(boolean isCheck, int total, float price) {
                                     changeChecked(isCheck, total, price);
+                                    setDataMoney();
                                 }
 
                                 @Override
@@ -233,16 +238,34 @@ public class CartActivity extends AppCompatActivity {
 
                                 }
 
+                                @Override
+                                public void onClickDelete(String id, int position) {
+                                    if (listCart.size() > 0){
+                                        Map<String,Object> updates = new HashMap<>();
+                                        updates.put(listCart.get(position).getIdItemCart(), FieldValue.delete());
+                                        db.collection("cart").document(userModel.getUserID())
+                                                .update(updates)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        totalMoney = (totalMoney - listCart.get(position).getPrice());
+                                                        listCart.remove(position);
+                                                        adapterCart.notifyDataSetChanged();
+                                                        setDataMoney();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+
+                                                    }
+                                                });
+                                    }
+                                }
                             });
                             recyclerViewCart.setLayoutManager(manager);
                             recyclerViewCart.setAdapter(adapterCart);
-
                         }
-                        DecimalFormat formatter = new DecimalFormat("###,###,###");
-                        totalMoneyProduct.setText(formatter.format(totalMoney)+"đ");
-                        shipMoney.setText("30.000đ");
-                        voucher.setText("-"+formatter.format(totalMoney*0.02)+"đ");
-                        totalMoneys.setText(formatter.format((totalMoney*0.98)+30000)+"đ");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -253,23 +276,23 @@ public class CartActivity extends AppCompatActivity {
                     }
                 });
 
-//        db.collection("cart").document("2EhfKW5XRl2NPYtmwq0I")
-//                .update(cart)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void unused) {
-//                        Log.d("TAG>>>", "Thêm dữ liệu thành công " + unused);
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.d("TAG>>>", "Thêm dữ liệu thất bạn ");
-//                    }
-//                });
+    }
 
-
-
+    private void setDataMoney(){
+        if (listCart.size() < 1){
+            Log.d(">>>>TAG:", ""+listCart.size());
+            totalMoneyProduct.setText("0đ");
+            shipMoney.setText("0đ");
+            voucher.setText("0đ");
+            totalMoneys.setText("0đ");
+        }else {
+            Log.d(">>>>TAG:", ""+listCart.size());
+            DecimalFormat formatter = new DecimalFormat("###,###,###");
+            totalMoneyProduct.setText(formatter.format(totalMoney)+"đ");
+            shipMoney.setText("30.000đ");
+            voucher.setText("-"+formatter.format(totalMoney*0.02)+"đ");
+            totalMoneys.setText(formatter.format((totalMoney*0.98)+30000)+"đ");
+        }
     }
 
     public void findCart(String s) {
@@ -297,5 +320,30 @@ public class CartActivity extends AppCompatActivity {
                         Toast.makeText(CartActivity.this, "Không tìm thấy", Toast.LENGTH_LONG).show();
                     }
                 });
+    }
+    private void codeTest(){
+        //        ArrayList<Product> products = new ArrayList<>();
+        //        ArrayList<String> color = new ArrayList<>();
+        //        color.add("#000000");
+        //        products.add(new Product("092L0PpqaprCFh7bP3Ru", 1200000F, color, 1));
+        //
+        //        Map<String, Object> cart = new HashMap<>();
+        //        cart.put("id_user", "2DhfKW5XRl2NPYtmwq0I");
+        //        cart.put("092L0PpqaprCFh7bP3Ru-" + System.currentTimeMillis(), products);
+        //
+        //        db.collection("cart").document("2EhfKW5XRl2NPYtmwq0I")
+        //                .update(cart)
+        //                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        //                    @Override
+        //                    public void onSuccess(Void unused) {
+        //                        Log.d("TAG>>>", "Thêm dữ liệu thành công " + unused);
+        //                    }
+        //                })
+        //                .addOnFailureListener(new OnFailureListener() {
+        //                    @Override
+        //                    public void onFailure(@NonNull Exception e) {
+        //                        Log.d("TAG>>>", "Thêm dữ liệu thất bạn ");
+        //                    }
+        //                });
     }
 }

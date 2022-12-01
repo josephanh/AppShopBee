@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:padding="5dp">
             <TextView
                 android:layout_width="wrap_content"
@@ -37,6 +38,15 @@
                 android:text="ShopBee - Team 5"
                 android:paddingLeft="10dp"
                 android:lines="1"/>
+
+            <ImageView
+                android:id="@+id/btn_delete_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:src="@drawable/ic_baseline_delete_outline_24"
+                />
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

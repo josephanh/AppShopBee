@@ -64,6 +64,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         holder.price_product.setText(formatter.format(list.get(position).getPrice())+"đ");
         holder.total_product.setText(list.get(position).getTotal().toString());
+        holder.btn_delete_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onclickItemCart.onClickDelete(list.get(position).getId(), position);
+            }
+        });
         holder.colorProduct.setBackgroundColor(Color.parseColor(list.get(position).getColor()));
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,9 +111,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         ImageView minus, plus;
         ImageView image_product;
         CheckBox checkboxCart;
+        ImageView btn_delete_cart;
         RoundedImageView colorProduct;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            btn_delete_cart = itemView.findViewById(R.id.btn_delete_cart);
             checkboxCart = itemView.findViewById(R.id.checkboxCart);
             name_product = itemView.findViewById(R.id.name_product);
             price_product = itemView.findViewById(R.id.price_product);

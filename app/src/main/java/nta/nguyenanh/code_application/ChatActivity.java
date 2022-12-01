@@ -1,14 +1,6 @@
 package nta.nguyenanh.code_application;
 
 import static nta.nguyenanh.code_application.MainActivity.userModel;
-import static nta.nguyenanh.code_application.listener.FirebaseQuery.USERNAME;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -29,8 +21,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,22 +56,20 @@ import nta.nguyenanh.code_application.model.Chat;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private String group;
-    private RecyclerView recyclerView;
-    private EditText edtInput;
-    private ImageView btnSend,btnimage;
-    private List<Chat> objectArrayList;
-    private Toolbar toolbar;
-    private RelativeLayout activityChat;
-
     public static int height = 0;
     public static int width = 0;
-
     //chon hinh tu gallery
     Button BSelectImage;
     Uri selectedImageUri;
     int SELECT_PICTURE = 200;
-    boolean checkimage= false;
+    boolean checkimage = false;
+    private String group;
+    private RecyclerView recyclerView;
+    private EditText edtInput;
+    private ImageView btnSend, btnimage;
+    private List<Chat> objectArrayList;
+    private Toolbar toolbar;
+    private RelativeLayout activityChat;
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -151,9 +146,7 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() > 0) {
-                    btnSend.setEnabled(true);
-                } else btnSend.setEnabled(false);
+                btnSend.setEnabled(charSequence.length() > 0);
             }
 
             @Override
@@ -181,8 +174,8 @@ public class ChatActivity extends AppCompatActivity {
                 }
                 Log.d("ABC", "List size: " + objectArrayList.size());
                 Log.d("ABC", "______________End____________");
-                if (checkimage){
-                    objectArrayList.remove(objectArrayList.size()-1);
+                if (checkimage) {
+                    objectArrayList.remove(objectArrayList.size() - 1);
                     checkimage = !checkimage;
                 }
                 chatAdapter.notifyDataSetChanged();
@@ -258,9 +251,9 @@ public class ChatActivity extends AppCompatActivity {
                 Rect r = new Rect();
                 activityView.getWindowVisibleDisplayFrame(r);
                 int height = activityView.getRootView().getHeight() - r.height();
-                if(height > 0.25*activityView.getRootView().getHeight()) {
+                if (height > 0.25 * activityView.getRootView().getHeight()) {
                     // bàn phím xuất hiện nhé
-                    if(objectArrayList.size() > 0) {
+                    if (objectArrayList.size() > 0) {
                         recyclerView.scrollToPosition(objectArrayList.size() - 1);
                         activityView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
@@ -278,6 +271,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
+
     void imageChooser() {
 
         // create an instance of the
@@ -290,7 +284,8 @@ public class ChatActivity extends AppCompatActivity {
         // with the returned requestCode
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
-    public  void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
@@ -301,14 +296,14 @@ public class ChatActivity extends AppCompatActivity {
                 // Get the url of the image from data
                 selectedImageUri = data.getData();
                 checkimage = true;
-                objectArrayList.add(new Chat(userModel.getUserID(), String.valueOf(selectedImageUri),System.currentTimeMillis()));
-                ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this,objectArrayList);
+                objectArrayList.add(new Chat(userModel.getUserID(), String.valueOf(selectedImageUri), System.currentTimeMillis()));
+                ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, objectArrayList);
                 recyclerView.setAdapter(chatAdapter);
                 recyclerView.scrollToPosition(objectArrayList.size() - 1);
                 if (null != selectedImageUri) {
                     Bitmap bitmap = null;
                     try {
-                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),selectedImageUri);
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
                         uploadtofirebase(bitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -322,19 +317,20 @@ public class ChatActivity extends AppCompatActivity {
         }
 
     }
-    private void uploadtofirebase(Bitmap bitmap){
+
+    private void uploadtofirebase(Bitmap bitmap) {
         Calendar c = Calendar.getInstance();
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReference();
-        StorageReference imageReference = storageReference.child(c.getTimeInMillis()+".jpg");
+        StorageReference imageReference = storageReference.child(c.getTimeInMillis() + ".jpg");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         byte[] bytes = outputStream.toByteArray();
         UploadTask uploadTask = imageReference.putBytes(bytes);
         uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     return imageReference.getDownloadUrl();
 
                 }
@@ -343,7 +339,7 @@ public class ChatActivity extends AppCompatActivity {
         }).addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Uri dowloadUri = task.getResult();
                     edtInput.setText("");
                     FirebaseQuery.sendMessage(group, String.valueOf(dowloadUri), userModel.getUserID(), System.currentTimeMillis(), new DatabaseReference.CompletionListener() {

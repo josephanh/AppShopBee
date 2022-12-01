@@ -107,6 +107,11 @@ public class PayActivity extends AppCompatActivity {
             public void hideCheck(CheckBox checkBox, ImageView imageView) {
                 checkBox.setVisibility(View.GONE);
             }
+
+            @Override
+            public void onClickDelete(String id, int position) {
+                // ham nay de trong // ko viet
+            }
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewItemPay.setLayoutManager(layoutManager);
