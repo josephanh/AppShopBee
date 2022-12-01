@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".Notification.NotificationActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_weight="0"
+            android:scaleType="centerCrop"
+            android:background="@drawable/ic_getcoin_special" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title_noti_full"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:lines="1"
+                android:textColor="#000000"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/tv_content_noti_full"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="1dp"
+                android:gravity="center_vertical"
+                android:textColor="#787878"
+                android:lines="1"
+                android:text="TextView" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="14dp"
+            android:text="Chi tiết:" />
+
+        <TextView
+            android:id="@+id/tv_content_full_noti_full"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="An IP address is a unique set of numbers assigned to each Internet or network device. Learn if your IP is static, dynamic, public, or private." />
+    </LinearLayout>
+
+</LinearLayout>
