@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.DetailProductFragment"
+    tools:context=".DetailProductActivity"
     android:background="#FFFFFF"
     android:orientation="vertical">
     <FrameLayout
@@ -91,12 +91,45 @@
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:src="@drawable/bar_daban"/>
-                <TextView
-                    android:id="@+id/describe"
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:padding="10dp"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/describe"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:padding="10dp"
+                        android:textColor="@color/black" />
+
+                    <androidx.coordinatorlayout.widget.CoordinatorLayout
+                        android:id="@+id/btn_more_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp">
+                        <View
+                            android:id="@+id/imageView11"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:background="#DDDDDD" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Xem thêm "
+                            android:textStyle="bold"
+                            android:textColor="#FF6C6C"
+                            android:gravity="center"
+                            app:layout_anchor="@+id/imageView11"
+                            app:layout_anchorGravity="top|center" />
+                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
@@ -116,32 +149,33 @@
         android:orientation="horizontal"
         android:background="@drawable/btn_borderbutton_login">
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal"
             android:layout_gravity="center">
             <ImageView
                 android:id="@+id/img_openmes"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_chat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_messages"
                 android:layout_weight="1"
                 android:layout_gravity="center"/>
             <TextView
                 android:layout_width="1dp"
+                android:layout_weight="0"
                 android:layout_height="match_parent"
                 android:background="#D1D1D1"/>
             <ImageView
                 android:id="@+id/show_sheet"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_shopcart"
                 android:layout_weight="1"/>
         </LinearLayout>
         <Button
             android:id="@+id/gotoPay"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mua hàng"
             android:textColor="@color/white"

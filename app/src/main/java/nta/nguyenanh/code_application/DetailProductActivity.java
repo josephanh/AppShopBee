@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -64,6 +66,7 @@ public class DetailProductActivity extends AppCompatActivity{
 
     DialogConfirm dialogConfirm;
     Button gotoPay;
+    private CoordinatorLayout btn_more_content;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -82,7 +85,6 @@ public class DetailProductActivity extends AppCompatActivity{
         banner_detail = findViewById(R.id.banner_detail);
         gotoPay = findViewById(R.id.gotoPay);
         img_openmes = findViewById(R.id.img_openmes);
-
 
         img_openmes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +129,19 @@ public class DetailProductActivity extends AppCompatActivity{
         price_product.setText(formatter.format(product.getPrice()) + "đ");
 
         describe.setText(android.text.Html.fromHtml(product.getDescribe()), TextView.BufferType.SPANNABLE);
-
+        btn_more_content = findViewById(R.id.btn_more_content);
+        boolean check = false;
+        btn_more_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                describe.setLayoutParams(layoutParams);
+            }
+        });
         // gắn hình cho viewpage
         listUrlImage = product.getImage();
         photoAdapter = new DetailProductImageAdapter(this, listUrlImage);
