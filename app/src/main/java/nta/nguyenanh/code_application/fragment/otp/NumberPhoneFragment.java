@@ -411,7 +411,6 @@ public class NumberPhoneFragment extends Fragment {
             Log.d(">>>>TAG:", "ngon 2");
 
         }
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
     };
 
 
