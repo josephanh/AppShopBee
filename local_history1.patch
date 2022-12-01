@@ -1,0 +1,30 @@
+Index: app/src/main/java/nta/nguyenanh/code_application/adapter/FlashSaleHomeAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/nta/nguyenanh/code_application/adapter/FlashSaleHomeAdapter.java b/app/src/main/java/nta/nguyenanh/code_application/adapter/FlashSaleHomeAdapter.java
+--- a/app/src/main/java/nta/nguyenanh/code_application/adapter/FlashSaleHomeAdapter.java	
++++ b/app/src/main/java/nta/nguyenanh/code_application/adapter/FlashSaleHomeAdapter.java	(date 1669907701292)
+@@ -13,6 +13,7 @@
+ 
+ import com.bumptech.glide.Glide;
+ 
++import java.text.DecimalFormat;
+ import java.util.List;
+ 
+ import nta.nguyenanh.code_application.R;
+@@ -40,10 +41,11 @@
+         Double Count= holder.bar_tong.getLayoutParams().width*Math.pow(list.get(position).getTotal(),-1) ;
+         Glide.with(context).load(list.get(position).getImage().get(0)).into(holder.image_product);
+ 
+-        holder.price_product.setText("đ"+" "+list.get(position).getPrice()+"");
++
++        DecimalFormat formatter = new DecimalFormat("###,###,###");
++        holder.price_product.setText("đ"+" "+formatter.format(list.get(position).getPrice())+"");
+         holder.sold.setText(list.get(position).getSold()+" ĐÃ BÁN");
+ 
+-        
+         ViewGroup.LayoutParams parm = holder.bar_daban.getLayoutParams();
+         parm.width = Integer.parseInt(Math.round(Count*list.get(position).getSold())+"");
+         holder.bar_daban.setLayoutParams(parm);

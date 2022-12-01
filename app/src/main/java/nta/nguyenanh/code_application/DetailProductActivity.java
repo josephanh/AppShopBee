@@ -4,9 +4,10 @@ import static nta.nguyenanh.code_application.MainActivity.userModel;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,33 +23,36 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.common.reflect.TypeToken;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.gson.Gson;
+import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import me.relex.circleindicator.CircleIndicator;
 import nta.nguyenanh.code_application.adapter.DetailProductImageAdapter;
+import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.bottomsheet.BottomSheetDetail;
 import nta.nguyenanh.code_application.bottomsheet.BottomSheetGoToPay;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
 import nta.nguyenanh.code_application.dialog.DialogConfirm;
 import nta.nguyenanh.code_application.interfaces.OnClickDiaLogConfirm;
 import nta.nguyenanh.code_application.listener.CheckLogin;
-import nta.nguyenanh.code_application.model.Address;
 import nta.nguyenanh.code_application.model.Product;
 import nta.nguyenanh.code_application.model.ProductCart;
-import nta.nguyenanh.code_application.model.User;
 
 public class DetailProductActivity extends AppCompatActivity{
 
@@ -56,6 +60,8 @@ public class DetailProductActivity extends AppCompatActivity{
     ArrayList<String> listUrlImage = new ArrayList<>();
     ArrayList<ProductCart> listPay = new ArrayList<>();
     DetailProductImageAdapter photoAdapter;
+
+    private List<Product> listResult = new ArrayList<>();
 
     TextView name_product, price_product, describe;
     ImageView banner_detail,img_openmes;
@@ -67,6 +73,11 @@ public class DetailProductActivity extends AppCompatActivity{
     DialogConfirm dialogConfirm;
     Button gotoPay;
     private CoordinatorLayout btn_more_content;
+    private boolean more_content = false;
+    private TextView tv_more_content;
+    private ImageView img_more_content;
+    private RecyclerView rv_item_suggess;
+    private ProductAdapter suggessAdapter;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -85,6 +96,13 @@ public class DetailProductActivity extends AppCompatActivity{
         banner_detail = findViewById(R.id.banner_detail);
         gotoPay = findViewById(R.id.gotoPay);
         img_openmes = findViewById(R.id.img_openmes);
+
+        rv_item_suggess = findViewById(R.id.lv_item_suggess);
+        LinearLayoutManager suggessManeger = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+        rv_item_suggess.setLayoutManager(suggessManeger);
+
+
 
         img_openmes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,18 +147,39 @@ public class DetailProductActivity extends AppCompatActivity{
         price_product.setText(formatter.format(product.getPrice()) + "đ");
 
         describe.setText(android.text.Html.fromHtml(product.getDescribe()), TextView.BufferType.SPANNABLE);
+
+        img_more_content = findViewById(R.id.img_more_content);
+        tv_more_content = findViewById(R.id.tv_more_content);
+
+
         btn_more_content = findViewById(R.id.btn_more_content);
-        boolean check = false;
         btn_more_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-                describe.setLayoutParams(layoutParams);
+                if (more_content == false){
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    describe.setLayoutParams(layoutParams);
+                    Log.d(">>>>TAG:", "1");
+                    tv_more_content.setText("Thu gọn");
+                    img_more_content.setImageResource(R.drawable.ic_up_red);
+                    more_content = true;
+                } else {
+                    Log.d(">>>>TAG:", "2");
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) DpToPx(120f));
+                    describe.setLayoutParams(layoutParams);
+                    tv_more_content.setText("Xem thêm");
+                    img_more_content.setImageResource(R.drawable.ic_down_red);
+                    more_content = false;
+                }
+
+
             }
         });
+
+
         // gắn hình cho viewpage
         listUrlImage = product.getImage();
         photoAdapter = new DetailProductImageAdapter(this, listUrlImage);
@@ -182,9 +221,65 @@ public class DetailProductActivity extends AppCompatActivity{
                     BottomSheetGoToPay bottomSheetGoToPay = new BottomSheetGoToPay(DetailProductActivity.this, product);
                     bottomSheetGoToPay.showSheet();
                 }
-
             }
         });
+
+        findData(product.getId_category());
+
+    }
+
+    public void findData(String s) {
+        listResult.clear();
+        db.collection("product").limit(8L)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot document:task.getResult()){
+                            String id_category = document.getString("id_category");
+                            if (id_category.contains(s)){
+                                if (document.getId().equals(product.getId())){
+                                    continue;
+                                }
+                                Log.d("TAG 1000", "onComplete: "+document.getString("nameproduct"));
+                                ArrayList<String> color = (ArrayList<String>) document.getData().get("color");
+                                ArrayList<String> images = (ArrayList<String>) document.getData().get("image");
+                                Product product = new Product(document.getId(),
+                                        document.getData().get("nameproduct").toString(),
+                                        document.getData().get("describe").toString(),
+                                        Float.parseFloat(document.getData().get("price").toString()),
+                                        Integer.parseInt(document.getData().get("available").toString()),
+                                        color, images,
+                                        Integer.parseInt(document.getData().get("sale").toString()),
+                                        Integer.parseInt(document.getData().get("sold").toString()),
+                                        Integer.parseInt(document.getData().get("total").toString()),
+                                        document.getData().get("id_category").toString());
+                                listResult.add(product);
+                            }
+                        }
+                        if (listResult.size() != 0 || listResult != null){
+                            suggessAdapter = new ProductAdapter(listResult, DetailProductActivity.this);
+                            rv_item_suggess.setAdapter(suggessAdapter);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(">>>>TAG:","");
+                    }
+                });
+    }
+
+    private float DpToPx(float a){
+        float dip = a;
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dip,
+                r.getDisplayMetrics()
+        );
+        return px;
     }
 
     @SuppressLint("MissingInflatedId")

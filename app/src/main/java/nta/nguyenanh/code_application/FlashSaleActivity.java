@@ -88,7 +88,6 @@ public class FlashSaleActivity extends AppCompatActivity {
                         long Hours = diff / (60 * 60 * 1000) % 24;
                         long Minutes = diff / (60 * 1000) % 60;
                         long Seconds = diff / 1000 % 60;
-                        //
 //                        tv_days.setText(String.format("%02d", Days));
                         tv_hour.setText(String.format("%02d", Hours));
                         tv_minute.setText(String.format("%02d", Minutes));
