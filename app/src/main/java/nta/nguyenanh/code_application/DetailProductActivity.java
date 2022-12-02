@@ -45,6 +45,7 @@ import java.util.Map;
 import me.relex.circleindicator.CircleIndicator;
 import nta.nguyenanh.code_application.adapter.DetailProductImageAdapter;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
+import nta.nguyenanh.code_application.adapter.SuggestAdapter;
 import nta.nguyenanh.code_application.bottomsheet.BottomSheetDetail;
 import nta.nguyenanh.code_application.bottomsheet.BottomSheetGoToPay;
 import nta.nguyenanh.code_application.dialog.DiaLogProgess;
@@ -77,7 +78,7 @@ public class DetailProductActivity extends AppCompatActivity{
     private TextView tv_more_content;
     private ImageView img_more_content;
     private RecyclerView rv_item_suggess;
-    private ProductAdapter suggessAdapter;
+    private SuggestAdapter suggessAdapter;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -258,7 +259,7 @@ public class DetailProductActivity extends AppCompatActivity{
                             }
                         }
                         if (listResult.size() != 0 || listResult != null){
-                            suggessAdapter = new ProductAdapter(listResult, DetailProductActivity.this);
+                            suggessAdapter = new SuggestAdapter(listResult, DetailProductActivity.this);
                             rv_item_suggess.setAdapter(suggessAdapter);
                         }
                     }
