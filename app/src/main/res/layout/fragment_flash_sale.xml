@@ -117,10 +117,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <TextView
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/banner_flashsale"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="#F65858" />
+                android:layout_height="180dp"/>
+
 
             <LinearLayout
                 android:id="@+id/ln_flashsale_1"

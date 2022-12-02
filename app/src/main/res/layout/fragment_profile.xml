@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/color_Main"
     android:orientation="vertical"
-    tools:context=".fragment.main.ProfileFragment">
+    tools:context=".fragment.main.UserFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,6 +50,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"

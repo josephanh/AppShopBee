@@ -50,7 +50,7 @@ public class FlashSaleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flash_sale);
+        setContentView(R.layout.fragment_flash_sale);
         ln_flashsale_1 = findViewById(R.id.ln_flashsale_1);
         ln_flashsale_2 = findViewById(R.id.ln_flashsale_2);
         ln_flashsale_3 = findViewById(R.id.ln_flashsale_3);

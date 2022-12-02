@@ -49,6 +49,7 @@
             android:layout_marginTop="60dp">
 
             <TextView
+                android:id="@+id/fullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
@@ -58,7 +59,8 @@
                 android:text="NGUYỄN VĂN A"/>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,11 +68,10 @@
                     android:layout_marginLeft="170dp"
                     android:layout_marginTop="2dp"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
                 android:textSize="16dp"
-
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"
                 android:text="Hồ Chí Minh"

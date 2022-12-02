@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +37,7 @@ import java.util.Date;
 import java.util.List;
 
 import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.adapter.BannerAdapter;
 import nta.nguyenanh.code_application.adapter.FlashsaleAdapter;
 import nta.nguyenanh.code_application.model.Product;
 
@@ -47,24 +50,35 @@ public class FlashSaleFragment extends Fragment {
     private TextView tv_days, tv_hour, tv_minute, tv_second;
     private Handler handler = new Handler();
     private Runnable runnable;
+
     RecyclerView rv_Flashsale_now;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FlashsaleAdapter flashsaleAdapter;
+
     Float sale;
+
     TextView txt_Flashsale_1,txt_Flashsale_2,txt_Flashsale_3,txt_Flashsale_4;
+    ViewPager banner;
     private boolean isScrolling;
     private boolean isLastItem;
+
+    private ArrayList<String> listBanner = new ArrayList<>();
+    private BannerAdapter photoAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.activity_flash_sale, container, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_flash_sale, container, false);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        listBanner = (ArrayList<String>) listBanner();
+
         ln_flashsale_1 = view.findViewById(R.id.ln_flashsale_1);
         ln_flashsale_2 = view.findViewById(R.id.ln_flashsale_2);
         ln_flashsale_3 = view.findViewById(R.id.ln_flashsale_3);
@@ -77,6 +91,12 @@ public class FlashSaleFragment extends Fragment {
         tv_hour = view.findViewById(R.id.tv_hour);
         tv_minute = view.findViewById(R.id.tv_minute);
         tv_second = view.findViewById(R.id.tv_second);
+        banner = view.findViewById(R.id.banner_flashsale);
+
+
+        photoAdapter = new BannerAdapter(getContext(), listBanner);
+        banner.setAdapter(photoAdapter);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         rv_Flashsale_now.setLayoutManager(linearLayoutManager);
         TimeToCast();
@@ -303,6 +323,16 @@ public class FlashSaleFragment extends Fragment {
 
 
         }
+    }
+
+    private List<String> listBanner() {
+        List<String> list = new ArrayList<>();
+        list.add("https://jaxtina.com/wp-content/uploads/2021/12/433.WEB_-1-e1639540751794.png");
+        list.add("https://indecalnhanh.net/wp-content/uploads/2022/08/6.png");
+        list.add("https://firebasestorage.googleapis.com/v0/b/image-5fa63.appspot.com/o/banner_3.jpg?alt=media&token=b4de77ab-c432-477f-800a-0f9085ed5737");
+        list.add("https://firebasestorage.googleapis.com/v0/b/image-5fa63.appspot.com/o/banner_4.jpg?alt=media&token=75bf780e-9c85-4423-9a3c-6dd1ac8a7b2d");
+        list.add("https://firebasestorage.googleapis.com/v0/b/image-5fa63.appspot.com/o/banner_5.jpg?alt=media&token=5b86d2af-1f5c-4f14-9bf0-e471440779f0");
+        return list;
     }
 
 //    public BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
