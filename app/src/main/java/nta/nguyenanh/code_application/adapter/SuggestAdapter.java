@@ -45,7 +45,8 @@ public class SuggestAdapter extends RecyclerView.Adapter<SuggestAdapter.ViewHold
         Glide.with(context).load(list.get(position).getImage().get(0)).into(holder.image_product);
         holder.name_product.setText(list.get(position).getNameproduct());
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        holder.price_product.setText(formatter.format(list.get(position).getPrice())+"đ");
+        holder.price_product.setText(formatter.format(list.get(position).getPrice()));
+        holder.tv_total.setText("Kho " + formatter.format(list.get(position).getTotal()));
         holder.item_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,8 +69,10 @@ public class SuggestAdapter extends RecyclerView.Adapter<SuggestAdapter.ViewHold
         RoundedImageView image_product;
         TextView name_product, price_product;
         LinearLayout item_product;
+        TextView tv_total;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tv_total = itemView.findViewById(R.id.tv_total);
             image_product = itemView.findViewById(R.id.image_product);
             name_product = itemView.findViewById(R.id.name_product);
             price_product = itemView.findViewById(R.id.price_product);

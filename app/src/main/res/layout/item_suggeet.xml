@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="184dp"
+    android:layout_height="210dp"
     android:layout_marginRight="10dp"
     android:id="@+id/item_product"
+    android:background="@drawable/bg_item_suggest"
     android:orientation="vertical">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/image_product"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:scaleType="fitStart"
-        app:riv_corner_radius_top_left="20dp"
-        app:riv_corner_radius_top_right="20dp"
+        android:layout_margin="1dp"
         android:src="@drawable/demo_product"/>
 
     <TextView
@@ -24,12 +24,13 @@
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:maxHeight="46dp"
-        android:maxLines="2"
         android:textStyle="bold"
         android:textColor="#323131"
         android:paddingBottom="6dp"
         android:gravity="center_vertical"
-        android:text="texttextt\nexttexttexttexttext\nsddsadsdasas" />
+        android:maxLines="2"
+        android:ellipsize="end" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,6 +55,7 @@
             android:paddingRight="4dp"
             android:layout_weight="1"
             android:maxLines="1"
+            android:textStyle="bold"
             android:text="300.000.000.000"
             android:textColor="#FF5252" />
     </LinearLayout>
@@ -66,5 +68,5 @@
         android:paddingRight="4dp"
         android:textSize="11dp"
         android:textColor="#1C1C1C"
-        android:text="Đã bán 10202" />
+        android:text="Kho 10202" />
 </LinearLayout>
