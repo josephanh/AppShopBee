@@ -6,11 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white">
-    <FrameLayout
-        android:id="@+id/framelayoutAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"
@@ -39,6 +35,7 @@
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/txt_border_infor"
                 android:orientation="vertical">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -94,7 +91,7 @@
                         android:textSize="12dp"
                         android:layout_marginRight="10dp"
                         android:paddingLeft="20dp"
-                        android:text="3"
+                        android:text="Thành phố Hồ Chí Minh"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"/>
 
@@ -115,6 +112,19 @@
                         android:textColor="#FFFFFF"
                         android:textSize="10dp"
                         android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:gravity="center"
+                        android:paddingTop="2dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="2dp"
+                        android:text="Sửa"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/theme_color"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
 
                     <ImageButton
                         android:layout_width="wrap_content"
@@ -128,6 +138,11 @@
 
 
             </LinearLayout>
+            <FrameLayout
+                android:id="@+id/framelayoutAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
             <LinearLayout
 
@@ -455,5 +470,17 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/btn_border_nharieng"
+        android:text="Thêm địa chỉ mới"
+        android:textSize="12dp"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold" />
 
 </LinearLayout>
