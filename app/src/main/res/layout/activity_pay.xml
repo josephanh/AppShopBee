@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white">
+    <FrameLayout
+        android:id="@+id/framelayoutAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar"
@@ -24,6 +29,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
+                android:id="@+id/ln_AllAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"

@@ -3,11 +3,11 @@
     <style name="Theme.Code_Application" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
-<<<<<<< HEAD
-        <item name="colorPrimaryVariant">@color/black</item>
-=======
-        <item name="colorPrimaryVariant">#FFFFFF</item>
->>>>>>> f44087d49010e7c283312304961db3645670020b
+
+<!--        <item name="colorPrimaryVariant">@color/black</item>-->
+
+<!--        <item name="colorPrimaryVariant">#FFFFFF</item>-->
+
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -18,7 +18,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-<<<<<<< HEAD
+
     <style name="Theme.Code_Application.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

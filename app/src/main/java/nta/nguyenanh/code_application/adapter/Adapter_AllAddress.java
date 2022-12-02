@@ -34,8 +34,11 @@ public class Adapter_AllAddress extends RecyclerView.Adapter<Adapter_AllAddress.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Adapter_AllAddress.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-//     holder.nameDiv.setText(list.get(position).getAddress());
+    public void onBindViewHolder(@NonNull Adapter_AllAddress.ViewHolder holder,  int position) {
+     holder.tvUsernameAddress.setText(list.get(position).getName());
+     holder.tvNumberPhoneAddress.setText(list.get(position).getPhonenumber());
+     holder.tvAddress.setText(list.get(position).getAddress());
+     holder.availble.setText(list.get(position).getAvailable()+"");
 
 
     }

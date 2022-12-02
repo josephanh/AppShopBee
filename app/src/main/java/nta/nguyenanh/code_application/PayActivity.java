@@ -1,6 +1,9 @@
 package nta.nguyenanh.code_application;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import nta.nguyenanh.code_application.adapter.CartAdapter;
+import nta.nguyenanh.code_application.fragment.address.AllAddressFragment;
 import nta.nguyenanh.code_application.interfaces.OnclickItemCart;
 import nta.nguyenanh.code_application.model.ProductCart;
 import nta.nguyenanh.code_application.notification.SendNotification;
@@ -40,7 +45,8 @@ public class PayActivity extends AppCompatActivity {
     private TextView tv_totalMoney1final;
     private Button btn_buy_d;
     private DecimalFormat formatter;
-
+    private LinearLayout ln_AllAddress;
+    FragmentManager manager;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,17 @@ public class PayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pay);
 
         unitUI();
+        ln_AllAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AllAddressFragment fragment = null;
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                fragmentTransaction.add(R.id.framelayoutAddress, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
 
         long unix = System.currentTimeMillis();
         Date date = new Date(unix+432000000L);
@@ -148,6 +165,7 @@ public class PayActivity extends AppCompatActivity {
         tvAddress = findViewById(R.id.tvAddress);
         dateReceive = findViewById(R.id.dateReceive);
         btn_buy_d = findViewById(R.id.btn_buy_d);
+        ln_AllAddress = findViewById(R.id.ln_AllAddress);
     }
 
     private void changeTotal(int total, int oldTotal, float price){
