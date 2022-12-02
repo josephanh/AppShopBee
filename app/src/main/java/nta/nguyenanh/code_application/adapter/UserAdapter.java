@@ -44,7 +44,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserHolder> {
             holder.tvUsername.setText(user.getUsername());
         }else {
             if (user.getUsername().contains("f7xs0HqMzaYhs8QdW3xO")){
-                holder.tvUsername.setText(user.getUsername());
+                holder.tvUsername.setText("ShopBee");
                 Toast.makeText(context, "có chủ shop", Toast.LENGTH_SHORT).show();
             }else{
                 holder.tvUsername.setVisibility(View.GONE);
