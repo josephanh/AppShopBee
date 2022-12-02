@@ -80,7 +80,7 @@ public class SplashScreen extends AppCompatActivity {
     private class getDataFlashSale {
         public void onGetItemTimeZone() {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            db.collection("product").limit(10)
+            db.collection("product").limit(5)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
