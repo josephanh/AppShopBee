@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,6 +61,8 @@ public class Adapter_AllAddress extends RecyclerView.Adapter<Adapter_AllAddress.
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
     TextView tvUsernameAddress,tvNumberPhoneAddress,tvAddress,availble;
+    Button btn_Update_Address;
+    CheckBox chkMarkAddress;
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
@@ -66,6 +70,8 @@ public class Adapter_AllAddress extends RecyclerView.Adapter<Adapter_AllAddress.
             tvNumberPhoneAddress = itemView.findViewById(R.id.tvNumberPhoneAddress);
             tvAddress = itemView.findViewById(R.id.tvAddress);
             availble = itemView.findViewById(R.id.availble);
+            btn_Update_Address = itemView.findViewById(R.id.btn_Update_Address);
+            chkMarkAddress = itemView.findViewById(R.id.chkMarkAddress);
 
         }
     }
