@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.Adapter_AllAddress;
+import nta.nguyenanh.code_application.interfaces.OnClickUpdateAddress;
 import nta.nguyenanh.code_application.model.Address;
 
 
@@ -47,7 +48,12 @@ public class AllAddressFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rv_getAllAddress.setLayoutManager(linearLayoutManager);
-        adapter_allAddress = new Adapter_AllAddress(getContext(),list);
+        adapter_allAddress = new Adapter_AllAddress(getContext(), list, new OnClickUpdateAddress() {
+            @Override
+            public Void OnClickUpdate(Address address) {
+                return null;
+            }
+        });
         rv_getAllAddress.setAdapter(adapter_allAddress);
     }
 }
