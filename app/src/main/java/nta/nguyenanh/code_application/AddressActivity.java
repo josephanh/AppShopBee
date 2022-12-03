@@ -78,6 +78,13 @@ public class AddressActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Địa chỉ nhận hàng");
+        String NameReceiver = getIntent().getStringExtra("NameReceiver");
+        String PhoneNumber = getIntent().getStringExtra("PhoneNumber");
+        String Address = getIntent().getStringExtra("Address");
+        String Available = getIntent().getStringExtra("Available");
+
+
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +102,9 @@ public class AddressActivity extends AppCompatActivity {
 
         new fetchData().start();
 
+
+    }
+    public void updateAddress(){
 
     }
 
@@ -115,7 +125,7 @@ public class AddressActivity extends AppCompatActivity {
         district = district.replace("Huyện", "H.");
         ward = ward.replace("Phường", "P.");
         place = ward+"/"+district+"/"+division;
-        Address address = new Address(place, namereceiver, phonenumber, 0);
+        Address address = new Address(null,place, namereceiver, phonenumber, 0);
         HashMap<String, Object> places = new HashMap<>();
         places.put("address"+System.currentTimeMillis(), address);
 

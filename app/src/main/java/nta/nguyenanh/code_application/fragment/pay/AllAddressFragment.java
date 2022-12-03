@@ -1,5 +1,8 @@
 package nta.nguyenanh.code_application.fragment.pay;
 
+import static nta.nguyenanh.code_application.MainActivity.userModel;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import nta.nguyenanh.code_application.AddressActivity;
 import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.Adapter_AllAddress;
@@ -44,13 +48,20 @@ public class AllAddressFragment extends Fragment {
 
         rv_getAllAddress = view.findViewById(R.id.rv_getAllAddress);
 
-        list = MainActivity.userModel.getAddress();
+        list = userModel.getAddress();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rv_getAllAddress.setLayoutManager(linearLayoutManager);
         adapter_allAddress = new Adapter_AllAddress(getContext(), list, new OnClickUpdateAddress() {
             @Override
             public Void OnClickUpdate(Address address) {
+                Intent intent = new Intent(getContext(), AddressActivity.class);
+
+                intent.putExtra("NameReceiver",address.getNameReceiver());
+                intent.putExtra("PhoneNumber",address.getPhonenumber());
+                intent.putExtra("Address",address.getAddress());
+                intent.putExtra("Available",address.getAvailable());
+                startActivity(intent);
                 return null;
             }
         });

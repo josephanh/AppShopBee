@@ -2,6 +2,8 @@ package nta.nguyenanh.code_application.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +11,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.fragment.pay.AllAddressFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickUpdateAddress;
 import nta.nguyenanh.code_application.model.Address;
 
@@ -42,6 +46,7 @@ public class Adapter_AllAddress extends RecyclerView.Adapter<Adapter_AllAddress.
      holder.tvUsernameAddress.setText(list.get(position).getNameReceiver());
      holder.tvNumberPhoneAddress.setText(list.get(position).getPhonenumber());
      holder.tvAddress.setText(list.get(position).getAddress());
+
      if(list.get(position).getAvailable() == 0) {
          holder.availble.setText("Nhà riêng");
      } else {
@@ -50,8 +55,8 @@ public class Adapter_AllAddress extends RecyclerView.Adapter<Adapter_AllAddress.
      holder.btn_Update_Address.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-
              onClickUpdateAddress.OnClickUpdate(list.get(position));
+             Log.d("TAG address", "onClick: "+list.get(position));
          }
      });
 

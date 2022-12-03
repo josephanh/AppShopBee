@@ -440,7 +440,8 @@ public class LoginActivity extends AppCompatActivity {
                                                             place = result;
                                                         }
                                                     }
-                                                    addressList.add(new Address(place, nameReceiver, phonenumber, available));
+                                                    addressList.add(new Address(listOf.get(j).getKey(),place, nameReceiver, phonenumber, available));
+                                                    Log.d("TAG address 2000", "onComplete: "+listOf.get(j).getKey());
                                                 }
 
                                             }
