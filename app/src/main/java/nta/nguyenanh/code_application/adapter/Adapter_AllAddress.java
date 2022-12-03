@@ -35,10 +35,15 @@ public class Adapter_AllAddress extends RecyclerView.Adapter<Adapter_AllAddress.
 
     @Override
     public void onBindViewHolder(@NonNull Adapter_AllAddress.ViewHolder holder,  int position) {
-     holder.tvUsernameAddress.setText(list.get(position).getName());
+     holder.tvUsernameAddress.setText(list.get(position).getNameReceiver());
      holder.tvNumberPhoneAddress.setText(list.get(position).getPhonenumber());
      holder.tvAddress.setText(list.get(position).getAddress());
-     holder.availble.setText(list.get(position).getAvailable()+"");
+     if(list.get(position).getAvailable() == 0) {
+         holder.availble.setText("Nhà riêng");
+     } else {
+         holder.availble.setText("Văn phòng");
+     }
+
 
 
     }
@@ -64,10 +69,6 @@ public class Adapter_AllAddress extends RecyclerView.Adapter<Adapter_AllAddress.
 
         }
     }
-
-
-
-
 
 }
 

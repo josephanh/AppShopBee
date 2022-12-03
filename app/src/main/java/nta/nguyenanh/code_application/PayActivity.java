@@ -1,7 +1,8 @@
 package nta.nguyenanh.code_application;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,7 +26,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import nta.nguyenanh.code_application.adapter.CartAdapter;
-import nta.nguyenanh.code_application.fragment.address.AllAddressFragment;
+import nta.nguyenanh.code_application.fragment.pay.AllAddressFragment;
+import nta.nguyenanh.code_application.fragment.pay.PayFragment;
 import nta.nguyenanh.code_application.interfaces.OnclickItemCart;
 import nta.nguyenanh.code_application.model.ProductCart;
 import nta.nguyenanh.code_application.notification.SendNotification;
@@ -33,161 +35,57 @@ import nta.nguyenanh.code_application.notification.SendNotification;
 public class PayActivity extends AppCompatActivity {
 
     ArrayList<ProductCart> list = new ArrayList<>();
-
-    private RecyclerView recyclerViewItemPay;
-    private TextView tvUsername, tvNumberPhone, tvAddress, dateReceive;
-    private CartAdapter cartAdapter;
-    private Double totalMoney;
-    private float price;
-    private TextView tv_totalMoney2;
-    private TextView tv_totalMoney1;
-    private TextView tv_totalMoneyFinal;
-    private TextView tv_totalMoney1final;
     private Button btn_buy_d;
-    private DecimalFormat formatter;
-    private LinearLayout ln_AllAddress;
-    FragmentManager manager;
+    Toolbar toolBar;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
+        toolBar = findViewById(R.id.toolBar);
 
-        unitUI();
-        ln_AllAddress.setOnClickListener(new View.OnClickListener() {
+        setSupportActionBar(toolBar);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AllAddressFragment fragment = null;
-                FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                fragmentTransaction.add(R.id.framelayoutAddress, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
+                onBackPressed();
             }
         });
-
-        long unix = System.currentTimeMillis();
-        Date date = new Date(unix+432000000L);
-        SimpleDateFormat sdf = new SimpleDateFormat("E, dd/MM");
-        formatter = new DecimalFormat("###,###,###");
-        String formattedDate = sdf.format(date);
-
-        long unixRe = unix+691200000L;
-        Date dateRe = new Date(unixRe);
-        String formattedDateRe = sdf.format(dateRe);
-
-        Log.d("TAGDATE", "onCreate: "+unix);
-        Log.d("TAGDATE", "onCreate: "+unixRe);
-
-        recyclerViewItemPay = findViewById(R.id.recyclerViewPay);
-
-        tvUsername.setText(MainActivity.userModel.getAddress().get(0).getNameReceiver());
-        tvNumberPhone.setText(MainActivity.userModel.getAddress().get(0).getPhonenumber());
-        tvAddress.setText(MainActivity.userModel.getAddress().get(0).getAddress());
-        dateReceive.setText("Nhận hàng vào "+formattedDate+" đến "+formattedDateRe);
 
         list.clear();
         list = (ArrayList<ProductCart>) getIntent().getSerializableExtra("listPay");
 
-        price = 0;
-
-        for (int i = 0; i < list.size(); i++) {
-            price = list.get(i).getPrice();
-            totalMoney = Double.parseDouble(String.valueOf(price));
-            Log.d(">>>>TAG:",""+price);
-
-            tv_totalMoney1final.setText(formatter.format(totalMoney)+"đ");
-            tv_totalMoney2.setText(formatter.format(totalMoney)+"đ");
-            tv_totalMoney1.setText(formatter.format(totalMoney+30000)+"đ");
-            tv_totalMoneyFinal.setText(formatter.format(totalMoney+30000)+"đ");
-        }
-
-        Log.d("LIST DATA", "onCreate: pay"+list.get(0).getNameproduct());
-
-        cartAdapter = new CartAdapter(list, this, new OnclickItemCart() {
-            @Override
-            public void onClickMinus(int totalNew, int totalOld, float price) {
-                changeTotal(totalNew, totalOld, price);
-            }
-
-            @Override
-            public void onClickPlus(int totalNew, int totalOld, float price) {
-                changeTotal(totalNew, totalOld, price);
-            }
-
-            @Override
-            public void onClickCheck(boolean isCheck, int total, float price) {
-                Log.d(">>>>TAG:", "Hello3");
-            }
-
-            @Override
-            public void hideCheck(CheckBox checkBox, ImageView imageView) {
-                checkBox.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onClickDelete(String id, int position) {
-                // ham nay de trong // ko viet
-            }
-        });
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerViewItemPay.setLayoutManager(layoutManager);
-        recyclerViewItemPay.setAdapter(cartAdapter);
-
-        buyEvent();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.frameLayout, new PayFragment().newInstance(list)).commit();
 
     }
 
-    private void buyEvent(){
+    private void buyEvent(String price){
         btn_buy_d.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String title = "Chúc mừng đặt hàng thành công!";
-                String content = MainActivity.userModel.getFullname()+" đã đặt hàng thành công với tổng giá trị: "+formatter.format(totalMoney)+"đ";
+                String content = MainActivity.userModel.getFullname()+" đã đặt hàng thành công với tổng giá trị: "+price+"đ";
                 SendNotification notification = new SendNotification(PayActivity.this);
                 notification.customNotification(title, content);
                 Toast.makeText(PayActivity.this, "Đặt hàng thành công !!!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(PayActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-
             }
         });
     }
-
-    private void unitUI(){
-        tv_totalMoney2 = findViewById(R.id.tv_totalMoney2);
-        tv_totalMoney1 = findViewById(R.id.tv_totalMoney1);
-        tv_totalMoneyFinal = findViewById(R.id.tv_totalMoneyFinal);
-        tv_totalMoney1final = findViewById(R.id.tv_totalMoney1final);
-        tvUsername = findViewById(R.id.tvUsername);
-        tvNumberPhone = findViewById(R.id.tvNumberPhone);
-        tvAddress = findViewById(R.id.tvAddress);
-        dateReceive = findViewById(R.id.dateReceive);
-        btn_buy_d = findViewById(R.id.btn_buy_d);
-        ln_AllAddress = findViewById(R.id.ln_AllAddress);
-    }
-
-    private void changeTotal(int total, int oldTotal, float price){
-
-        if(total < oldTotal) {
-            totalMoney = totalMoney - (oldTotal - total)*price;
-        } else {
-            totalMoney = totalMoney + (total - oldTotal)*price;
-        }
-//        totalMoneyProduct.setText(formatter.format(totalMoney)+"đ");
-        Log.d(">>>>TAG:",""+formatter.format(totalMoney)+"đ");
-        tv_totalMoney1final.setText(formatter.format(totalMoney)+"đ");
-        tv_totalMoney2.setText(formatter.format(totalMoney)+"đ");
-        tv_totalMoney1.setText(formatter.format(totalMoney+30000)+"đ");
-        tv_totalMoneyFinal.setText(formatter.format(totalMoney+30000)+"đ");
-    }
-
     @Override
     protected void onResume() {
 //        list.clear();
 //        list = (ArrayList<ProductCart>) getIntent().getSerializableExtra("listPay");
-        cartAdapter.notifyDataSetChanged();
         super.onResume();
+    }
+
+    public void changeFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.frameLayout, fragment)
+                .addToBackStack(null).commit();
     }
 }

@@ -1,4 +1,4 @@
-package nta.nguyenanh.code_application.fragment.address;
+package nta.nguyenanh.code_application.fragment.pay;
 
 import android.os.Bundle;
 
@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.Adapter_AllAddress;
 import nta.nguyenanh.code_application.model.Address;
@@ -39,8 +40,12 @@ public class AllAddressFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         rv_getAllAddress = view.findViewById(R.id.rv_getAllAddress);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+
+        list = MainActivity.userModel.getAddress();
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rv_getAllAddress.setLayoutManager(linearLayoutManager);
         adapter_allAddress = new Adapter_AllAddress(getContext(),list);
         rv_getAllAddress.setAdapter(adapter_allAddress);
