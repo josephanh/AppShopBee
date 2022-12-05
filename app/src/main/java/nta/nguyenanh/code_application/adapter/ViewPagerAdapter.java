@@ -1,8 +1,8 @@
 package nta.nguyenanh.code_application.adapter;
 
-import static nta.nguyenanh.code_application.AddressActivity.listDistrict;
-import static nta.nguyenanh.code_application.AddressActivity.listDivision;
-import static nta.nguyenanh.code_application.AddressActivity.listWards;
+import static nta.nguyenanh.code_application.PayActivity.listDistrict;
+import static nta.nguyenanh.code_application.PayActivity.listDivision;
+import static nta.nguyenanh.code_application.PayActivity.listWards;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

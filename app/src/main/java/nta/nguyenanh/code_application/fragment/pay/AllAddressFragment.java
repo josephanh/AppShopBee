@@ -15,11 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-import nta.nguyenanh.code_application.AddressActivity;
-import nta.nguyenanh.code_application.MainActivity;
+import nta.nguyenanh.code_application.PayActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.Adapter_AllAddress;
 import nta.nguyenanh.code_application.interfaces.OnClickUpdateAddress;
@@ -56,7 +54,8 @@ public class AllAddressFragment extends Fragment {
         adapter_allAddress = new Adapter_AllAddress(getContext(), list, new OnClickUpdateAddress() {
             @Override
             public Void OnClickUpdate(Address address) {
-                Intent intent = new Intent(getContext(), AddressActivity.class);
+                Intent intent = new Intent(getContext(), PayActivity.class);
+                intent.putExtra("addressCheck", false);
                 intent.putExtra("NameReceiver", address.getAddress());
                 startActivity(intent);
                 return null;
