@@ -59,6 +59,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/chkMarkAddress"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
 
             <TextView
                 android:id="@+id/tvAddress"
@@ -67,7 +71,6 @@
                 android:textColor="@color/black"
                 android:textSize="12dp"
                 android:layout_marginRight="10dp"
-                android:paddingLeft="20dp"
                 android:text="Thành phố Hồ Chí Minh "
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"/>
@@ -76,7 +79,7 @@
                 android:id="@+id/availble"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="0"
                 android:background="@drawable/btn_border_nharieng"
                 android:gravity="center"
@@ -88,6 +91,16 @@
                 android:layout_gravity="center_vertical"
                 android:textColor="#FFFFFF"
                 android:textSize="10dp"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/btn_Update_Address"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:text="Cập nhật "
+                android:textColor="@color/theme_color"
+                android:textSize="8dp"
                 android:textStyle="bold" />
 
             <ImageButton

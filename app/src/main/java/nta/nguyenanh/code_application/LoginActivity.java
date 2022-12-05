@@ -326,14 +326,16 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        Log.d("TAG>>>>>>", "onComplete: " + task.isSuccessful());
                         if (task.isSuccessful()) {
                             QuerySnapshot snapshots = task.getResult();
+                            Log.d("TAG>>>>>>", "onComplete: "+snapshots.size());
                             for (QueryDocumentSnapshot document : snapshots) {
 
                                 username = String.valueOf(document.get("username"));
                                 password = String.valueOf(document.get("password"));
-                                Log.d("TAG", "onComplete: " + username);
-                                Log.d("TAG", "onComplete: " + password);
+                                Log.d("TAG>>>>>>", "onComplete: " + username);
+                                Log.d("TAG>>>>>>", "onComplete: " + password);
                                 if (txt_name.getText().toString().equals(username) && getMd5(txt_password.getText().toString()).equals(password)) {
                                     new getAddress().getDataAddress(document);
                                     checkUser = true;
@@ -344,6 +346,11 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
                             }
                         }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG>>>>>>", "onComplete: Thất bại khi lấy dữ liệu ");
                     }
                 });
     }
@@ -440,7 +447,8 @@ public class LoginActivity extends AppCompatActivity {
                                                             place = result;
                                                         }
                                                     }
-                                                    addressList.add(new Address(place, nameReceiver, phonenumber, available));
+                                                    addressList.add(new Address(listOf.get(j).getKey(),place, nameReceiver, phonenumber, available));
+                                                    Log.d("TAG address 2000", "onComplete: "+listOf.get(j).getKey());
                                                 }
 
                                             }

@@ -1,6 +1,7 @@
 package nta.nguyenanh.code_application.model;
 
 public class Address {
+    private String idAddress;
     private String name;
     private Integer code, province_code;
 
@@ -8,11 +9,20 @@ public class Address {
     private int available;
 
 
-    public Address(String address, String nameReceiver, String phonenumber, int available) {
+    public Address(String idAddress,String address, String nameReceiver, String phonenumber, int available) {
+        this.idAddress = idAddress;
         this.address = address;
         this.nameReceiver = nameReceiver;
         this.phonenumber = phonenumber;
         this.available = available;
+    }
+
+    public String getIdAddress() {
+        return idAddress;
+    }
+
+    public void setIdAddress(String idAddress) {
+        this.idAddress = idAddress;
     }
 
     public String getAddress() {
