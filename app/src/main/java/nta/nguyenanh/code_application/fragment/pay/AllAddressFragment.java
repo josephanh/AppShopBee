@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import nta.nguyenanh.code_application.AddressActivity;
@@ -56,11 +57,7 @@ public class AllAddressFragment extends Fragment {
             @Override
             public Void OnClickUpdate(Address address) {
                 Intent intent = new Intent(getContext(), AddressActivity.class);
-
-                intent.putExtra("NameReceiver",address.getNameReceiver());
-                intent.putExtra("PhoneNumber",address.getPhonenumber());
-                intent.putExtra("Address",address.getAddress());
-                intent.putExtra("Available",address.getAvailable());
+                intent.putExtra("NameReceiver", address.getAddress());
                 startActivity(intent);
                 return null;
             }

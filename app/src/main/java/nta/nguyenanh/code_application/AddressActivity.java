@@ -63,6 +63,7 @@ public class AddressActivity extends AppCompatActivity {
     private String division, district, ward;
     public static int indexDivision = -1, indexDistrict = -1, indexWard = -1;
 
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +80,7 @@ public class AddressActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Địa chỉ nhận hàng");
         String NameReceiver = getIntent().getStringExtra("NameReceiver");
-        String PhoneNumber = getIntent().getStringExtra("PhoneNumber");
-        String Address = getIntent().getStringExtra("Address");
-        String Available = getIntent().getStringExtra("Available");
+        Log.d("NameReceiver", "onCreate: "+NameReceiver);
 
 
 
