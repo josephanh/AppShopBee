@@ -1,6 +1,6 @@
 package nta.nguyenanh.code_application.fragment.address;
 
-import static nta.nguyenanh.code_application.AddressActivity.indexDistrict;
+import static nta.nguyenanh.code_application.PayActivity.indexDistrict;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import nta.nguyenanh.code_application.AddressActivity;
+import nta.nguyenanh.code_application.PayActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.AddressAdapter;
 import nta.nguyenanh.code_application.model.Address;
@@ -48,7 +48,7 @@ public class DistrictsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_address, container, false);
+        return inflater.inflate(R.layout.fragment_address_d_w, container, false);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class DistrictsFragment extends Fragment {
             @Override
             public void onClick(int position) {
 
-                ((AddressActivity)getActivity()).onClickItemAddress(position, list);
+                new AddressFragment.OnClick().onClickItemAddress(position, list, getContext());
                 Log.d("DEMO>>>>", "onClick: ");
 
             }

@@ -93,11 +93,13 @@ public class CartActivity extends AppCompatActivity {
                 } else {
                     if(listCart != null) {
                         if(userModel.getAddress() == null || userModel.getAddress().size() == 0 || userModel.getPhonenumber().equals("null")) {
-                            Intent intent = new Intent(CartActivity.this, AddressActivity.class);
+                            Intent intent = new Intent(CartActivity.this, PayActivity.class);
+                            intent.putExtra("addressCheck", false);
                             startActivity(intent);
                         } else {
                             Log.d("TAG>>>>>", "onClick: "+userModel.getAddress());
                             Intent intent = new Intent(CartActivity.this, PayActivity.class);
+                            intent.putExtra("addressCheck", true);
                             intent.putExtra("listPay", listCart);
                             startActivity(intent);
                         }

@@ -1,6 +1,6 @@
 package nta.nguyenanh.code_application.fragment.address;
 
-import static nta.nguyenanh.code_application.AddressActivity.indexDivision;
+import static nta.nguyenanh.code_application.PayActivity.indexDivision;
 
 import android.os.Bundle;
 
@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import nta.nguyenanh.code_application.AddressActivity;
+import nta.nguyenanh.code_application.PayActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.AddressAdapter;
 import nta.nguyenanh.code_application.model.Address;
@@ -54,7 +54,7 @@ public class DivisionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_address, container, false);
+        return inflater.inflate(R.layout.fragment_address_d_w, container, false);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class DivisionFragment extends Fragment {
         adapter = new AddressAdapter(getContext(), list, new AddressAdapter.onClickItemAddress() {
             @Override
             public void onClick(int position) {
-                ((AddressActivity)getActivity()).onClickItemAddress(position, list);
+                new AddressFragment.OnClick().onClickItemAddress(position, list, getContext());
                 Log.d("DEMO>>>>", "onClick: ");
             }
         });
