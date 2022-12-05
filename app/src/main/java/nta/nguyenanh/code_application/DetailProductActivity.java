@@ -226,12 +226,13 @@ public class DetailProductActivity extends AppCompatActivity{
         });
 
         findData(product.getId_category());
-
     }
 
     public void findData(String s) {
         listResult.clear();
-        db.collection("product").limit(8L)
+        Log.d(">>>>TAG:", "getId()"+product.getId());
+        Log.d(">>>>TAG:", "getId_category()"+product.getId_category());
+        db.collection("product")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

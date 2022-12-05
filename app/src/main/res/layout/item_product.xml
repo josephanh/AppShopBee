@@ -2,11 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
-    android:background="@drawable/custom_border_item_product"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_product">
 
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -15,16 +20,13 @@
                 android:id="@+id/image_product"
                 android:layout_width="180dp"
                 android:layout_height="180dp"
-                android:scaleType="fitStart"
-                app:riv_corner_radius_top_left="20dp"
-                app:riv_corner_radius_top_right="20dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/demo_product"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:id="@+id/name_product"
                     android:layout_width="wrap_content"
@@ -138,7 +140,7 @@
                             android:layout_gravity="center"/>
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

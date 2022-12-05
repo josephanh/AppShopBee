@@ -25,7 +25,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,8 +32,6 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import nta.nguyenanh.code_application.R;
@@ -46,10 +43,7 @@ public class NumberPhoneFragment extends Fragment {
     private Button btn_numberPhone;
     private Button btn_confrim_NumberPhone;
     private FirebaseAuth mAuth;
-    private String codeID;
-    final static String ACTION_OTP = "OTP";
     private String codeSend="";
-    private TextView txtdangnhapngay;
     private boolean visible = false;
     private boolean countdown_canel = false;
     private LinearLayout linear_confirmOTP;
@@ -62,14 +56,8 @@ public class NumberPhoneFragment extends Fragment {
     private EditText et_confirmCode4;
     private EditText et_confirmCode5;
     private EditText et_confirmCode6;
-
-
-    private String EVENT_DATE_TIME = "60";
-    private String DATE_FORMAT = "ss";
     private TextView tv_second_otp;
     private Handler handler = new Handler();
-    private Runnable runnable;
-    long unixSeconds = 1668388555;
     private LinearLayout linear_guilaima_2;
     private LinearLayout linear_guilaima_1;
     private TextView reSendOTP;
@@ -92,12 +80,10 @@ public class NumberPhoneFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initUI(view);
         setOnBackPressedCallback();
-        setOTPEvent();
+        setOTP_Event();
         setKey();
-
     }
     private void initUI(View view){
         et_numberPhone = view.findViewById(R.id.et_NumberPhone);
@@ -160,8 +146,7 @@ public class NumberPhoneFragment extends Fragment {
         return count;
     }
 
-    private void setOTPEvent(){
-
+    private void setOTP_Event(){
         btn_confrim_NumberPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,6 +163,7 @@ public class NumberPhoneFragment extends Fragment {
                                 //xac nhan thanh cong
                                 //tra ve
                                 //String numberPhone = "?";
+                                getActivity().  getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.alpha_enter, R.anim.alpha_exit).replace(R.id.framelayout_container_register, RegisterFragment.newInstance(et_numberPhone.getText().toString()), "RegisterFragment").commit();
                                 Log.d(">>>>TAG:", "thanh conggggggggg"+"  "+ et_numberPhone.getText().toString());
                             }else {
                                 btn_confrim_error_numberPhone.setVisibility(View.VISIBLE);
@@ -413,20 +399,4 @@ public class NumberPhoneFragment extends Fragment {
         }
     };
 
-
-
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        IntentFilter intentFilter = new IntentFilter(ACTION_OTP);
-//        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiverOTP, intentFilter);
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        IntentFilter intentFilter = new IntentFilter(ACTION_OTP);
-//        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiverOTP, intentFilter);
-//    }
 }

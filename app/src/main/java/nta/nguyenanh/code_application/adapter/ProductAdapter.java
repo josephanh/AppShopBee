@@ -48,6 +48,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.name_product.setText(list.get(position).getNameproduct());
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         holder.price_product.setText(formatter.format(list.get(position).getPrice())+"đ");
+
+        holder.sold.setText("Kho " + formatter.format(list.get(position).getTotal()));
+       // holder.sold.setText(formatter.format(list.get(position).getSold())+" đã bán");
+
         holder.saleoff.setText(list.get(position).getSale().toString()+"%");
         if(list.get(position).getSale() != 0) {
             holder.freeship.setVisibility(View.VISIBLE);
@@ -87,6 +91,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             price_product = itemView.findViewById(R.id.price_product);
             saleoff = itemView.findViewById(R.id.saleoff);
             item_product = itemView.findViewById(R.id.item_product);
+            sold = itemView.findViewById(R.id.sold);
             freeship = itemView.findViewById(R.id.freeship);
         }
     }

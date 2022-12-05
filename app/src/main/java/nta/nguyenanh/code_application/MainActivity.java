@@ -192,7 +192,6 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
             String fullname = preferences.getString("fullname", null);
             String password = preferences.getString("password", null);
             String numberphone = preferences.getString("numberphone", null);
-
             // xem trên yt https://www.youtube.com/watch?v=xjOyvwRinK8&ab_channel=TechProjects
             Gson gson = new Gson();
             String json = preferences.getString("address", null);
