@@ -94,6 +94,32 @@ public class AddressFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("TAG AddressFrag", "onResume: ");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("TAG AddressFrag", "onStop: ");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("TAG AddressFrag", "onDestroy: ");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("TAG AddressFrag", "onPause: ");
+    }
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
