@@ -225,6 +225,7 @@
          </LinearLayout>
     </LinearLayout>
     <Button
+        android:id="@+id/buttonLogout"
         android:layout_width="290dp"
         android:layout_height="48dp"
         android:layout_gravity="center"

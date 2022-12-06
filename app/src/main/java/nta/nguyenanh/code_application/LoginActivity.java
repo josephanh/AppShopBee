@@ -228,16 +228,6 @@ public class LoginActivity extends AppCompatActivity {
                                                 if (tempmail.equals(username2)) {
 //                                                    writeLogin((User) document.getData());
                                                     new getAddress().getDataAddress(document);
-//                                                    userModel = new User(
-//                                                            addressList,
-//                                                            document.get("datebirth") + "",
-//                                                            document.get("fullname") + "",
-//                                                            document.get("password") + "",
-//                                                            document.get("phonenumber") + "",
-//                                                            document.get("username") + "",
-//                                                            document.getId());
-//
-//                                                    writeLogin(userModel);
                                                     checklogin = true;
                                                     onBackPressed();
 
@@ -354,35 +344,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//        callbackManager.onActivityResult(requestCode, resultCode, data);
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
-
-    public void addCartUser(String id) {
-        Map<String, Object> cart = new HashMap<>();
-        cart.put("id_user", id);
-        db.collection("cart").document(id)
-                .set(cart)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d("TAG>>>", "Thêm dữ liệu thành công ");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("TAG>>>", "Thêm dữ liệu thất bại");
-                    }
-                });
-    }
-
-    class getAddress {
-        public void getDataAddress(QueryDocumentSnapshot doc) {
+    private class getAddress {
+        private void getDataAddress(QueryDocumentSnapshot doc) {
             db.collection("user")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -487,5 +450,33 @@ public class LoginActivity extends AppCompatActivity {
                     });
         }
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//        callbackManager.onActivityResult(requestCode, resultCode, data);
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
+
+    public void addCartUser(String id) {
+        Map<String, Object> cart = new HashMap<>();
+        cart.put("id_user", id);
+        db.collection("cart").document(id)
+                .set(cart)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("TAG>>>", "Thêm dữ liệu thành công ");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG>>>", "Thêm dữ liệu thất bại");
+                    }
+                });
+    }
+
+
 
 }

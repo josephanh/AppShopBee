@@ -1,6 +1,7 @@
 package nta.nguyenanh.code_application;
 
 
+import static nta.nguyenanh.code_application.MD5.MD5.getMd5;
 import static nta.nguyenanh.code_application.SplashScreen.Flashsalelist;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -17,15 +20,25 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.common.reflect.TypeToken;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
 import nta.nguyenanh.code_application.dialog.DialogConfirm;
 import nta.nguyenanh.code_application.fragment.main.FlashSaleFragment;
@@ -44,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static User userModel;
+    boolean isLoggedin = false;
+    String username, password;
+
+    ArrayList<Address> list = new ArrayList<>();
 
     FragmentManager manager;
     private BottomNavigationView bottomnavigation;
@@ -103,9 +120,13 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
     protected void onResume() {
         super.onResume();
         new CheckLogin(MainActivity.this).readLogin();
-        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
         readlogin();
-//        registerReceiver(broadcastReceiver, intentFilter);
+        if(isLoggedin) {
+            oncheckLogin();
+
+        }
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
+        registerReceiver(broadcastReceiver, intentFilter);
     }
 
     @Override
@@ -113,6 +134,17 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         super.onDestroy();
 //        unregisterReceiver(broadcastReceiver);
     }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Date date = new Date();
+            Log.d("TIME", "onReceive: "+date.getHours());
+            if(date.getHours() == 23) {
+                Toast.makeText(context, "Hello", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     public void relaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
@@ -185,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
     public void readlogin(){
         SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS",MODE_PRIVATE);
-        Boolean isLoggedin = preferences.getBoolean("isLoggedin",false);
+        isLoggedin = preferences.getBoolean("isLoggedin",false);
         if (isLoggedin){
             String userid = preferences.getString("userid", null);
             String username = preferences.getString("username", null);
@@ -198,16 +230,168 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
             String json = preferences.getString("address", null);
             Type type = new TypeToken<ArrayList<Address>>(){
             }.getType();
-            ArrayList<Address> addressList = gson.fromJson(json, type);
-            if(addressList == null) {
-                addressList  = new ArrayList<>();
+            ArrayList<Address> listAddress = gson.fromJson(json, type);
+            if(listAddress == null) {
+                listAddress  = new ArrayList<>();
             }
-            userModel = new User(addressList, null, fullname, password, numberphone, username, userid);
+            userModel = new User(listAddress, null, fullname, password, numberphone, username, userid);
+        }
+    }
+    public void oncheckLogin() {
+        db.collection("user")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        Log.d("TAG>>>>>>", "onComplete: " + task.isSuccessful());
+                        if (task.isSuccessful()) {
+                            QuerySnapshot snapshots = task.getResult();
+                            Log.d("TAG>>>>>>", "onComplete: "+snapshots.size());
+                            for (QueryDocumentSnapshot document : snapshots) {
+
+                                username = String.valueOf(document.get("username"));
+                                password = String.valueOf(document.get("password"));
+//                                Log.d("TAG>>>>>>", "onComplete: " + username);
+//                                Log.d("TAG>>>>>>", "onComplete: " + password);
+
+                                if (username.equals(userModel.getUsername())) {
+                                    new MainActivity.getAddress().getDataAddress(document);
+                                    Log.d("TAG>>>>>>", "onComplete: " + userModel.getUsername());
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG>>>>>>", "onComplete: Thất bại khi lấy dữ liệu ");
+                    }
+                });
+    }
+    class getAddress {
+        public void getDataAddress(QueryDocumentSnapshot doc) {
+            db.collection("user")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    // lấy ra tài khoản với id của người dùng
+                                    if (document.getId().equals(doc.getId())) {
+                                        Map<String, Object> address = document.getData();
+                                        // trả về tất cả dữ liệu của địa chỉ qua map là address
+                                        for (String key : address.keySet()) {
+                                            // check kiểm tra. Nếu key là address thì tiếp tục công việc đọc -- nếu không thì bỏ qua
+                                            // vì trong map có chứa id của người dùng và các item của giỏ hàng
+                                            if (key.equals("address")) {
+                                                // tiếp tục convert thằng cha address qua một arraylist
+                                                // map nhận được có key là id sản phẩm + timeline
+                                                Log.d("KEYDATA", "Sản phẩm: " + key);
+                                                Log.d("KEYDATA", "Sản phẩm: " + address);
+                                                // bắt đầu convert thằng cha qua ArrayList --
+                                                Log.d("LIST ADDRESS", "onComplete: " + address.get("address"));
+                                                if(address.get("address") == null) {
+                                                    list = null;
+                                                    userModel = new User(
+                                                            list,
+                                                            doc.get("datebirth") + "",
+                                                            doc.get("fullname") + "",
+                                                            doc.get("password") + "",
+                                                            doc.get("phonenumber") + "",
+                                                            doc.get("username") + "",
+                                                            doc.getId());
+                                                    writeLogin(userModel);
+                                                    onBackPressed();
+                                                    return;
+                                                }
+
+                                                Map<String, Object> itemAddress = (Map<String, Object>) address.get("address");
+                                                Set<Map.Entry<String, Object>> entr = itemAddress.entrySet();
+                                                ArrayList<Map.Entry<String, Object>> listOf = new ArrayList<Map.Entry<String, Object>>(entr);
+                                                // end - convert map qua ArrayList
+
+                                                String place = null, nameReceiver = null, phonenumber = null;
+                                                Integer available = 0;
+                                                for (int j = 0; j < listOf.size(); j++) {
+                                                    // chạy vòng lặp để gắn các dữ liệu từ map qua ArrayList
+                                                    // chạy thằng cha để lấy ra thằng con address item
+                                                    Log.d("KEYDATA", listOf.get(j).getValue() + " : " + listOf.get(j).getValue());
+
+                                                    Map<String, Object> item = (Map<String, Object>) listOf.get(j).getValue();
+                                                    Set<Map.Entry<String, Object>> entrAd = item.entrySet();
+                                                    ArrayList<Map.Entry<String, Object>> listOfAd = new ArrayList<Map.Entry<String, Object>>(entrAd);
+
+                                                    for (int l = 0; l < listOfAd.size(); l++) {
+                                                        String result = String.valueOf(listOfAd.get(l).getValue());
+                                                        if (listOfAd.get(l).getKey().equals("phonenumber")) {
+                                                            phonenumber = result;
+                                                        }
+                                                        if (listOfAd.get(l).getKey().equals("nameReceiver")) {
+                                                            nameReceiver = result;
+                                                        }
+                                                        if (listOfAd.get(l).getKey().equals("address")) {
+                                                            place = result;
+                                                        }
+                                                    }
+                                                    list.add(new Address(listOf.get(j).getKey(),place, nameReceiver, phonenumber, available));
+                                                    Log.d("TAG address 2000", "onComplete: "+listOf.get(j).getKey());
+                                                }
+
+                                            }
+                                        }
+                                        Log.d("KEYDATA", "-----------\n");
+                                        Log.d("LIST DATA", "onComplete: " + list.size());
+                                        Log.d("LIST DATA", "onComplete: " + list.get(0).getAddress());
+                                        Log.d("LIST DATA", "onComplete: " + list.get(0).getPhonenumber());
+                                        Log.d("LIST DATA", "onComplete: " + list.get(0).getNameReceiver());
+                                        userModel = null;
+                                        userModel = new User(
+                                                list,
+                                                doc.get("datebirth") + "",
+                                                doc.get("fullname") + "",
+                                                doc.get("password") + "",
+                                                doc.get("phonenumber") + "",
+                                                doc.get("username") + "",
+                                                doc.getId());
+
+                                        Log.d("LIST----LIST", "onComplete: " + list.size());
+                                        writeLogin(userModel);
+                                        readlogin();
+//                                        onBackPressed();
+                                        break;
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+
+                        }
+                    });
         }
     }
 
-    public void goToPay(ArrayList<ProductCart> list) {
-
+    private void writeLogin(User user) {
+        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = gson.toJson(user.getAddress());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isLoggedin", true);
+        editor.putString("userid", user.getUserID());
+        editor.putString("username", user.getUsername());
+        editor.putString("fullname", user.getFullname());
+        editor.putString("password", user.getPassword());
+        editor.putString("address", json);
+        editor.putString("numberphone", user.getPhonenumber());
+        editor.commit();
     }
+
 
 }
