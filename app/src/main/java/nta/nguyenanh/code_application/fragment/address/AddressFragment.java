@@ -53,6 +53,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.PayActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.ViewPagerAdapter;
@@ -74,13 +75,15 @@ public class AddressFragment extends Fragment {
     Button btn_confirm;
 
     Toolbar toolbar;
+    int pos;
 
     public static String divisionAddress, districtAddress, ward;
 
 
-    public static AddressFragment newInstance(ArrayList<ProductCart> list) {
+    public static AddressFragment newInstance(ArrayList<ProductCart> list, int position) {
         Bundle args = new Bundle();
         args.putSerializable("list", list);
+        args.putInt("position", position);
         AddressFragment fragment = new AddressFragment();
         fragment.setArguments(args);
         return fragment;
@@ -91,34 +94,9 @@ public class AddressFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if(getArguments() != null) {
             list = (ArrayList<ProductCart>) getArguments().getSerializable("list");
+            pos = getArguments().getInt("position");
         }
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("TAG AddressFrag", "onResume: ");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("TAG AddressFrag", "onStop: ");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("TAG AddressFrag", "onDestroy: ");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("TAG AddressFrag", "onPause: ");
-    }
-
-
 
     @Nullable
     @Override
@@ -131,6 +109,13 @@ public class AddressFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         unitUI(view);
+
+        if(pos != -1) {
+            Log.d("position", "onViewCreated: "+pos);
+            edt_namereceiver.setText(userModel.getAddress().get(pos).getNameReceiver());
+            edt_numberphone.setText(userModel.getAddress().get(pos).getPhonenumber());
+            tinhhuyenxa.setText(userModel.getAddress().get(pos).getAddress());
+        }
 
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,12 +158,16 @@ public class AddressFragment extends Fragment {
             return;
         }
         // Thay thế chuỗi cho gọn
-        divisionAddress = divisionAddress.replace("Thành phố", "Tp.");
-        districtAddress = districtAddress.replace("Quận", "Q.");
-        districtAddress = districtAddress.replace("Huyện", "H.");
-        ward = ward.replace("Phường", "P.");
-        place = ward+"/"+ districtAddress +"/"+ divisionAddress;
-        Address address = new Address(null,place, namereceiver, phonenumber, 0);
+        place = tinhhuyenxa.getText().toString() ;
+        Address address;
+        if(pos != -1) {
+            address = new Address(userModel.getAddress().get(pos).getIdAddress(),place, namereceiver, phonenumber, 0);
+            userModel.getAddress().set(pos, address);
+        } else {
+            address = new Address(null,place, namereceiver, phonenumber, 0);
+            userModel.getAddress().add(address);
+        }
+
         HashMap<String, Object> places = new HashMap<>();
         places.put("address"+System.currentTimeMillis(), address);
 
@@ -186,13 +175,14 @@ public class AddressFragment extends Fragment {
 
         // thêm ngay tại list -- không cần load lại dữ liệu
 
-        userModel.getAddress().add(address);
         Gson gson = new Gson();
         String json = gson.toJson(userModel.getAddress());
+
         // cập nhật trong máy thông tin địa chỉ
         SharedPreferences preferences = getActivity().getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("address", json);
+        editor.commit();
     }
 
     class fetchData extends Thread {

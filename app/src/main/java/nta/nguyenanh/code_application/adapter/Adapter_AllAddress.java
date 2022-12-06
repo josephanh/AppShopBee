@@ -55,7 +55,7 @@ public class Adapter_AllAddress extends RecyclerView.Adapter<Adapter_AllAddress.
      holder.btn_Update_Address.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             onClickUpdateAddress.OnClickUpdate(list.get(position));
+             onClickUpdateAddress.OnClickUpdate(position);
              Log.d("TAG address", "onClick: "+list.get(position));
          }
      });
@@ -86,7 +86,7 @@ public class Adapter_AllAddress extends RecyclerView.Adapter<Adapter_AllAddress.
             tvAddress = itemView.findViewById(R.id.tvAddress);
             availble = itemView.findViewById(R.id.availble);
             btn_Update_Address = itemView.findViewById(R.id.btn_Update_Address);
-            chkMarkAddress = itemView.findViewById(R.id.chkMarkAddress);
+//            chkMarkAddress = itemView.findViewById(R.id.chkMarkAddress);
 
         }
     }

@@ -72,12 +72,12 @@ public class PayActivity extends AppCompatActivity {
             }
         });
 
-        listCart.clear();
+
         listCart = (ArrayList<ProductCart>) getIntent().getSerializableExtra("listPay");
         boolean addressCheck = getIntent().getBooleanExtra("addressCheck", false);
 
         if(!addressCheck) {
-            changeFragment(new AddressFragment());
+            changeFragment(new AddressFragment().newInstance(listCart ,getIntent().getIntExtra("position", -1)));
             getSupportActionBar().setTitle("Địa chỉ nhận hàng");
         } else {
             changeFragment(new PayFragment().newInstance(listCart));
@@ -200,4 +200,9 @@ public class PayActivity extends AppCompatActivity {
 
         }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        listCart.clear();
+    }
 }

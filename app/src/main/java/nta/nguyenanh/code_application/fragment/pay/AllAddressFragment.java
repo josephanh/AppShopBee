@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import nta.nguyenanh.code_application.PayActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.Adapter_AllAddress;
+import nta.nguyenanh.code_application.fragment.address.AddressFragment;
 import nta.nguyenanh.code_application.interfaces.OnClickUpdateAddress;
 import nta.nguyenanh.code_application.model.Address;
+import nta.nguyenanh.code_application.model.ProductCart;
 
 
 public class AllAddressFragment extends Fragment {
@@ -29,10 +31,26 @@ public class AllAddressFragment extends Fragment {
     RecyclerView rv_getAllAddress;
     Adapter_AllAddress adapter_allAddress;
     private ArrayList<Address> list = new ArrayList<>();
+    ArrayList<ProductCart> listCart;
     public AllAddressFragment() {
         // Required empty public constructor
     }
 
+    public static AllAddressFragment newInstance(ArrayList<ProductCart> listCart) {
+        Bundle args = new Bundle();
+        args.putSerializable("list", listCart);
+        AllAddressFragment fragment = new AllAddressFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null) {
+            listCart = (ArrayList<ProductCart>) getArguments().getSerializable("list");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,11 +71,12 @@ public class AllAddressFragment extends Fragment {
         rv_getAllAddress.setLayoutManager(linearLayoutManager);
         adapter_allAddress = new Adapter_AllAddress(getContext(), list, new OnClickUpdateAddress() {
             @Override
-            public Void OnClickUpdate(Address address) {
-                Intent intent = new Intent(getContext(), PayActivity.class);
-                intent.putExtra("addressCheck", false);
-                intent.putExtra("NameReceiver", address.getAddress());
-                startActivity(intent);
+            public Void OnClickUpdate(int position) {
+//                Intent intent = new Intent(getContext(), PayActivity.class);
+//                intent.putExtra("addressCheck", false);
+//                intent.putExtra("position", position);
+//                startActivity(intent);
+                ((PayActivity)getContext()).changeFragment(new AddressFragment().newInstance(listCart, position));
                 return null;
             }
         });

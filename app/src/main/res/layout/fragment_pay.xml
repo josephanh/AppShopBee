@@ -111,7 +111,7 @@
                         android:paddingTop="2dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="2dp"
-                        android:text="Sửa"
+                        android:text="Thay đổi"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/theme_color"
                         android:textSize="12dp"

@@ -1,5 +1,8 @@
 package nta.nguyenanh.code_application.fragment.pay;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +22,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +36,7 @@ import nta.nguyenanh.code_application.PayActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.CartAdapter;
 import nta.nguyenanh.code_application.interfaces.OnclickItemCart;
+import nta.nguyenanh.code_application.model.Address;
 import nta.nguyenanh.code_application.model.ProductCart;
 
 public class PayFragment extends Fragment {
@@ -80,7 +88,7 @@ public class PayFragment extends Fragment {
         ln_AllAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((PayActivity)getContext()).changeFragment(new AllAddressFragment());
+                ((PayActivity)getContext()).changeFragment(new AllAddressFragment().newInstance(list));
             }
         });
 
@@ -183,5 +191,17 @@ public class PayFragment extends Fragment {
     public void onResume() {
         super.onResume();
         cartAdapter.notifyDataSetChanged();
+
+        SharedPreferences preferences = getActivity().getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = preferences.getString("address", null);
+        Type type = new TypeToken<ArrayList<Address>>(){}.getType();
+        ArrayList<Address> addressList = gson.fromJson(json, type);
+
+        if(addressList == null) {
+            addressList  = new ArrayList<>();
+        }
+
+        MainActivity.userModel.setAddress(addressList);
     }
 }

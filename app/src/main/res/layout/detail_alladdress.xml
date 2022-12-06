@@ -62,7 +62,9 @@
             <CheckBox
                 android:id="@+id/chkMarkAddress"
                 android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:button="@drawable/custom_checkbox"/>
 
             <TextView
                 android:id="@+id/tvAddress"
@@ -92,27 +94,18 @@
                 android:textColor="#FFFFFF"
                 android:textSize="10dp"
                 android:textStyle="bold" />
-            <Button
-                android:id="@+id/btn_Update_Address"
-                android:layout_width="70dp"
-                android:layout_height="25dp"
-                android:background="@color/white"
-                android:layout_gravity="center"
-                android:text="Cập nhật "
-                android:textColor="@color/theme_color"
-                android:textSize="8dp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="@drawable/ic_right">
-
-            </ImageButton>
         </LinearLayout>
-
+        <Button
+            android:id="@+id/btn_Update_Address"
+            android:layout_width="73dp"
+            android:layout_height="20dp"
+            android:background="@drawable/custom_btn_setting"
+            android:layout_gravity="right"
+            android:text="Cập nhật"
+            android:textColor="@color/theme_color"
+            android:textSize="8dp"
+            android:textStyle="bold"
+            android:layout_margin="5dp" />
 
     </LinearLayout>
 
