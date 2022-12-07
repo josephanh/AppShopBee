@@ -40,10 +40,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserHolder> {
     @Override
     public void onBindViewHolder(@NonNull UserHolder holder, int position) {
         User user = users.get(position);
-        if (userModel.getUserID().equals("f7xs0HqMzaYhs8QdW3xO")){
+        if (userModel.getUserID().equals("7SAStKPFBVhIYxAZydtH")){
             holder.tvUsername.setText(user.getUsername());
         }else {
-            if (user.getUsername().contains("f7xs0HqMzaYhs8QdW3xO")){
+            if (user.getUsername().contains("7SAStKPFBVhIYxAZydtH")){
                 holder.tvUsername.setText("ShopBee");
 
             }else{

@@ -313,7 +313,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Không được để trống tài khoản ,mật khẩu", Toast.LENGTH_SHORT).show();
             return;
         }
-            if (txt_name.getText().toString().length()<=10){
+            if (txt_name.getText().toString().length() ==10){
         db.collection("user")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

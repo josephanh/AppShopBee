@@ -82,7 +82,7 @@ public class ContactFragment extends Fragment {
                 ItemClickSupport.addTo(lvList).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        if (userModel.getUserID().equals("f7xs0HqMzaYhs8QdW3xO")) {
+                        if (userModel.getUserID().equals("7SAStKPFBVhIYxAZydtH")) {
                             String groupID = objectArrayList.get(position).getUsername() + "|" + userModel.getUserID();
                             FirebaseQuery.checkExistGroup(groupID, new ValueEventListener() {
                                 @Override
