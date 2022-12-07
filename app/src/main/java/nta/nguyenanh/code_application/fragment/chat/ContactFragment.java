@@ -32,6 +32,7 @@ import static nta.nguyenanh.code_application.listener.FirebaseQuery.USERNAME;
 import nta.nguyenanh.code_application.ChatActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.UserAdapter;
+import nta.nguyenanh.code_application.dialog.DiaLogProgess;
 import nta.nguyenanh.code_application.listener.FirebaseQuery;
 import nta.nguyenanh.code_application.interfaces.ItemClickSupport;
 import nta.nguyenanh.code_application.model.User;
@@ -52,6 +53,9 @@ public class ContactFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        DiaLogProgess diaLogProgess = new DiaLogProgess(getContext());
+        diaLogProgess.showDialog("Loading");
+
         lvList = view.findViewById(R.id.lvList);
         FirebaseQuery.getListUser(new ValueEventListener() {
             @Override
@@ -71,6 +75,7 @@ public class ContactFragment extends Fragment {
                     lvList.setAdapter(userAdapter);
                     lvList.setLayoutManager(linearLayoutManager);
                     lvList.setHasFixedSize(true);
+                    diaLogProgess.hideDialog();
 
 
 

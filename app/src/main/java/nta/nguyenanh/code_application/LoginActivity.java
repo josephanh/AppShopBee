@@ -306,11 +306,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void oncheckLogin(View v) {
+
+
         if (txt_name.getText().toString().isEmpty() || txt_password.getText().toString().isEmpty()) {
             Toast.makeText(LoginActivity.this, "Không được để trống tài khoản ,mật khẩu", Toast.LENGTH_SHORT).show();
             return;
         }
-
+            if (txt_name.getText().toString().length()<=10){
         db.collection("user")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -343,6 +345,10 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("TAG>>>>>>", "onComplete: Thất bại khi lấy dữ liệu ");
                     }
                 });
+        }else {
+                Toast.makeText(this, "Tối đa 10 số", Toast.LENGTH_SHORT).show();
+            }
+
     }
     private class getAddress {
         private void getDataAddress(QueryDocumentSnapshot doc) {
