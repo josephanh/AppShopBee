@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         readlogin();
         if(isLoggedin) {
             oncheckLogin();
-
         }
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
         registerReceiver(broadcastReceiver, intentFilter);
