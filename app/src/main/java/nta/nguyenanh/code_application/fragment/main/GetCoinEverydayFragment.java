@@ -14,12 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.helper.database;
 
@@ -49,6 +51,7 @@ public class GetCoinEverydayFragment extends Fragment {
     private String lastday;
     private String today;
     private Integer whatday;
+    private ImageView back;
 
 
     @Override
@@ -70,6 +73,14 @@ public class GetCoinEverydayFragment extends Fragment {
         initUI(view);
         get_date();
         date_test();
+
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getContext()).onBackPressed();
+            }
+        });
 
 
         btn_getcoin_check.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +183,7 @@ public class GetCoinEverydayFragment extends Fragment {
         getcoin_day6_check_done = view.findViewById(R.id.getcoin_day6_check_done);
         getcoin_day7_check = view.findViewById(R.id.getcoin_day7_check);
         getcoin_day7_check_done = view.findViewById(R.id.getcoin_day7_check_done);
-
+        back = view.findViewById(R.id.btn_back);
 
 
 

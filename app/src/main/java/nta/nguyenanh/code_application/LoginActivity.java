@@ -72,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     String username2;
     boolean checklogin = false;
     boolean checkUser = false;
+    public static boolean checkLogout;
     //facebook
     CallbackManager callbackManager;
     ArrayList<Address> addressList = new ArrayList<>();
@@ -478,5 +479,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void onBackPressed() {
+        if(checkLogout) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

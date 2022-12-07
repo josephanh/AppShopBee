@@ -50,7 +50,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        onclickItemCart.hideCheck(holder.checkboxCart, holder.image_product);
+        onclickItemCart.hideCheck(holder.checkboxCart, holder.btn_delete_cart);
 
         holder.checkboxCart.setChecked(true);
         holder.checkboxCart.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

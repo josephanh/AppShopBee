@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        LoginActivity.checkLogout = false;
+
         HomeFragment homeFragment = new HomeFragment();
         manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.framelayout, homeFragment).commit();

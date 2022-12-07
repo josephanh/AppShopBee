@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/bg_errordialog_numberphone">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_checkbox_true"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chúc mừng đặt hàng thành công"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:id="@+id/gotoHome"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Về màn hình chính"
+            android:drawablePadding="10dp"
+            android:textAllCaps="false"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:textColor="@color/white"
+            android:background="@drawable/custom_btn_profile"
+            android:drawableRight="@drawable/ic_right_arrom_setting"
+            android:drawableTint="@color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

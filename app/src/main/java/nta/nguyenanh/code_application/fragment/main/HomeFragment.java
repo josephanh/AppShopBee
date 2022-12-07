@@ -50,6 +50,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
+import nta.nguyenanh.code_application.MainActivity;
 import nta.nguyenanh.code_application.R;
 import nta.nguyenanh.code_application.adapter.BannerAdapter;
 import nta.nguyenanh.code_application.adapter.FlashSaleHomeAdapter;
@@ -70,15 +71,13 @@ public class HomeFragment extends Fragment {
     private TextView hour_flashsale, min_flashsale, sec_flashsale;
     private Handler handler = new Handler();
     private Runnable runnable;
-    LinearLayout search, search_0;
+    LinearLayout search, search_0, sanxu;
     ImageView cart, cart_0;
 
 
     ViewPager viewPager;
     ViewPager viewPager_2;
     Toolbar toolbar, toolbar_0;
-
-
     CircleIndicator circleIndicator, circleIndicator_2;
 
     BannerAdapter photoAdapter, photoAdapter_2;
@@ -122,17 +121,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Ánh xạ
-        viewPager = view.findViewById(R.id.viewpageHome);
-        viewPager_2 = view.findViewById(R.id.viewpageHome_2);
-        circleIndicator = view.findViewById(R.id.circleIndicator);
-        circleIndicator_2 = view.findViewById(R.id.circleIndicator_2);
-        recyclerView_product = view.findViewById(R.id.recyclerView_product);
-        recyclerViewFlash = view.findViewById(R.id.recyclerViewFlashSale);
-        toolbar = view.findViewById(R.id.toolbar);
-        toolbar_0 = view.findViewById(R.id.toolbar_0);
-        hour_flashsale = view.findViewById(R.id.hour_flashsale);
-        min_flashsale = view.findViewById(R.id.min_flashsale);
-        sec_flashsale = view.findViewById(R.id.sec_flashsale);
+        unitUI(view);
 
 
         check = false;
@@ -155,6 +144,13 @@ public class HomeFragment extends Fragment {
                 }
 
 
+            }
+        });
+
+        sanxu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getContext()).relaceFragment(new GetCoinEverydayFragment());
             }
         });
 
@@ -248,6 +244,23 @@ public class HomeFragment extends Fragment {
         recyclerView_product.addOnScrollListener(onScrollListener);
 
         countDownStart(Flashsalelist.get(0).getDateend());
+
+    }
+
+    private void unitUI(View view) {
+        viewPager = view.findViewById(R.id.viewpageHome);
+        viewPager_2 = view.findViewById(R.id.viewpageHome_2);
+        circleIndicator = view.findViewById(R.id.circleIndicator);
+        circleIndicator_2 = view.findViewById(R.id.circleIndicator_2);
+        recyclerView_product = view.findViewById(R.id.recyclerView_product);
+        recyclerViewFlash = view.findViewById(R.id.recyclerViewFlashSale);
+        toolbar = view.findViewById(R.id.toolbar);
+        toolbar_0 = view.findViewById(R.id.toolbar_0);
+        hour_flashsale = view.findViewById(R.id.hour_flashsale);
+        min_flashsale = view.findViewById(R.id.min_flashsale);
+        sec_flashsale = view.findViewById(R.id.sec_flashsale);
+        sanxu = view.findViewById(R.id.sanxu);
+
 
     }
 

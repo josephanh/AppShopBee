@@ -60,6 +60,7 @@ public class SettingFragment extends Fragment {
         editor.putString("address", json);
         editor.putString("numberphone", null);
         editor.commit();
+        LoginActivity.checkLogout = true;
         Intent intent = new Intent(getContext(), LoginActivity.class);
         getActivity().startActivity(intent);
         getActivity().finish();

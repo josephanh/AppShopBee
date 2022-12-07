@@ -46,7 +46,7 @@ public class PayFragment extends Fragment {
     private RecyclerView recyclerViewItemPay;
     private TextView tvUsername, tvNumberPhone, tvAddress, dateReceive;
     private CartAdapter cartAdapter;
-    private Double totalMoney;
+    private Double totalMoney = Double.valueOf(0);
     private float price;
     private TextView tv_totalMoney2;
     private TextView tv_totalMoney1;
@@ -114,7 +114,7 @@ public class PayFragment extends Fragment {
 
         for (int i = 0; i < list.size(); i++) {
             price = list.get(i).getPrice();
-            totalMoney = Double.parseDouble(String.valueOf(price));
+            totalMoney += Double.parseDouble(String.valueOf(price))*list.get(i).getTotal();
             Log.d(">>>>TAG:",""+price);
 
             tv_totalMoney1final.setText(formatter.format(totalMoney)+"đ");
@@ -144,6 +144,7 @@ public class PayFragment extends Fragment {
             @Override
             public void hideCheck(CheckBox checkBox, ImageView imageView) {
                 checkBox.setVisibility(View.GONE);
+                imageView.setVisibility(View.GONE);
             }
 
             @Override
@@ -154,6 +155,13 @@ public class PayFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerViewItemPay.setLayoutManager(layoutManager);
         recyclerViewItemPay.setAdapter(cartAdapter);
+
+        btn_buy_d.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PayActivity)getContext()).buyEvent(String.valueOf(tv_totalMoneyFinal.getText().toString()));
+            }
+        });
 
     }
 
