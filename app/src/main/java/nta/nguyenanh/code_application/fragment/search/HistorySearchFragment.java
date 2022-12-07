@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -94,7 +95,6 @@ public class HistorySearchFragment extends Fragment {
                         boolean check = false;
                         for (int i = 0; i < ds.size(); i++) {
                             if (edt_searchView.getText().toString().equals(ds.get(i).getName_history())) {
-                                Log.d(">>>>TAG:", edt_searchView.getText().toString() + "==" + ds.get(i).getName_history());
                                 check = true;
                                 break;
                             }
@@ -104,10 +104,10 @@ public class HistorySearchFragment extends Fragment {
                             ds = dao_history.getAll();
                             fillData();
                             check = false;
-                            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.from_right,R.animator.to_left, R.animator.from_left, R.animator.to_right).replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").commit();
                         } else {
                             check = false;
-                            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.from_right,R.animator.to_left, R.animator.from_left, R.animator.to_right).replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").commit();
 
                         }
                     }
@@ -134,12 +134,11 @@ public class HistorySearchFragment extends Fragment {
                             dao_history.insert(edt_searchView.getText().toString());
                             ds = dao_history.getAll();
                             check = false;
-                            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.from_right,R.animator.to_left, R.animator.from_left, R.animator.to_right).replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
                         }
                         else {
                             check = false;
-                            getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
-
+                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.from_right,R.animator.to_left, R.animator.from_left, R.animator.to_right).replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
                         }
                     }
                     handled = true;
@@ -163,7 +162,7 @@ public class HistorySearchFragment extends Fragment {
             @Override
             public void OnClickItemSearchHistory(String s) {
                 edt_searchView.setText(s);
-                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
+                getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.from_right,R.animator.to_left, R.animator.from_left, R.animator.to_right).replace(R.id.fragment_container_search, SearchFragment.newInstance(s), "SearchFragment").addToBackStack("").commit();
             }
         });
         recyclerViewHistory.setAdapter(adapterHistory);

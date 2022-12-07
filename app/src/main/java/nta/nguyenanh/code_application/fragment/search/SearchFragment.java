@@ -32,6 +32,7 @@ import java.util.List;
 import nta.nguyenanh.code_application.adapter.ProductAdapter;
 import nta.nguyenanh.code_application.dao.DAO_History;
 import nta.nguyenanh.code_application.R;
+import nta.nguyenanh.code_application.model.History;
 import nta.nguyenanh.code_application.model.Product;
 
 public class SearchFragment extends Fragment {
@@ -45,7 +46,7 @@ public class SearchFragment extends Fragment {
     private ProductAdapter productAdapter;
     private List<Product> listResult = new ArrayList<>();
     float a = 1;
-
+    List<History> ds = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -92,13 +93,31 @@ public class SearchFragment extends Fragment {
         coordinatorContainer = view.findViewById(R.id.coordinatorContainer);
         coordinator_progress = view.findViewById(R.id.coordinator_progress);
         progressBar_search = view.findViewById(R.id.progressBar_search);
+        dao_history = new DAO_History(getActivity());
         edt_searchView.setText(searchString);
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!edt_searchView.getText().toString().isEmpty()){
-                    findData(edt_searchView.getText().toString());
-
+                if (!edt_searchView.getText().toString().isEmpty()) {
+                    if (!edt_searchView.getText().toString().isEmpty()) {
+                        String s = edt_searchView.getText().toString();
+                        ds = dao_history.getAll();
+                        boolean check = false;
+                        for (int i = 0; i < ds.size(); i++) {
+                            if (edt_searchView.getText().toString().equals(ds.get(i).getName_history())) {
+                                check = true;
+                                break;
+                            }
+                        }
+                        if (!check) {
+                            dao_history.insert(edt_searchView.getText().toString());
+                            check = false;
+                            findData(edt_searchView.getText().toString());
+                           } else {
+                            check = false;
+                            findData(edt_searchView.getText().toString());
+                        }
+                    }
                 }
             }
         });

@@ -1,0 +1,17 @@
+Index: app/src/main/java/nta/nguyenanh/code_application/adapter/ProductAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/nta/nguyenanh/code_application/adapter/ProductAdapter.java b/app/src/main/java/nta/nguyenanh/code_application/adapter/ProductAdapter.java
+--- a/app/src/main/java/nta/nguyenanh/code_application/adapter/ProductAdapter.java	
++++ b/app/src/main/java/nta/nguyenanh/code_application/adapter/ProductAdapter.java	(date 1669993970763)
+@@ -51,7 +51,7 @@
+ 
+         holder.sold.setText("Kho " + formatter.format(list.get(position).getTotal()));
+        // holder.sold.setText(formatter.format(list.get(position).getSold())+" đã bán");
+-        
++
+         holder.saleoff.setText(list.get(position).getSale().toString()+"%");
+         if(list.get(position).getSale() != 0) {
+             holder.freeship.setVisibility(View.VISIBLE);

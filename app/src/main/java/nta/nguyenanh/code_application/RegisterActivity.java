@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import nta.nguyenanh.code_application.fragment.otp.NumberPhoneFragment;
+import nta.nguyenanh.code_application.fragment.otp.RegisterFragment;
 import nta.nguyenanh.code_application.model.User;
 
 
@@ -75,7 +76,6 @@ public class RegisterActivity extends AppCompatActivity {
 //                onRegister();
 //            }
 //        });
-
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_container_register, NumberPhoneFragment.class, null).commit();
 
     }

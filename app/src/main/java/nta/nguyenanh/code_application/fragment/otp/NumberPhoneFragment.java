@@ -163,7 +163,7 @@ public class NumberPhoneFragment extends Fragment {
                                 //xac nhan thanh cong
                                 //tra ve
                                 //String numberPhone = "?";
-                                getActivity().  getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.alpha_enter, R.anim.alpha_exit).replace(R.id.framelayout_container_register, RegisterFragment.newInstance(et_numberPhone.getText().toString()), "RegisterFragment").commit();
+                                getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.alpha_enter, R.anim.alpha_exit).replace(R.id.framelayout_container_register, RegisterFragment.newInstance(et_numberPhone.getText().toString()), "RegisterFragment").commit();
                                 Log.d(">>>>TAG:", "thanh conggggggggg"+"  "+ et_numberPhone.getText().toString());
                             }else {
                                 btn_confrim_error_numberPhone.setVisibility(View.VISIBLE);

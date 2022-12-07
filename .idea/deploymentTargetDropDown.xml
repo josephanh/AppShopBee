@@ -18,10 +18,19 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
+<<<<<<< Updated upstream
             <value value="C:\Users\My PC\.android\avd\Pixel_C_API_28.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetsSelectedWithDialog>
+=======
+            <value value="C:\Users\tnmod\.android\avd\Pixel_6_Pro_API_23.avd" />
+          </Key>
+        </deviceKey>
+      </Target>
+    </targetSelectedWithDropDown>
+    <timeTargetWasSelectedWithDropDown value="2022-12-05T02:12:32.310651Z" />
+>>>>>>> Stashed changes
   </component>
 </project>
