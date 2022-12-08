@@ -37,6 +37,7 @@ import com.google.gson.Gson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -121,11 +122,11 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
     @Override
     protected void onResume() {
-        super.onResume();
         readlogin();
-        if(isLoggedin) {
+        if(isLoggedin == true) {
             oncheckLogin();
         }
+        super.onResume();
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_TIME_TICK);
         registerReceiver(broadcastReceiver, intentFilter);
     }
@@ -293,9 +294,10 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 //                                                Log.d("KEYDATA", "Sản phẩm: " + key);
 //                                                Log.d("KEYDATA", "Sản phẩm: " + address);
                                                 // bắt đầu convert thằng cha qua ArrayList --
+                                                Map<String, Object> itemA = new HashMap<>();
                                                 Log.d("LIST ADDRESS", "onComplete: " + address.get("address"));
                                                 if(address.get("address") == null) {
-                                                    list = null;
+                                                    list = new ArrayList<>();
                                                     userModel = new User(
                                                             list,
                                                             doc.get("datebirth") + "",
@@ -306,6 +308,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
                                                             doc.getId());
                                                     writeLogin(userModel);
                                                     readlogin();
+                                                    break;
                                                 }
 
                                                 Map<String, Object> itemAddress = (Map<String, Object>) address.get("address");
@@ -357,13 +360,13 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
                                                 doc.get("username") + "",
                                                 doc.getId());
 
-                                        Log.d("LIST----LIST", "onComplete: " + list.size());
+//                                        Log.d("LIST----LIST", "onComplete: " + list.size());
                                         writeLogin(userModel);
-                                        new CheckLogin(MainActivity.this).readLogin();
-//                                        onBackPressed();
-                                        break;
+//                                        break;
                                     }
+
                                 }
+//                                readlogin();
 
                             }
 

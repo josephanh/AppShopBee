@@ -99,7 +99,7 @@ public class ContactFragment extends Fragment {
                                 }
                             });
                         } else {
-                            String groupID = userModel.getUserID() + "|" + "f7xs0HqMzaYhs8QdW3xO";
+                            String groupID = userModel.getUserID() + "|" + "7SAStKPFBVhIYxAZydtH";
 //                        String groupID = userModel.getUserID() + "|" + objectArrayList.get(position).username;
                             FirebaseQuery.checkExistGroup(groupID, new ValueEventListener() {
                                 @Override
