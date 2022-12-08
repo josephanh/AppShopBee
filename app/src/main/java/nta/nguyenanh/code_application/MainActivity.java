@@ -290,8 +290,8 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
                                             if (key.equals("address")) {
                                                 // tiếp tục convert thằng cha address qua một arraylist
                                                 // map nhận được có key là id sản phẩm + timeline
-                                                Log.d("KEYDATA", "Sản phẩm: " + key);
-                                                Log.d("KEYDATA", "Sản phẩm: " + address);
+//                                                Log.d("KEYDATA", "Sản phẩm: " + key);
+//                                                Log.d("KEYDATA", "Sản phẩm: " + address);
                                                 // bắt đầu convert thằng cha qua ArrayList --
                                                 Log.d("LIST ADDRESS", "onComplete: " + address.get("address"));
                                                 if(address.get("address") == null) {
@@ -305,8 +305,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
                                                             doc.get("username") + "",
                                                             doc.getId());
                                                     writeLogin(userModel);
-                                                    onBackPressed();
-                                                    return;
+                                                    readlogin();
                                                 }
 
                                                 Map<String, Object> itemAddress = (Map<String, Object>) address.get("address");
@@ -319,7 +318,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
                                                 for (int j = 0; j < listOf.size(); j++) {
                                                     // chạy vòng lặp để gắn các dữ liệu từ map qua ArrayList
                                                     // chạy thằng cha để lấy ra thằng con address item
-                                                    Log.d("KEYDATA", listOf.get(j).getValue() + " : " + listOf.get(j).getValue());
+//                                                    Log.d("KEYDATA", listOf.get(j).getValue() + " : " + listOf.get(j).getValue());
 
                                                     Map<String, Object> item = (Map<String, Object>) listOf.get(j).getValue();
                                                     Set<Map.Entry<String, Object>> entrAd = item.entrySet();
@@ -338,16 +337,16 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
                                                         }
                                                     }
                                                     list.add(new Address(listOf.get(j).getKey(),place, nameReceiver, phonenumber, available));
-                                                    Log.d("TAG address 2000", "onComplete: "+listOf.get(j).getKey());
+//                                                    Log.d("TAG address 2000", "onComplete: "+listOf.get(j).getKey());
                                                 }
 
                                             }
                                         }
-                                        Log.d("KEYDATA", "-----------\n");
-                                        Log.d("LIST DATA", "onComplete: " + list.size());
-                                        Log.d("LIST DATA", "onComplete: " + list.get(0).getAddress());
-                                        Log.d("LIST DATA", "onComplete: " + list.get(0).getPhonenumber());
-                                        Log.d("LIST DATA", "onComplete: " + list.get(0).getNameReceiver());
+//                                        Log.d("KEYDATA", "-----------\n");
+//                                        Log.d("LIST DATA", "onComplete: " + list.size());
+//                                        Log.d("LIST DATA", "onComplete: " + list.get(0).getAddress());
+//                                        Log.d("LIST DATA", "onComplete: " + list.get(0).getPhonenumber());
+//                                        Log.d("LIST DATA", "onComplete: " + list.get(0).getNameReceiver());
                                         userModel = null;
                                         userModel = new User(
                                                 list,
