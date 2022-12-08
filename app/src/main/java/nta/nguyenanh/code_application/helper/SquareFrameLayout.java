@@ -4,9 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-/**
- * {@link android.widget.FrameLayout} which forces itself to be laid out as square.
- */
 public class SquareFrameLayout extends FrameLayout {
 
     public SquareFrameLayout(Context context) {
@@ -27,10 +24,7 @@ public class SquareFrameLayout extends FrameLayout {
         final int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
         if (widthSize == 0 && heightSize == 0) {
-            // If there are no constraints on size, let FrameLayout measure
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-            // Now use the smallest of the measured dimensions for both dimensions
             final int minSize = Math.min(getMeasuredWidth(), getMeasuredHeight());
             setMeasuredDimension(minSize, minSize);
             return;
@@ -38,12 +32,8 @@ public class SquareFrameLayout extends FrameLayout {
 
         final int size;
         if (widthSize == 0 || heightSize == 0) {
-            // If one of the dimensions has no restriction on size, set both dimensions to be the
-            // on that does
             size = Math.max(widthSize, heightSize);
         } else {
-            // Both dimensions have restrictions on size, set both dimensions to be the
-            // smallest of the two
             size = Math.min(widthSize, heightSize);
         }
 

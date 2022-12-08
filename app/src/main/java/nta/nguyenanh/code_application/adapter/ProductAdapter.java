@@ -59,7 +59,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             holder.freeship.setVisibility(View.GONE);
             holder.saleoff.setVisibility(View.GONE);
         }
-
         holder.item_product.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,4 +93,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             freeship = itemView.findViewById(R.id.freeship);
         }
     }
+
+
+
 }

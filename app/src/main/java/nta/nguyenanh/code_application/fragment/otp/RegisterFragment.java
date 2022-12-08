@@ -131,7 +131,6 @@ public class RegisterFragment extends Fragment {
         confirmpassword = txt_confirmpassword.getText().toString();
         int checka = 0;
         int checkb = 0;
-        do {
             switch (score){
                 case 0:
                     if (username.isEmpty()) {
@@ -178,7 +177,6 @@ public class RegisterFragment extends Fragment {
                     }
                     break;
             }
-        } while (score > 2);
 
         switch (checka){
             case 1:
@@ -298,11 +296,17 @@ public class RegisterFragment extends Fragment {
                     Log.d(">>>>TAG:", "1:"+score);
                 }
                 if (score == 0){
+                    score--;
                     TransitionManager.beginDelayedTransition(tContainer);
                     txt_confirmpassword.setVisibility(View.GONE);
                     txt_newpassword.setVisibility(View.GONE);
                     txt_newname.setVisibility(View.VISIBLE);
                     Log.d(">>>>TAG:", "2:"+score);
+                }
+                if (score < 0){
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.animator.from_left, R.animator.to_right)
+                            .replace(R.id.framelayout_container_register, NumberPhoneFragment.newInstance(phonenumber),"NumberPhoneFragment").commit();
                 }
             }
 

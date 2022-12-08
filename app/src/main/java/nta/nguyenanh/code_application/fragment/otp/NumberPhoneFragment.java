@@ -26,8 +26,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -39,6 +44,7 @@ import nta.nguyenanh.code_application.R;
 
 public class NumberPhoneFragment extends Fragment {
 
+    private static final String ARG_NUMBERPHONE1 = "numberphone1";
     private EditText et_numberPhone;
     private Button btn_numberPhone;
     private Button btn_confrim_NumberPhone;
@@ -54,6 +60,7 @@ public class NumberPhoneFragment extends Fragment {
     private EditText et_confirmCode2;
     private EditText et_confirmCode3;
     private EditText et_confirmCode4;
+    private String phonenumber;
     private EditText et_confirmCode5;
     private EditText et_confirmCode6;
     private TextView tv_second_otp;
@@ -62,11 +69,32 @@ public class NumberPhoneFragment extends Fragment {
     private LinearLayout linear_guilaima_1;
     private TextView reSendOTP;
     private Button btn_confrim_error_numberPhone;
+    private String mVerificationID;
+    private PhoneAuthProvider.ForceResendingToken mForceResendingToken;
+
+    public NumberPhoneFragment() {
+    }
+
+    public static NumberPhoneFragment newInstance(String numberphone) {
+        NumberPhoneFragment fragment = new NumberPhoneFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_NUMBERPHONE1, numberphone);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            String mPhoneNumber = getArguments().getString(ARG_NUMBERPHONE1);
+            if (mPhoneNumber.length() == 9){
+                phonenumber = "0"+mPhoneNumber;
+            }else {
+                phonenumber = mPhoneNumber;
+            }
+        }
     }
 
     @Override
@@ -85,6 +113,7 @@ public class NumberPhoneFragment extends Fragment {
         setOTP_Event();
         setKey();
     }
+
     private void initUI(View view){
         et_numberPhone = view.findViewById(R.id.et_NumberPhone);
         btn_numberPhone = view.findViewById(R.id.btn_NumberPhone);
@@ -158,13 +187,12 @@ public class NumberPhoneFragment extends Fragment {
                 else if (visible == true){
                     TransitionManager.beginDelayedTransition(tContainer);
                     if (getConfirmCode()!=null){
-                        if (codeSend!=null){
+                        if (!codeSend.equals("")){
                             if (codeSend.equals(getConfirmCode())){
                                 //xac nhan thanh cong
                                 //tra ve
                                 //String numberPhone = "?";
-                                getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.alpha_enter, R.anim.alpha_exit).replace(R.id.framelayout_container_register, RegisterFragment.newInstance(et_numberPhone.getText().toString()), "RegisterFragment").commit();
-                                Log.d(">>>>TAG:", "thanh conggggggggg"+"  "+ et_numberPhone.getText().toString());
+                                getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.from_right, R.animator.to_left,R.animator.from_left, R.animator.to_right).replace(R.id.framelayout_container_register, RegisterFragment.newInstance(et_numberPhone.getText().toString()), "RegisterFragment").commit();
                             }else {
                                 btn_confrim_error_numberPhone.setVisibility(View.VISIBLE);
                                 btn_confrim_NumberPhone.setVisibility(View.GONE);
@@ -185,11 +213,20 @@ public class NumberPhoneFragment extends Fragment {
                                 count.start();
 
                             }
+                        }else{
+                            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationID, getConfirmCode());
+                            Log.d(">>>>TAG:", ""+credential);
+                            signInWithPhoneAuthCredential(credential);
                         }
+
                     }
                 }
             }
         });
+        if (phonenumber!= null && !phonenumber.equals("")) {
+            et_numberPhone.setText(phonenumber);
+        }
+
 
         reSendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,6 +284,25 @@ public class NumberPhoneFragment extends Fragment {
         });
     }
 
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(">>>>TAG:", "signInWithCredential:success");
+                            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.from_right, R.animator.to_left,R.animator.from_left, R.animator.to_right).replace(R.id.framelayout_container_register, RegisterFragment.newInstance(et_numberPhone.getText().toString()), "RegisterFragment").commit();
+                        } else {
+                            // Sign in failed, display a message and update the UI
+                            Log.d(">>>>TAG:", "signInWithCredential:failure"+task.getException());
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                // The verification code entered was invalid
+                            }
+                        }
+                    }
+                });
+    }
     private void setOnBackPressedCallback(){
         onBackPressedCallback = new OnBackPressedCallback(true) {
             @Override
@@ -373,6 +429,7 @@ public class NumberPhoneFragment extends Fragment {
                 .setCallbacks(mCallback)
                 .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
+
     }
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallback = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -387,15 +444,14 @@ public class NumberPhoneFragment extends Fragment {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-            Log.d(">>>>TAG:", "nhu cac: " + e);
+            Log.d(">>>>TAG:", "failed: " + e);
         }
 
         @Override
-        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-            super.onCodeSent(s, forceResendingToken);
-            Log.d(">>>>TAG:", "");
-            Log.d(">>>>TAG:", "ngon 2");
-
+        public void onCodeSent(@NonNull String verificationID, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent(verificationID, forceResendingToken);
+            mVerificationID = verificationID;
+            mForceResendingToken = forceResendingToken;
         }
     };
 

@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
     FragmentManager manager;
     private BottomNavigationView bottomnavigation;
+    private Product product;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -210,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
     @Override
     public void GoToActivity(Product product) {
+        this.product = product;
         Intent intent = new Intent(MainActivity.this, DetailProductActivity.class);
         intent.putExtra("product", product);
         startActivity(intent);

@@ -26,7 +26,11 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView fullname = view.findViewById(R.id.fullname);
+        if (userModel != null){
+            fullname.setText(userModel.getFullname());
+        }else {
+            fullname.setText("");
+        }
 
-        fullname.setText(userModel.getFullname());
     }
 }
