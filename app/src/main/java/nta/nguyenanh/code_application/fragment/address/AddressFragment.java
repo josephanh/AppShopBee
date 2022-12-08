@@ -95,6 +95,7 @@ public class AddressFragment extends Fragment {
         if(getArguments() != null) {
             list = (ArrayList<ProductCart>) getArguments().getSerializable("list");
             pos = getArguments().getInt("position");
+
         }
     }
 
