@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
     protected void onResume() {
         super.onResume();
         new CheckLogin(MainActivity.this).readLogin();
-        readlogin();
         if(isLoggedin) {
             oncheckLogin();
         }
@@ -216,28 +215,28 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
         startActivity(intent);
     }
 
-    public void readlogin(){
-        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS",MODE_PRIVATE);
-        isLoggedin = preferences.getBoolean("isLoggedin",false);
-        if (isLoggedin){
-            String userid = preferences.getString("userid", null);
-            String username = preferences.getString("username", null);
-            String fullname = preferences.getString("fullname", null);
-            String password = preferences.getString("password", null);
-            String numberphone = preferences.getString("numberphone", null);
-
-            // xem trên yt https://www.youtube.com/watch?v=xjOyvwRinK8&ab_channel=TechProjects
-            Gson gson = new Gson();
-            String json = preferences.getString("address", null);
-            Type type = new TypeToken<ArrayList<Address>>(){
-            }.getType();
-            ArrayList<Address> listAddress = gson.fromJson(json, type);
-            if(listAddress == null) {
-                listAddress  = new ArrayList<>();
-            }
-            userModel = new User(listAddress, null, fullname, password, numberphone, username, userid);
-        }
-    }
+//    public void readlogin(){
+//        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS",MODE_PRIVATE);
+//        isLoggedin = preferences.getBoolean("isLoggedin",false);
+//        if (isLoggedin){
+//            String userid = preferences.getString("userid", null);
+//            String username = preferences.getString("username", null);
+//            String fullname = preferences.getString("fullname", null);
+//            String password = preferences.getString("password", null);
+//            String numberphone = preferences.getString("numberphone", null);
+//
+//            // xem trên yt https://www.youtube.com/watch?v=xjOyvwRinK8&ab_channel=TechProjects
+//            Gson gson = new Gson();
+//            String json = preferences.getString("address", null);
+//            Type type = new TypeToken<ArrayList<Address>>(){
+//            }.getType();
+//            ArrayList<Address> listAddress = gson.fromJson(json, type);
+//            if(listAddress == null) {
+//                listAddress  = new ArrayList<>();
+//            }
+//            userModel = new User(listAddress, null, fullname, password, numberphone, username, userid);
+//        }
+//    }
     public void oncheckLogin() {
         db.collection("user")
                 .get()
@@ -359,7 +358,7 @@ public class MainActivity extends AppCompatActivity implements OnClickItemProduc
 
                                         Log.d("LIST----LIST", "onComplete: " + list.size());
                                         writeLogin(userModel);
-                                        readlogin();
+                                        new CheckLogin(MainActivity.this).readLogin();
 //                                        onBackPressed();
                                         break;
                                     }

@@ -53,6 +53,7 @@ import java.util.Map;
 import java.util.Set;
 
 import nta.nguyenanh.code_application.adapter.CartAdapter;
+import nta.nguyenanh.code_application.listener.CheckLogin;
 import nta.nguyenanh.code_application.model.Address;
 import nta.nguyenanh.code_application.model.ProductCart;
 import nta.nguyenanh.code_application.model.User;
@@ -264,7 +265,8 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        readlogin();
+//        readlogin();
+        new CheckLogin(LoginActivity.this).readLogin();
         super.onResume();
     }
 
@@ -291,20 +293,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // đọc trạng thái login
-    public void readlogin() {
-        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
-        Boolean isLoggedin = preferences.getBoolean("isLoggedin", false);
-        if (isLoggedin) {
-            String userid = preferences.getString("userid", null);
-            String username = preferences.getString("username", null);
-            String fullname = preferences.getString("fullname", null);
-            String password = preferences.getString("password", null);
-            ArrayList<Address> address = (ArrayList<Address>) preferences.getAll().get("address");
-            String numberphone = preferences.getString("numberphone", null);
-            userModel = new User(address, null, fullname, password, numberphone, username, userid);
-            onBackPressed();
-        }
-    }
+//    public void readlogin() {
+//        SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
+//        Boolean isLoggedin = preferences.getBoolean("isLoggedin", false);
+//        if (isLoggedin) {
+//            String userid = preferences.getString("userid", null);
+//            String username = preferences.getString("username", null);
+//            String fullname = preferences.getString("fullname", null);
+//            String password = preferences.getString("password", null);
+//
+//            String numberphone = preferences.getString("numberphone", null);
+//            userModel = new User(address, null, fullname, password, numberphone, username, userid);
+//            onBackPressed();
+//        }
+//    }
 
     public void oncheckLogin(View v) {
 
@@ -423,11 +425,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                             }
                                         }
-                                        Log.d("KEYDATA", "-----------\n");
-                                        Log.d("LIST DATA", "onComplete: " + addressList.size());
-                                        Log.d("LIST DATA", "onComplete: " + addressList.get(0).getAddress());
-                                        Log.d("LIST DATA", "onComplete: " + addressList.get(0).getPhonenumber());
-                                        Log.d("LIST DATA", "onComplete: " + addressList.get(0).getNameReceiver());
+//                                        Log.d("KEYDATA", "-----------\n");
+//                                        Log.d("LIST DATA", "onComplete: " + addressList.size());
+//                                        Log.d("LIST DATA", "onComplete: " + addressList.get(0).getAddress());
+//                                        Log.d("LIST DATA", "onComplete: " + addressList.get(0).getPhonenumber());
+//                                        Log.d("LIST DATA", "onComplete: " + addressList.get(0).getNameReceiver());
                                         userModel = new User(
                                                 addressList,
                                                 doc.get("datebirth") + "",
