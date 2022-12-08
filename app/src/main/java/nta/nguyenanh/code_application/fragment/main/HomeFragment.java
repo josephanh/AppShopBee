@@ -304,7 +304,6 @@ public class HomeFragment extends Fragment {
                     public void run() {
                         int currentItem = viewPager.getCurrentItem();
                         int totalItem = listPhoto.size() - 1;
-
                         if (currentItem < totalItem) {
                             currentItem++;
                             viewPager.setCurrentItem(currentItem);

@@ -42,16 +42,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Glide.with(context).load(list.get(position).getImage().get(0)).into(holder.image_product);
         holder.name_product.setText(list.get(position).getNameproduct());
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         holder.price_product.setText(formatter.format(list.get(position).getPrice())+"đ");
-
         holder.sold.setText("Kho " + formatter.format(list.get(position).getTotal()));
        // holder.sold.setText(formatter.format(list.get(position).getSold())+" đã bán");
-
         holder.saleoff.setText(list.get(position).getSale().toString()+"%");
         if(list.get(position).getSale() != 0) {
             holder.freeship.setVisibility(View.VISIBLE);
