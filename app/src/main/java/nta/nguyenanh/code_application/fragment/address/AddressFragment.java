@@ -122,7 +122,7 @@ public class AddressFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addAddress(new Update());
-                ((PayActivity)getContext()).changeFragment(new PayFragment().newInstance(list));
+
             }
         });
 
@@ -249,7 +249,8 @@ public class AddressFragment extends Fragment {
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-
+                            Toast.makeText(getContext(), "Thành Công", Toast.LENGTH_SHORT).show();
+                            ((PayActivity)getContext()).changeFragment(new PayFragment().newInstance(list));
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

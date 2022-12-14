@@ -92,7 +92,7 @@ public class CartActivity extends AppCompatActivity {
                     Toast.makeText(CartActivity.this, "Cần đăng nhập trước khi thực hiện thao tác", Toast.LENGTH_SHORT).show();
                 } else {
                     if(listCart != null) {
-                        if(userModel.getAddress() == null || userModel.getAddress().size() == 0 || userModel.getPhonenumber().equals("null")) {
+                        if(userModel.getAddress() == null || userModel.getAddress().size() == 0) {
                             Intent intent = new Intent(CartActivity.this, PayActivity.class);
                             intent.putExtra("addressCheck", false);
                             startActivity(intent);
