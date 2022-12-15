@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -67,9 +68,23 @@ public class SplashScreen extends AppCompatActivity {
 
                             // phân trang
                             lastVisibleProduct = task.getResult().getDocuments().get(task.getResult().size() - 1);
-                            Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            SharedPreferences preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
+                            Boolean checkFirst = preferences.getBoolean("firstGo", true);
+                            if(checkFirst) {
+                                preferences = getSharedPreferences("LOGIN_STATUS", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean("firstGo", false);
+                                editor.commit();
+                                Intent intent = new Intent(SplashScreen.this, OnBoardingActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+
+                                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+
 
                         } else {
                             Toast.makeText(SplashScreen.this, "Lỗi khi lấy dữ liệu. Thử lại sau", Toast.LENGTH_SHORT).show();

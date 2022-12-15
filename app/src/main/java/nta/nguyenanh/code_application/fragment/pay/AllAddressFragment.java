@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -64,6 +65,14 @@ public class AllAddressFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         rv_getAllAddress = view.findViewById(R.id.rv_getAllAddress);
+        Button themdiachi = view.findViewById(R.id.themdiachi);
+
+        themdiachi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PayActivity)getContext()).changeFragment(new AddressFragment().newInstance(listCart, -1));
+            }
+        });
 
         list = userModel.getAddress();
 
@@ -79,7 +88,22 @@ public class AllAddressFragment extends Fragment {
                 ((PayActivity)getContext()).changeFragment(new AddressFragment().newInstance(listCart, position));
                 return null;
             }
+
+            @Override
+            public Void OnClickCheckBox(int position) {
+                ((PayActivity)getContext()).changeFragment(new PayFragment().newInstance(listCart));
+                return null;
+            }
         });
+
+
+
         rv_getAllAddress.setAdapter(adapter_allAddress);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter_allAddress.notifyDataSetChanged();
     }
 }

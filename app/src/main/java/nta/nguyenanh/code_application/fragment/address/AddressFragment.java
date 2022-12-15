@@ -122,7 +122,6 @@ public class AddressFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addAddress(new Update());
-
             }
         });
 
@@ -164,15 +163,22 @@ public class AddressFragment extends Fragment {
         if(pos != -1) {
             address = new Address(userModel.getAddress().get(pos).getIdAddress(),place, namereceiver, phonenumber, 0);
             userModel.getAddress().set(pos, address);
+            HashMap<String, Object> places = new HashMap<>();
+            places.put("address"+userModel.getAddress().get(pos).getIdAddress(), address);
+            update.updateAddress(places);
         } else {
-            address = new Address(null,place, namereceiver, phonenumber, 0);
+            address = new Address("address"+System.currentTimeMillis(),place, namereceiver, phonenumber, 0);
             userModel.getAddress().add(address);
+            HashMap<String, Object> places = new HashMap<>();
+            for (int i = 0; i < userModel.getAddress().size(); i++){
+                places.put(userModel.getAddress().get(i).getIdAddress(), userModel.getAddress().get(i));
+            }
+            update.updateAddress(places);
         }
 
-        HashMap<String, Object> places = new HashMap<>();
-        places.put("address"+System.currentTimeMillis(), address);
 
-        update.updateAddress(places);
+
+
 
         // thêm ngay tại list -- không cần load lại dữ liệu
 
